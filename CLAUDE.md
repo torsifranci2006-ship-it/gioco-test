@@ -11,9 +11,9 @@ dopo la quale il giocatore compie una **decisione finale**; il risultato dipende
 **decisione finale + attributi accumulati**. Personaggi secondari chiave hanno stato
 `normale | ferito | morto` che cambia supporto, scene e informazioni disponibili.
 
-**Stato attuale: fase di design.** Esistono configurazione, schemi dati, contenuti template
-e **scheletri** GDScript (firme/contratti, nessuna logica di gioco). Il gameplay NON è ancora
-implementato.
+**Stato attuale: prima versione giocabile.** Il core narrativo è implementato e guidato dai dati
+JSON; esiste una UI minima in Godot (`scenes/main.tscn` + `src/ui/main.gd`) impostata come
+`run/main_scene`. Mancano contenuti narrativi completi e rifinitura grafica.
 
 ## Regola architetturale fondamentale (NON violare)
 
@@ -74,7 +74,7 @@ da attributi e sopravvivenza dei personaggi, non moltiplicando i finali.
 | Motore generico (UI-agnostic) | `src/core/` |
 | Modelli dati tipizzati | `src/models/` |
 | Singleton globali | `src/autoload/` (`EventBus`, `Game`) |
-| UI Godot (futura) | `src/ui/` + `scenes/` (.tscn) |
+| UI Godot (minima) | `src/ui/main.gd` + `scenes/main.tscn` (vedi `docs/ui.md`) |
 | Test headless (futuri) | `tests/` |
 | Documentazione di design | `docs/` |
 

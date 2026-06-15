@@ -41,9 +41,9 @@ docs/      documentazione di design dei sistemi
 
 ## Stato del progetto
 
-**Fase di design.** Sono presenti: configurazione del progetto, schemi dati, contenuti
-template e scheletri GDScript (firme/contratti). Il gameplay e l'interfaccia grafica non
-sono ancora implementati.
+**Prima versione giocabile.** Sono implementati: il core narrativo data-driven (caricamento,
+attributi, condizioni, effetti, personaggi, ferite, finali, salvataggi) e una UI minima in
+Godot (`scenes/main.tscn`). Mancano contenuti narrativi completi e rifinitura grafica.
 
 ## Documentazione
 
@@ -57,3 +57,4 @@ Vedi `docs/` per il design di ogni sistema e `CLAUDE.md` per le regole architett
 | `docs/scenes.md` | Modello delle scene, scelte, condizioni, effetti |
 | `docs/endings.md` | Modello dei finali e degli epiloghi |
 | `docs/data-schema.md` | Riferimento completo del formato dati JSON |
+| `docs/ui.md` | UI minima Godot: nodi, segnali, flusso |

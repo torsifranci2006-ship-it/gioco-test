@@ -15,6 +15,9 @@ var _endings: Array[Ending] = []
 var _initial_scene_id: String = ""
 var _final_scene_id: String = "finale"
 
+var _last_ending: Ending = null            ## ultimo finale risolto (per la UI)
+var _last_epilogues: Array[String] = []    ## epiloghi composti dell'ultimo finale
+
 ## Carica i dati e inizializza lo stato. Ritorna false (con last_error) in caso di errore.
 func setup() -> bool:
 	last_error = ""
@@ -54,6 +57,8 @@ func start() -> void:
 	if state == null:
 		push_error("StoryEngine.start: setup non eseguito o fallito")
 		return
+	_last_ending = null
+	_last_epilogues = []
 	# La scena iniziale non è un avanzamento: nessun tick delle ferite.
 	_enter_scene(_initial_scene_id, false)
 
@@ -157,7 +162,17 @@ func _trigger_ending(final_choice_id: String) -> void:
 	if ending == null:
 		push_error("StoryEngine: nessun finale risolto per la decisione: " + final_choice_id)
 		return
+	_last_ending = ending
+	_last_epilogues = EndingResolver.epilogues_for(ending, state)
 	_emit_game_ended(ending.id)
+
+## Ultimo finale risolto (null se la partita non è terminata).
+func current_ending() -> Ending:
+	return _last_ending
+
+## Epiloghi composti dell'ultimo finale.
+func current_epilogues() -> Array[String]:
+	return _last_epilogues
 
 # --- Segnali (disaccoppiati, sicuri in headless senza autoload) ---
 
