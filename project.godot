@@ -1,0 +1,19 @@
+; Engine configuration file.
+; Progetto Godot 4.x — gioco narrativo interattivo data-driven.
+; Vedi CLAUDE.md e docs/architecture.md per l'architettura.
+
+config_version=5
+
+[application]
+
+config/name="Gioco Narrativo (working title)"
+config/description="Gioco narrativo interattivo data-driven. Contenuti in data/*.json, motore generico in src/core."
+run/main_scene=""
+config/features=PackedStringArray("4.2")
+
+[autoload]
+
+; Bus di segnali globale: il Core notifica, la UI osserva (vedi docs/architecture.md).
+EventBus="*res://src/autoload/event_bus.gd"
+; Facciata di gioco: istanzia e collega il Core. Punto d'ingresso per la UI.
+Game="*res://src/autoload/game.gd"

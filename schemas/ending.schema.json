@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ending.schema.json",
+  "title": "Finali",
+  "description": "Due rami principali; il ramo viene scelto in base alla decisione finale e agli attributi. Gli epiloghi sono composti in base allo stato (attributi, personaggi, flag).",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": { "^_": {} },
+  "required": ["rami"],
+  "properties": {
+    "rami": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "titolo", "testo", "requisiti"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "titolo": { "type": "string" },
+          "testo": { "type": "string" },
+          "requisiti": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["decisione_finale"],
+            "properties": {
+              "decisione_finale": {
+                "description": "id della scelta presa nella scena di decisione finale.",
+                "type": "string"
+              },
+              "condizione": {
+                "description": "Condizione aggiuntiva sugli attributi/stato per selezionare questo ramo.",
+                "oneOf": [{ "$ref": "condition.schema.json" }, { "type": "null" }]
+              }
+            }
+          },
+          "epiloghi": {
+            "description": "Frammenti di chiusura condizionati (es. sorte dei personaggi). In ordine; appaiono se la condizione è vera.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["contenuto", "condizione"],
+              "properties": {
+                "contenuto": { "type": "string" },
+                "condizione": { "oneOf": [{ "$ref": "condition.schema.json" }, { "type": "null" }] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

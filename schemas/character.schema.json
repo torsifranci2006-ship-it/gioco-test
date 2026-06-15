@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "character.schema.json",
+  "title": "Personaggi chiave",
+  "type": "object",
+  "additionalProperties": false,
+  "patternProperties": { "^_": {} },
+  "required": ["personaggi"],
+  "properties": {
+    "personaggi": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "nome", "stato_iniziale"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "nome": { "type": "string" },
+          "descrizione": { "type": "string" },
+          "stato_iniziale": { "enum": ["normale", "ferito", "morto"] },
+          "relazione_iniziale": { "type": "integer", "default": 0 },
+          "ferita": {
+            "description": "Parametri della dinamica di ferimento. Tutti opzionali (default nel codice). Rischio e morte avanzano solo al cambio scena.",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "rischio_iniziale": { "type": "integer", "minimum": 0 },
+              "rischio_per_scena": { "type": "integer", "minimum": 0 },
+              "soglia_critica": { "type": "integer", "minimum": 0 },
+              "soglia_cura": { "type": "integer", "minimum": 0 }
+            }
+          },
+          "regole_stato": {
+            "description": "Transizioni di stato automatiche valutate dall'engine quando la condizione diventa vera.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["quando", "diventa"],
+              "properties": {
+                "quando": { "$ref": "condition.schema.json" },
+                "diventa": { "enum": ["ferito", "morto"] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

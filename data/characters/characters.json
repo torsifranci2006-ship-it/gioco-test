@@ -1,0 +1,46 @@
+{
+  "_commento": "Personaggi secondari chiave (template, 3). Pochi e centrali per evitare complessità. Stato: normale|ferito|morto. Le regole_stato sono transizioni automatiche valutate dall'engine.",
+  "personaggi": [
+    {
+      "id": "mara",
+      "nome": "Mara",
+      "descrizione": "Alleata di lunga data del protagonista; conosce parte della verità centrale.",
+      "stato_iniziale": "normale",
+      "relazione_iniziale": 40,
+      "regole_stato": [
+        {
+          "quando": { "relazione": { "id": "mara", "op": "<", "valore": 0 } },
+          "diventa": "ferito"
+        }
+      ],
+      "ferita": {
+        "rischio_iniziale": 0,
+        "rischio_per_scena": 20,
+        "soglia_critica": 100,
+        "soglia_cura": 70
+      }
+    },
+    {
+      "id": "tobia",
+      "nome": "Tobia",
+      "descrizione": "Giovane sotto la protezione del protagonista; la sua sorte pesa sul finale.",
+      "stato_iniziale": "normale",
+      "relazione_iniziale": 20,
+      "regole_stato": [],
+      "ferita": {
+        "rischio_iniziale": 0,
+        "rischio_per_scena": 40,
+        "soglia_critica": 100,
+        "soglia_cura": 50
+      }
+    },
+    {
+      "id": "veil",
+      "nome": "Veil",
+      "descrizione": "Figura ambigua legata alla verità centrale; può rivelarsi alleato o ostacolo.",
+      "stato_iniziale": "normale",
+      "relazione_iniziale": 0,
+      "regole_stato": []
+    }
+  ]
+}

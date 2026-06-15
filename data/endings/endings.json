@@ -1,0 +1,39 @@
+{
+  "_commento": "Due rami finali principali. Il ramo è scelto in base alla decisione finale + condizione sugli attributi. Gli epiloghi sono frammenti condizionati (sorte dei personaggi, valori accumulati). Template, non definitivo.",
+  "rami": [
+    {
+      "id": "ramo_sacrificio",
+      "titolo": "Il prezzo della verità",
+      "testo": "Accetti la verità centrale fino in fondo e paghi ciò che chiede. Il mondo che lasci è diverso da quello che hai trovato.",
+      "requisiti": {
+        "decisione_finale": "accetta_verita",
+        "condizione": { "attributo": { "id": "empatia", "op": ">=", "valore": 50 } }
+      },
+      "epiloghi": [
+        {
+          "contenuto": "Mara sopravvive e porterà avanti ciò che hai iniziato.",
+          "condizione": { "personaggio": { "id": "mara", "stato": "normale" } }
+        },
+        {
+          "contenuto": "Di Tobia non resta che un nome inciso nella memoria.",
+          "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } }
+        }
+      ]
+    },
+    {
+      "id": "ramo_rifiuto",
+      "titolo": "La menzogna necessaria",
+      "testo": "Rifiuti la verità e scegli di proteggere ciò che hai. Il silenzio diventa il tuo ultimo atto.",
+      "requisiti": {
+        "decisione_finale": "rifiuta_verita",
+        "condizione": null
+      },
+      "epiloghi": [
+        {
+          "contenuto": "Con un forte legame, qualcuno resta accanto a te nonostante tutto.",
+          "condizione": { "attributo": { "id": "legame", "op": ">=", "valore": 60 } }
+        }
+      ]
+    }
+  ]
+}

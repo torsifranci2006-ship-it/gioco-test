@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "effect.schema.json",
+  "title": "Effetto",
+  "description": "Insieme di mutazioni applicate dal Core allo stato di gioco (in ingresso scena o alla selezione di una scelta).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "attributi": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "delta"],
+        "properties": {
+          "id": { "type": "string" },
+          "delta": { "type": "integer" }
+        }
+      }
+    },
+    "flag_set": { "type": "array", "items": { "type": "string" } },
+    "flag_clear": { "type": "array", "items": { "type": "string" } },
+    "cura": {
+      "description": "Tenta la cura dei personaggi indicati (per id). Riesce se il rischio <= soglia_cura, altrimenti il personaggio muore.",
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "personaggio_stato": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "stato"],
+        "properties": {
+          "id": { "type": "string" },
+          "stato": { "enum": ["normale", "ferito", "morto"] }
+        }
+      }
+    },
+    "relazione": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "delta"],
+        "properties": {
+          "id": { "type": "string" },
+          "delta": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

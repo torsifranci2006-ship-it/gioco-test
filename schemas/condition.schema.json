@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "condition.schema.json",
+  "title": "Condizione",
+  "description": "DSL ricorsiva valutata dal Core contro lo stato di gioco. Una condizione vuota/null equivale a 'sempre vera'.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "attributo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "op", "valore"],
+      "properties": {
+        "id": { "type": "string" },
+        "op": { "enum": [">=", "<=", "==", ">", "<"] },
+        "valore": { "type": "integer" }
+      }
+    },
+    "flag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id"],
+      "properties": {
+        "id": { "type": "string" },
+        "presente": { "type": "boolean", "default": true }
+      }
+    },
+    "personaggio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "stato"],
+      "properties": {
+        "id": { "type": "string" },
+        "stato": { "enum": ["normale", "ferito", "morto"] }
+      }
+    },
+    "relazione": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "op", "valore"],
+      "properties": {
+        "id": { "type": "string" },
+        "op": { "enum": [">=", "<=", "==", ">", "<"] },
+        "valore": { "type": "integer" }
+      }
+    },
+    "ferita": {
+      "description": "Confronta un campo del record ferita di un personaggio. Falsa se il personaggio non è ferito.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "op", "valore"],
+      "properties": {
+        "id": { "type": "string" },
+        "campo": { "enum": ["rischio", "scene"], "default": "rischio" },
+        "op": { "enum": [">=", "<=", "==", ">", "<"] },
+        "valore": { "type": "integer" }
+      }
+    },
+    "tutte": { "type": "array", "items": { "$ref": "condition.schema.json" } },
+    "alcune": { "type": "array", "items": { "$ref": "condition.schema.json" } },
+    "non": { "$ref": "condition.schema.json" }
+  }
+}

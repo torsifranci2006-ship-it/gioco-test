@@ -1,0 +1,13 @@
+{
+  "_commento": "Configurazione globale di gioco. Punti d'ingresso e percorsi dei dati. Nessuna logica: solo riferimenti.",
+  "titolo": "Gioco Narrativo (working title)",
+  "versione_dati": "0.1.0",
+  "scena_iniziale": "prologo",
+  "id_scena_finale": "finale",
+  "percorsi": {
+    "attributi": "res://data/config/attributes.json",
+    "personaggi": "res://data/characters/characters.json",
+    "scene": "res://data/story",
+    "finali": "res://data/endings/endings.json"
+  }
+}

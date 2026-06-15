@@ -1,0 +1,41 @@
+{
+  "_commento": "Attributi nascosti del protagonista. Set ristretto e configurabile. Modificabile liberamente senza toccare il codice.",
+  "attributi": [
+    {
+      "id": "empatia",
+      "nome": "Empatia",
+      "descrizione": "Quanto il protagonista si lascia guidare dalla cura verso gli altri.",
+      "min": 0,
+      "max": 100,
+      "default": 50,
+      "nascosto": true
+    },
+    {
+      "id": "pragmatismo",
+      "nome": "Pragmatismo",
+      "descrizione": "Tendenza a scegliere l'efficacia e il calcolo rispetto al sentimento.",
+      "min": 0,
+      "max": 100,
+      "default": 50,
+      "nascosto": true
+    },
+    {
+      "id": "determinazione",
+      "nome": "Determinazione",
+      "descrizione": "Spinta a perseguire un obiettivo nonostante gli ostacoli e i rischi.",
+      "min": 0,
+      "max": 100,
+      "default": 50,
+      "nascosto": true
+    },
+    {
+      "id": "legame",
+      "nome": "Legame",
+      "descrizione": "Vicinanza complessiva del protagonista ai personaggi chiave.",
+      "min": 0,
+      "max": 100,
+      "default": 30,
+      "nascosto": true
+    }
+  ]
+}

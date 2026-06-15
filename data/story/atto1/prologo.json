@@ -1,0 +1,87 @@
+{
+  "_commento": "Scena di esempio/riferimento. Mostra: varianti di testo condizionate, scelte con effetti, scelta condizionata (visibile/abilitata). NON è contenuto definitivo.",
+  "id": "prologo",
+  "titolo": "Prologo",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    {
+      "contenuto": "La città dorme sotto una pioggia sottile. Mara ti aspetta all'angolo, come ogni notte.",
+      "condizione": { "personaggio": { "id": "mara", "stato": "normale" } }
+    },
+    {
+      "contenuto": "La città dorme sotto una pioggia sottile. All'angolo non c'è nessuno: sei solo.",
+      "condizione": { "non": { "personaggio": { "id": "mara", "stato": "normale" } } }
+    },
+    {
+      "contenuto": "Le condizioni di Tobia peggiorano rapidamente: non resta molto tempo.",
+      "condizione": { "ferita": { "id": "tobia", "campo": "rischio", "op": ">=", "valore": 50 } }
+    }
+  ],
+  "on_enter": null,
+  "scelte": [
+    {
+      "id": "raggiungi_mara",
+      "testo": "Raggiungere Mara e parlarle apertamente.",
+      "visibile_se": { "personaggio": { "id": "mara", "stato": "normale" } },
+      "abilitata_se": null,
+      "motivo_blocco": null,
+      "effetti": {
+        "attributi": [{ "id": "empatia", "delta": 5 }],
+        "relazione": [{ "id": "mara", "delta": 10 }]
+      },
+      "prossima": "prologo"
+    },
+    {
+      "id": "procedi_solo",
+      "testo": "Proseguire da solo, senza fidarti di nessuno.",
+      "visibile_se": null,
+      "abilitata_se": null,
+      "motivo_blocco": null,
+      "effetti": {
+        "attributi": [
+          { "id": "pragmatismo", "delta": 5 },
+          { "id": "determinazione", "delta": 3 }
+        ]
+      },
+      "prossima": "prologo"
+    },
+    {
+      "id": "indaga_verita",
+      "testo": "Cercare subito indizi sulla verità che ti perseguita.",
+      "visibile_se": null,
+      "abilitata_se": { "attributo": { "id": "determinazione", "op": ">=", "valore": 55 } },
+      "motivo_blocco": "Non hai ancora la lucidità per affrontare questa pista.",
+      "effetti": {
+        "flag_set": ["indizio_verita_1"],
+        "attributi": [{ "id": "determinazione", "delta": 5 }]
+      },
+      "prossima": "prologo"
+    },
+    {
+      "id": "affronta_pericolo",
+      "testo": "Affrontare il pericolo: Tobia resta ferito nello scontro.",
+      "visibile_se": { "personaggio": { "id": "tobia", "stato": "normale" } },
+      "abilitata_se": null,
+      "motivo_blocco": null,
+      "effetti": {
+        "personaggio_stato": [{ "id": "tobia", "stato": "ferito" }],
+        "attributi": [{ "id": "determinazione", "delta": 4 }]
+      },
+      "prossima": "prologo"
+    },
+    {
+      "id": "medica_tobia",
+      "testo": "Medicare Tobia prima che sia troppo tardi.",
+      "visibile_se": { "personaggio": { "id": "tobia", "stato": "ferito" } },
+      "abilitata_se": null,
+      "motivo_blocco": null,
+      "effetti": {
+        "cura": ["tobia"],
+        "attributi": [{ "id": "empatia", "delta": 5 }]
+      },
+      "prossima": "prologo"
+    }
+  ],
+  "prossima_default": null
+}
