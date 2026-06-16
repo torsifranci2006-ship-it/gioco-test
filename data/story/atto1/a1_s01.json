@@ -5,12 +5,12 @@
   "atto": "atto1",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: primo sopralluogo, Philip e Daniel sulla scena del primo delitto", "condizione": null }
+    { "contenuto": "Pioggia sottile, di quelle che non lavano via niente. Il corpo è contro la saracinesca, le luci blu che battono sull'asfalto. Daniel è già accovacciato accanto: «Faceva i turni di notte, scommetto. Mani come queste non dormono.» Lo dice prima ancora che arrivino i documenti.", "condizione": null }
   ],
   "on_enter": { "flag_set": ["indizio_intuito_anomalo"] },
   "scelte": [
-    { "id": "appoggiati_daniel", "testo": "TODO: scelta orientata a legame", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a1_s02" },
-    { "id": "nota_anomalia", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s02" },
-    { "id": "concentrati_risultato", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s02" }
+    { "id": "appoggiati_daniel", "testo": "Lasciare che sia il suo istinto a guidare i primi passi.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a1_s02" },
+    { "id": "nota_anomalia", "testo": "Domandarti, in silenzio, come faccia a saperlo già.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s02" },
+    { "id": "concentrati_risultato", "testo": "Riportare tutti ai fatti: ora, nome, testimoni.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s02" }
   ]
 }

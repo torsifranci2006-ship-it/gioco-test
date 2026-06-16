@@ -5,11 +5,11 @@
   "atto": "atto1",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: momento personale fuori dall'indagine con Daniel", "condizione": null }
+    { "contenuto": "Più tardi, due bicchieri e poche parole. Daniel ti chiede di Ellie, e lo fa come lo fa solo chi ti conosce da anni. «Lavori troppo per non pensarci, lo so» dice piano. Per un attimo il caso resta fuori dalla porta.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "apriti", "testo": "TODO: scelta orientata a legame (apertura personale)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ], "flag_set": ["confidenza_daniel"] }, "prossima": "a1_s07" },
-    { "id": "resta_distante", "testo": "TODO: scelta orientata a pragmatismo (distanza professionale)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 }, { "id": "pragmatismo", "delta": 3 } ] }, "prossima": "a1_s07" }
+    { "id": "apriti", "testo": "Lasciarti andare, dirgli come stai davvero.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ], "flag_set": ["confidenza_daniel"] }, "prossima": "a1_s07" },
+    { "id": "resta_distante", "testo": "Tenere il discorso sul lavoro, dove fa meno male.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 }, { "id": "pragmatismo", "delta": 3 } ] }, "prossima": "a1_s07" }
   ]
 }

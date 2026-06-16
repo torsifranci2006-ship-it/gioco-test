@@ -5,12 +5,12 @@
   "atto": "atto1",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: scena privata; possibilità di riavvicinarsi alla figlia Ellie", "condizione": null }
+    { "contenuto": "Il numero di Ellie è ancora in cima alla rubrica. Squilla due volte nella tua testa prima che tu decida se premere. Ogni verità che hai inseguito le è costata qualcosa; stavolta la posta sei tu.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "gesto_ellie", "testo": "TODO: scelta orientata a empatia (gesto verso Ellie)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ], "flag_set": ["ellie_contatto"] }, "prossima": "a1_s08" },
-    { "id": "riconosci_costo", "testo": "TODO: scelta orientata a lucidità (riconoscere il proprio costo della verità)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a1_s08" },
-    { "id": "rimanda", "testo": "TODO: scelta orientata a pragmatismo (evitare/rimandare)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a1_s08" }
+    { "id": "gesto_ellie", "testo": "Chiamarla, anche solo per sentirne la voce.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ], "flag_set": ["ellie_contatto"] }, "prossima": "a1_s08" },
+    { "id": "riconosci_costo", "testo": "Ammettere, a te stesso, cosa le hai tolto.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a1_s08" },
+    { "id": "rimanda", "testo": "Rimettere il telefono in tasca. Domani.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a1_s08" }
   ]
 }

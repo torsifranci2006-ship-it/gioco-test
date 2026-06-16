@@ -5,11 +5,11 @@
   "atto": "atto1",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: secondo omicidio apparentemente scollegato; ipotesi affari/criminalità", "condizione": null }
+    { "contenuto": "Un secondo morto, dall'altra parte della città. Niente che leghi i due, a parte la pioggia. Si parla di conti, di soldi spariti. Daniel intanto si muove nella stanza come se la conoscesse: «Qui niente telecamere» dice, indicando l'unico angolo cieco.", "condizione": null }
   ],
   "on_enter": { "flag_set": ["indizio_anticipo_scene", "indizio_angoli_ciechi", "indizio_tell_fisico"] },
   "scelte": [
-    { "id": "leggi_anomalie", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s06" },
-    { "id": "batti_pista_affari", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s06" }
+    { "id": "leggi_anomalie", "testo": "Fermarti su ciò che non quadra in questa scena.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s06" },
+    { "id": "batti_pista_affari", "testo": "Seguire il denaro, dove di solito si trova il movente.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s06" }
   ]
 }

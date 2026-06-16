@@ -5,11 +5,11 @@
   "atto": "atto1",
   "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
   "testo": [
-    { "contenuto": "TODO: prima lettura forense con Mara", "condizione": null }
+    { "contenuto": "L'obitorio è freddo e ordinato, come piace a Mara. «Stesso taglio, stessa mano ferma» dice senza guardarti. «Chi l'ha fatto sapeva dove. E non aveva fretta.»", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "rispetta_mara", "testo": "TODO: scelta orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 10 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" },
-    { "id": "spremi_risultato", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 4 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" }
+    { "id": "rispetta_mara", "testo": "Darle tempo, ascoltare anche ciò che non dice.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 10 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" },
+    { "id": "spremi_risultato", "testo": "Chiederle solo ciò che regge in tribunale.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 4 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" }
   ]
 }

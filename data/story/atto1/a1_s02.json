@@ -5,13 +5,13 @@
   "atto": "atto1",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: assegnazione del caso; incontro con Mara e Veil", "condizione": null }
+    { "contenuto": "In sala riunioni il caso ha già un numero e troppe poche risposte. Mara, dal laboratorio, ti passa le prime foto; sulla porta Veil, degli Affari Interni, resta appoggiata allo stipite come se aspettasse un tuo errore.", "condizione": null }
   ],
   "on_enter": { "flag_set": ["indizio_memoria_casi"] },
   "scelte": [
-    { "id": "vai_obitorio", "testo": "TODO: detour Obitorio (Mara)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_obitorio" } } }, { "personaggio": { "id": "mara", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a1_s04" },
-    { "id": "vai_affari_interni", "testo": "TODO: detour Affari Interni (Veil)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_veil_ia" } } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a1_s05" },
-    { "id": "procedi_empatia", "testo": "TODO: procedi - orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ] }, "prossima": "a1_s03" },
-    { "id": "procedi_pragmatismo", "testo": "TODO: procedi - orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s03" }
+    { "id": "vai_obitorio", "testo": "Scendere da Mara, dove parlano i corpi.", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_obitorio" } } }, { "personaggio": { "id": "mara", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a1_s04" },
+    { "id": "vai_affari_interni", "testo": "Capire cosa cerca davvero Veil.", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_veil_ia" } } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a1_s05" },
+    { "id": "procedi_empatia", "testo": "Cominciare da chi le vittime hanno lasciato.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ] }, "prossima": "a1_s03" },
+    { "id": "procedi_pragmatismo", "testo": "Andare dritto a ciò che si può provare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s03" }
   ]
 }
