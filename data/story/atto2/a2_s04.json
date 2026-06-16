@@ -5,12 +5,12 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: il falso sospetto istituzionale; il caso Mercer affiora", "condizione": null }
+    { "contenuto": "Halloran ti aspettava. Fu lui a chiudere quei fascicoli, anni fa, il caso Mercer compreso; oggi ha gli occhi di chi non dorme bene. Mentre il nome di quel vecchio caso resta sospeso nell'aria, ti pare che Daniel, accanto a te, si irrigidisca per un istante. Poi è di nuovo solo il tuo partner.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "cogli_reazione", "testo": "TODO: scelta orientata a lucidità (coglie la reazione di Daniel)", "visibile_se": null, "abilitata_se": { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, "motivo_blocco": "TODO: non abbastanza lucido per notarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_halloran", "indizio_reazione_halloran"] }, "prossima": "a2_s02" },
-    { "id": "leggi_uomo", "testo": "TODO: scelta orientata a empatia (Halloran come uomo)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" },
-    { "id": "punta_movente", "testo": "TODO: scelta orientata a pragmatismo (movente dell'insabbiamento)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" }
+    { "id": "cogli_reazione", "testo": "Fermarti, un secondo, su quella reazione.", "visibile_se": null, "abilitata_se": { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, "motivo_blocco": "TODO: non abbastanza lucido per notarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_halloran", "indizio_reazione_halloran"] }, "prossima": "a2_s02" },
+    { "id": "leggi_uomo", "testo": "Guardare l'uomo, non solo il sospetto.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" },
+    { "id": "punta_movente", "testo": "Insistere sul movente: chi insabbia, ha qualcosa da nascondere.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" }
   ]
 }

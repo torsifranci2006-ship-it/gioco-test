@@ -5,11 +5,11 @@
   "atto": "atto2",
   "precondizioni": { "flag": { "id": "sospetto_halloran" } },
   "testo": [
-    { "contenuto": "TODO: Halloran pentito; disinnesca la retorica di Daniel", "condizione": null }
+    { "contenuto": "Halloran non si difende. «Ho lasciato cadere quei casi per quieto vivere, e qualcuno ne è morto. Lo so.» È un uomo che porta i suoi morti, non un mostro. E chi vuole seppellire i casi non li riapre uccidendo: il suo movente non regge fino in fondo.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "accogli_halloran", "testo": "TODO: scelta orientata a empatia (riconosci l'uomo dietro l'errore)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["visto_halloran_umano", "halloran_pentito"] }, "prossima": "a2_s10" },
-    { "id": "inquadra_movente", "testo": "TODO: scelta orientata a lucidità (movente contrario)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["visto_halloran_umano"] }, "prossima": "a2_s10" }
+    { "id": "accogli_halloran", "testo": "Lasciargli dire tutto, senza incalzare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["visto_halloran_umano", "halloran_pentito"] }, "prossima": "a2_s10" },
+    { "id": "inquadra_movente", "testo": "Soppesare a freddo perché non torna.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["visto_halloran_umano"] }, "prossima": "a2_s10" }
   ]
 }

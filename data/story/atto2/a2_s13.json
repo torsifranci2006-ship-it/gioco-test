@@ -5,11 +5,11 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: il sospetto si concentra su Daniel (non ancora prova); resistenza emotiva", "condizione": null }
+    { "contenuto": "Il cerchio si stringe: un insider, qualcuno con accesso e mestiere, qualcuno che conosce quei casi da vicino. Eppure nessuna ipotesi regge da sola — ogni volta che provi a chiudere il conto, resta fuori un pezzo che non quadra. Ti ritrovi con una certezza sgradevole e nessun volto da darle.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "guarda_verita", "testo": "TODO: scelta orientata a lucidità (decidi di guardare)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a3_s01" },
-    { "id": "resisti_conclusione", "testo": "TODO: scelta orientata a legame (resisti alla conclusione su Daniel)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s01" }
+    { "id": "guarda_verita", "testo": "Andare avanti comunque, ovunque porti.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a3_s01" },
+    { "id": "resisti_conclusione", "testo": "Concederti ancora il dubbio, e fidarti di chi ti è vicino.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s01" }
   ]
 }

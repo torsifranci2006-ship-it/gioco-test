@@ -5,11 +5,11 @@
   "atto": "atto2",
   "precondizioni": { "personaggio": { "id": "veil", "stato": "normale" } },
   "testo": [
-    { "contenuto": "TODO: Veil sotto sospetto; test di fiducia", "condizione": null }
+    { "contenuto": "Veil non nega di averti seguito. «Cerco il marcio dentro la polizia da prima di te» dice. «Forse lo stesso che cerchi tu.» Potrebbe essere un'alleata. Potrebbe essere lei a tirare i fili. Con lei non capisci mai dove finisce l'indagine e dove comincia il gioco.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "alleati_veil", "testo": "TODO: scelta orientata a empatia/fiducia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": 8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" },
-    { "id": "zittisci_veil", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": -8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" }
+    { "id": "alleati_veil", "testo": "Scommettere che siate dalla stessa parte.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": 8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" },
+    { "id": "zittisci_veil", "testo": "Tenerla fuori, finché non sai cosa vuole.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": -8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" }
   ]
 }

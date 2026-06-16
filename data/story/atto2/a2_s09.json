@@ -5,13 +5,13 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: debrief a casa di Daniel che diventa personale", "condizione": null },
-    { "contenuto": "TODO: variante piu' aperta", "condizione": { "flag": { "id": "confidenza_daniel" } } }
+    { "contenuto": "A casa di Daniel il caso resta sull'uscio. Due bicchieri, il silenzio comodo di chi non deve riempirlo. Per un po' siete solo due uomini stanchi.", "condizione": null },
+    { "contenuto": "Stasera si lascia andare più del solito: parla di sé, di una promessa fatta a sé stesso tanto tempo fa. Ti fidi di lui come di pochi.", "condizione": { "flag": { "id": "confidenza_daniel" } } }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "apriti_daniel", "testo": "TODO: scelta orientata a legame (approfondire la confidenza)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s10" },
-    { "id": "nota_ritagli", "testo": "TODO: scelta orientata a lucidità (soffermarsi sui ritagli)", "visibile_se": { "alcune": [ { "attributo": { "id": "legame", "op": ">=", "valore": 45 } }, { "flag": { "id": "confidenza_daniel" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["indizio_ritagli"] }, "prossima": "a2_s10" },
-    { "id": "resta_professionale", "testo": "TODO: scelta orientata a pragmatismo (mantenere le distanze)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 } ] }, "prossima": "a2_s10" }
+    { "id": "apriti_daniel", "testo": "Restituirgli un po' della tua verità.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s10" },
+    { "id": "nota_ritagli", "testo": "Soffermarti sui ritagli di cronaca appesi in cucina.", "visibile_se": { "alcune": [ { "attributo": { "id": "legame", "op": ">=", "valore": 45 } }, { "flag": { "id": "confidenza_daniel" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["indizio_ritagli"] }, "prossima": "a2_s10" },
+    { "id": "resta_professionale", "testo": "Tenere la guardia alta, anche qui.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 } ] }, "prossima": "a2_s10" }
   ]
 }

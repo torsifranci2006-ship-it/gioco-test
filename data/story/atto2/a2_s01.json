@@ -5,12 +5,12 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: emerge la firma - le vittime sono casi freddi abbandonati", "condizione": null }
+    { "contenuto": "Le metti in fila, le vittime, e stavolta non scivolano via. Ognuna aveva un caso alle spalle: archiviato, perso, lasciato a marcire negli scaffali. Daniel studia la lavagna a lungo. «Vecchi conti che qualcuno ha deciso di saldare» mormora. Non è una buona notizia per nessuno.", "condizione": null }
   ],
   "on_enter": { "flag_set": ["pattern_casi_freddi"] },
   "scelte": [
-    { "id": "leggi_firma", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a2_s02" },
-    { "id": "imposta_caccia", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s02" },
-    { "id": "condividi_con_daniel", "testo": "TODO: scelta orientata a legame (R3)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s02" }
+    { "id": "leggi_firma", "testo": "Cercare la regola che lega quei vecchi casi.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a2_s02" },
+    { "id": "imposta_caccia", "testo": "Trasformarlo subito in una lista di nomi da setacciare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s02" },
+    { "id": "condividi_con_daniel", "testo": "Restare un momento, a ragionarci con lui.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s02" }
   ]
 }

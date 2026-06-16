@@ -5,11 +5,11 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: mettere in salvo Tobia prima che sia troppo tardi", "condizione": null }
+    { "contenuto": "Tobia sa qualcosa, e qualcuno potrebbe volerlo zitto. Ogni ora che passa lo lascia più scoperto. Daniel è già al telefono per una macchina e un posto sicuro: «Non lo perdiamo, questo» dice, e per un attimo non ti senti solo.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "proteggi_tobia", "testo": "TODO: scelta orientata a empatia/legame (proteggi con Daniel - R5)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "legame", "delta": 4 } ], "flag_set": ["tobia_salvo"] }, "prossima": "a2_s09" },
-    { "id": "usa_tobia_esca", "testo": "TODO: scelta orientata a pragmatismo (usa Tobia come esca)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "tobia", "stato": "ferito" } ] }, "prossima": "a2_s09" }
+    { "id": "proteggi_tobia", "testo": "Mettere lui prima della pista, insieme a Daniel.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "legame", "delta": 4 } ], "flag_set": ["tobia_salvo"] }, "prossima": "a2_s09" },
+    { "id": "usa_tobia_esca", "testo": "Usare ciò che sa, finché sei in tempo.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "tobia", "stato": "ferito" } ] }, "prossima": "a2_s09" }
   ]
 }

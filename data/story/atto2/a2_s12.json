@@ -5,12 +5,12 @@
   "atto": "atto2",
   "precondizioni": { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] },
   "testo": [
-    { "contenuto": "TODO: massima tensione; un alleato puo' essere ferito o ucciso", "condizione": null }
+    { "contenuto": "La pista corre veloce, e qualcuno ti sta accanto mentre corre. Basta un passo di troppo e non sarai tu a pagarlo. C'è un istante in cui puoi ancora scegliere chi proteggere — o cosa.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "salva_alleato", "testo": "TODO: scelta orientata a empatia (metti in salvo)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "pragmatismo", "delta": -3 } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
-    { "id": "esponi_mara", "testo": "TODO: scelta orientata a pragmatismo (esponi Mara per la pista)", "visibile_se": { "personaggio": { "id": "mara", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "mara", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
-    { "id": "esponi_veil", "testo": "TODO: scelta orientata a pragmatismo (esponi Veil per la pista)", "visibile_se": { "personaggio": { "id": "veil", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "veil", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" }
+    { "id": "salva_alleato", "testo": "Coprire chi ti sta vicino, e lasciar correre la pista.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "pragmatismo", "delta": -3 } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
+    { "id": "esponi_mara", "testo": "Spingere oltre, anche se Mara resta esposta.", "visibile_se": { "personaggio": { "id": "mara", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "mara", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
+    { "id": "esponi_veil", "testo": "Spingere oltre, anche se Veil resta esposta.", "visibile_se": { "personaggio": { "id": "veil", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "veil", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" }
   ]
 }

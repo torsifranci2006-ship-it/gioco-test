@@ -5,14 +5,14 @@
   "atto": "atto2",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: la pista punta dentro la polizia; Daniel devia con garbo", "condizione": null }
+    { "contenuto": "I tabulati dell'archivio dicono una cosa sola: qualcuno ha tirato fuori quei vecchi fascicoli, uno per uno, prima che i nomi diventassero cadaveri. E l'accesso è interno. Daniel scuote la testa: «Andiamoci piano, prima di infangare la divisa.» Non ha torto. Eppure qualcosa, dentro di te, si stringe.", "condizione": null }
   ],
   "on_enter": { "flag_set": ["indizio_log_archivio", "indizio_difesa_divisa"] },
   "scelte": [
-    { "id": "vai_halloran_umano", "testo": "TODO: detour Halloran umano", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_halloran_umano" } } }, { "flag": { "id": "sospetto_halloran" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s11" },
-    { "id": "vai_scena_rischio", "testo": "TODO: detour scena a rischio", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_scena_rischio" } } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s12" },
-    { "id": "verifica_daniel", "testo": "TODO: procedi - orientata a lucidità (verifica l'alibi di Daniel)", "visibile_se": null, "abilitata_se": { "tutte": [ { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } }, { "attributo": { "id": "legame", "op": "<", "valore": 50 } } ] }, "motivo_blocco": "TODO: o non sei abbastanza lucido, o sei troppo legato a Daniel per verificarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["indizio_buco_alibi"] }, "prossima": "a2_s13" },
-    { "id": "fidati_daniel", "testo": "TODO: procedi - orientata a legame (rifiuta il sospetto)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a2_s13" },
-    { "id": "pista_fredda", "testo": "TODO: procedi - orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s13" }
+    { "id": "vai_halloran_umano", "testo": "Tornare da Halloran, da uomo a uomo.", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_halloran_umano" } } }, { "flag": { "id": "sospetto_halloran" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s11" },
+    { "id": "vai_scena_rischio", "testo": "Seguire la pista anche dove fa male a qualcuno.", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_scena_rischio" } } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s12" },
+    { "id": "verifica_daniel", "testo": "Controllare gli accessi a uno a uno, senza eccezioni.", "visibile_se": null, "abilitata_se": { "tutte": [ { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } }, { "attributo": { "id": "legame", "op": "<", "valore": 50 } } ] }, "motivo_blocco": "TODO: o non sei abbastanza lucido, o sei troppo legato a Daniel per verificarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["indizio_buco_alibi"] }, "prossima": "a2_s13" },
+    { "id": "fidati_daniel", "testo": "Dare al tuo istinto sulle persone l'ultima parola.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a2_s13" },
+    { "id": "pista_fredda", "testo": "Seguire i tabulati e basta, senza riguardi.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s13" }
   ]
 }

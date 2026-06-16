@@ -5,11 +5,11 @@
   "atto": "atto2",
   "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
   "testo": [
-    { "contenuto": "TODO: il killer evita esattamente le tracce che cerchiamo (conoscenza insider)", "condizione": null }
+    { "contenuto": "Mara ti mostra ciò che manca più di ciò che c'è. «Niente impronte dove uno sbaglierebbe. Sa cosa cerchiamo, e lo evita» dice. «Non è un dilettante. È uno che conosce il mestiere da dentro.» Lo dice piano, come se le pesasse.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "analizza_con_mara", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 6 } ], "flag_set": ["visto_lab", "indizio_conoscenza_forense"] }, "prossima": "a2_s02" },
-    { "id": "spremi_mara", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": -3 } ], "flag_set": ["visto_lab"] }, "prossima": "a2_s02" }
+    { "id": "analizza_con_mara", "testo": "Seguire fin dove porta quella conoscenza da insider.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 6 } ], "flag_set": ["visto_lab", "indizio_conoscenza_forense"] }, "prossima": "a2_s02" },
+    { "id": "spremi_mara", "testo": "Prendere solo ciò che serve e andare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": -3 } ], "flag_set": ["visto_lab"] }, "prossima": "a2_s02" }
   ]
 }
