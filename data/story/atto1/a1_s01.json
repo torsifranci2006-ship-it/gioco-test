@@ -1,0 +1,16 @@
+{
+  "_commento": "A1_S01 Prologo. Backbone. Pianta D1. Scena-legame #1 (Atto1). Deltas provvisori (calibrazione 5B).",
+  "id": "a1_s01",
+  "titolo": "Prologo",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: primo sopralluogo, Philip e Daniel sulla scena del primo delitto", "condizione": null }
+  ],
+  "on_enter": { "flag_set": ["indizio_intuito_anomalo"] },
+  "scelte": [
+    { "id": "appoggiati_daniel", "testo": "TODO: scelta orientata a legame", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a1_s02" },
+    { "id": "nota_anomalia", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s02" },
+    { "id": "concentrati_risultato", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s02" }
+  ]
+}

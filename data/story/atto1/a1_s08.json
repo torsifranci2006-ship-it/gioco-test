@@ -1,0 +1,15 @@
+{
+  "_commento": "A1_S08 Chiusura Atto 1 / introduzione di Tobia. Backbone. Gate verso l'Atto 2. Tobia gia' presente in characters (normale).",
+  "id": "a1_s08",
+  "titolo": "Chiusura Atto 1",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: un delitto colpisce vicino; Tobia entra in scena come testimone spaventato", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "proteggi_testimone", "testo": "TODO: scelta orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ] }, "prossima": "a2_s01" },
+    { "id": "sfrutta_testimone", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s01" }
+  ]
+}

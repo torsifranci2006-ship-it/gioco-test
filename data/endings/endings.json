@@ -1,38 +1,47 @@
 {
-  "_commento": "Due rami finali principali. Il ramo è scelto in base alla decisione finale + condizione sugli attributi. Gli epiloghi sono frammenti condizionati (sorte dei personaggi, valori accumulati). Template, non definitivo.",
+  "_commento": "Due rami finali. Fase 5A: decisioni arresta_daniel/uccidi_daniel. Le 4 varianti d'anima (umile/fredda, misericordia/vendetta) sono MODULI-EPILOGO condizionati, non rami. Testo ed epiloghi: placeholder TODO con condizioni REALI. Halloran/Ellie via flag.",
   "rami": [
     {
-      "id": "ramo_sacrificio",
-      "titolo": "Il prezzo della verità",
-      "testo": "Accetti la verità centrale fino in fondo e paghi ciò che chiede. Il mondo che lasci è diverso da quello che hai trovato.",
+      "id": "ramo_giustizia",
+      "titolo": "TODO: titolo Finale Giustizia",
+      "testo": "TODO: testo base del ramo Giustizia (Philip arresta Daniel; la verità affidata al freno condiviso).",
       "requisiti": {
-        "decisione_finale": "accetta_verita",
-        "condizione": { "attributo": { "id": "empatia", "op": ">=", "valore": 50 } }
-      },
-      "epiloghi": [
-        {
-          "contenuto": "Mara sopravvive e porterà avanti ciò che hai iniziato.",
-          "condizione": { "personaggio": { "id": "mara", "stato": "normale" } }
-        },
-        {
-          "contenuto": "Di Tobia non resta che un nome inciso nella memoria.",
-          "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } }
-        }
-      ]
-    },
-    {
-      "id": "ramo_rifiuto",
-      "titolo": "La menzogna necessaria",
-      "testo": "Rifiuti la verità e scegli di proteggere ciò che hai. Il silenzio diventa il tuo ultimo atto.",
-      "requisiti": {
-        "decisione_finale": "rifiuta_verita",
+        "decisione_finale": "arresta_daniel",
         "condizione": null
       },
       "epiloghi": [
-        {
-          "contenuto": "Con un forte legame, qualcuno resta accanto a te nonostante tutto.",
-          "condizione": { "attributo": { "id": "legame", "op": ">=", "valore": 60 } }
-        }
+        { "contenuto": "TODO: Philip - variante fede umile", "condizione": { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } },
+        { "contenuto": "TODO: Philip - variante punizione fredda", "condizione": { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } } },
+        { "contenuto": "TODO: Daniel - dottrina confutata, innocente riconosciuto (verita completa)", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } }, { "flag": { "id": "prova_firma_personale" } } ] } ] } },
+        { "contenuto": "TODO: Daniel - dottrina intatta (Roeder mai riconosciuto)", "condizione": { "non": { "flag": { "id": "roeder_innocente_scoperto" } } } },
+        { "contenuto": "TODO: Mara - prosegue / testimone della verità", "condizione": { "personaggio": { "id": "mara", "stato": "normale" } } },
+        { "contenuto": "TODO: Mara - perduta, la via probatoria muore con lei", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
+        { "contenuto": "TODO: Veil - l'inchiesta esterna dà eco pubblica", "condizione": { "personaggio": { "id": "veil", "stato": "normale" } } },
+        { "contenuto": "TODO: Tobia - l'orfano ha un futuro", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
+        { "contenuto": "TODO: Tobia - perduto", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
+        { "contenuto": "TODO: Halloran - si assume la colpa e testimonia", "condizione": { "flag": { "id": "halloran_testimonia" } } },
+        { "contenuto": "TODO: Ellie - riconciliazione possibile", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } ] } },
+        { "contenuto": "TODO: Citta - verità esposta, riforma possibile (verita pubblica)", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] } }
+      ]
+    },
+    {
+      "id": "ramo_vendetta",
+      "titolo": "TODO: titolo Finale Felicità/Vendetta",
+      "testo": "TODO: testo base del ramo Vendetta (Philip uccide Daniel; verità sepolta; pace apparente).",
+      "requisiti": {
+        "decisione_finale": "uccidi_daniel",
+        "condizione": null
+      },
+      "epiloghi": [
+        { "contenuto": "TODO: Philip - variante misericordia", "condizione": { "tutte": [ { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": ">=", "valore": 50 } } ] } },
+        { "contenuto": "TODO: Philip - variante vendetta (diventa Daniel)", "condizione": { "alcune": [ { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": "<", "valore": 35 } } ] } },
+        { "contenuto": "TODO: Daniel - vittoria postuma, la verità resta sepolta", "condizione": null },
+        { "contenuto": "TODO: Roeder - Philip sapeva e copre comunque", "condizione": { "flag": { "id": "roeder_innocente_scoperto" } } },
+        { "contenuto": "TODO: Mara - perduta", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
+        { "contenuto": "TODO: Tobia - l'orfano vive, unico esito buono", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
+        { "contenuto": "TODO: Tobia - perduto, fallimento verso la vittima", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
+        { "contenuto": "TODO: Ellie - comprende troppo tardi cosa ha perso", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } } ] } },
+        { "contenuto": "TODO: Citta - pace apparente su una menzogna", "condizione": null }
       ]
     }
   ]

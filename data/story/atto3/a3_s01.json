@@ -1,0 +1,15 @@
+{
+  "_commento": "A3_S01 Crollo delle false piste. Backbone. Imposta piste_escluse. -> a3_s02.",
+  "id": "a3_s01",
+  "titolo": "Crollo delle false piste",
+  "atto": "atto3",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: Voss, Halloran, Veil esclusi per ragionamento; il campo si concentra su Daniel", "condizione": null }
+  ],
+  "on_enter": { "flag_set": ["piste_escluse"] },
+  "scelte": [
+    { "id": "chiudi_logica", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a3_s02" },
+    { "id": "procedi_senza_esitare", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a3_s02" }
+  ]
+}

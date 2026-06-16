@@ -1,0 +1,15 @@
+{
+  "_commento": "A1_S05 Affari Interni. Detour OPZIONALE (da a1_s02). Ritorna all'hub. Imposta visto_veil_ia. Muove relazione(veil).",
+  "id": "a1_s05",
+  "titolo": "Affari Interni",
+  "atto": "atto1",
+  "precondizioni": { "personaggio": { "id": "veil", "stato": "normale" } },
+  "testo": [
+    { "contenuto": "TODO: primo confronto con Veil; ambiguità", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "apri_a_veil", "testo": "TODO: scelta orientata a fiducia/empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": 10 } ], "flag_set": ["visto_veil_ia"] }, "prossima": "a1_s02" },
+    { "id": "tieni_distanza", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": -5 } ], "flag_set": ["visto_veil_ia"] }, "prossima": "a1_s02" }
+  ]
+}

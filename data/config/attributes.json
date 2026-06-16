@@ -1,10 +1,10 @@
 {
-  "_commento": "Attributi nascosti del protagonista. Set ristretto e configurabile. Modificabile liberamente senza toccare il codice.",
+  "_commento": "Attributi nascosti del protagonista Philip. Set di 4 assi. Fase 5A: rinominato 'determinazione' -> 'lucidita' (id ASCII, nome visualizzato 'Lucidità').",
   "attributi": [
     {
       "id": "empatia",
       "nome": "Empatia",
-      "descrizione": "Quanto il protagonista si lascia guidare dalla cura verso gli altri.",
+      "descrizione": "Tendenza a dare peso alle persone in carne e ossa: proteggerle, capirle, non sacrificarle.",
       "min": 0,
       "max": 100,
       "default": 50,
@@ -13,16 +13,16 @@
     {
       "id": "pragmatismo",
       "nome": "Pragmatismo",
-      "descrizione": "Tendenza a scegliere l'efficacia e il calcolo rispetto al sentimento.",
+      "descrizione": "Tendenza a privilegiare il risultato e l'efficacia sul sentimento e sulla procedura.",
       "min": 0,
       "max": 100,
       "default": 50,
       "nascosto": true
     },
     {
-      "id": "determinazione",
-      "nome": "Determinazione",
-      "descrizione": "Spinta a perseguire un obiettivo nonostante gli ostacoli e i rischi.",
+      "id": "lucidita",
+      "nome": "Lucidità",
+      "descrizione": "Coraggio e capacità di guardare la verità: gli indizi scomodi del mondo e la verità su sé stesso.",
       "min": 0,
       "max": 100,
       "default": 50,
@@ -31,7 +31,7 @@
     {
       "id": "legame",
       "nome": "Legame",
-      "descrizione": "Vicinanza complessiva del protagonista ai personaggi chiave.",
+      "descrizione": "Affetto e fiducia verso Daniel (e, in secondo ordine, la squadra). Felicità privata che entra in conflitto con la verità.",
       "min": 0,
       "max": 100,
       "default": 30,

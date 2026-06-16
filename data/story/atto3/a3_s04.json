@@ -1,0 +1,18 @@
+{
+  "_commento": "A3_S04 Confronto con Daniel. HUB: detour a3_s05 (gated halloran_pentito), procedi (orientamenti) -> a3_s06. on_enter nullo.",
+  "id": "a3_s04",
+  "titolo": "Confronto con Daniel",
+  "atto": "atto3",
+  "precondizioni": { "flag": { "id": "verita_nota" } },
+  "testo": [
+    { "contenuto": "TODO: dramma morale a due; Daniel espone la dottrina e cerca comprensione", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "vai_testimonianza", "testo": "TODO: detour testimonianza di Halloran", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_testimonianza" } } }, { "flag": { "id": "halloran_pentito" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a3_s05" },
+    { "id": "appello_umanita", "testo": "TODO: procedi - orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "appello_amicizia", "testo": "TODO: procedi - orientata a legame", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "leva_roeder", "testo": "TODO: procedi - orientata a lucidità (smonta la dottrina con Roeder)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "chiudi_freddo", "testo": "TODO: procedi - orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a3_s06" }
+  ]
+}

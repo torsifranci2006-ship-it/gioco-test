@@ -1,0 +1,15 @@
+{
+  "_commento": "A2_S13 Soglia Atto 2. Backbone. Consolida il sospetto; gate verso l'Atto 3.",
+  "id": "a2_s13",
+  "titolo": "Soglia Atto 2",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: il sospetto si concentra su Daniel (non ancora prova); resistenza emotiva", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "guarda_verita", "testo": "TODO: scelta orientata a lucidità (decidi di guardare)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a3_s01" },
+    { "id": "resisti_conclusione", "testo": "TODO: scelta orientata a legame (resisti alla conclusione su Daniel)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s01" }
+  ]
+}

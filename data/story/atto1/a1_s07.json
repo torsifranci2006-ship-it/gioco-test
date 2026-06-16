@@ -1,0 +1,16 @@
+{
+  "_commento": "A1_S07 Ellie (seme). Backbone. Il gesto imposta ellie_contatto. Ellie gestita via flag (non personaggio).",
+  "id": "a1_s07",
+  "titolo": "Ellie",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: scena privata; possibilità di riavvicinarsi alla figlia Ellie", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "gesto_ellie", "testo": "TODO: scelta orientata a empatia (gesto verso Ellie)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 } ], "flag_set": ["ellie_contatto"] }, "prossima": "a1_s08" },
+    { "id": "riconosci_costo", "testo": "TODO: scelta orientata a lucidità (riconoscere il proprio costo della verità)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a1_s08" },
+    { "id": "rimanda", "testo": "TODO: scelta orientata a pragmatismo (evitare/rimandare)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a1_s08" }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "_commento": "A2_S02 Hub sospetti. HUB: lancia i detour a2_s03/04/05/08 (gated), procedi -> a2_s06. on_enter nullo (loop idempotente). Guardie: sospetto_* e visto_lab.",
+  "id": "a2_s02",
+  "titolo": "I sospetti",
+  "atto": "atto2",
+  "precondizioni": { "flag": { "id": "pattern_casi_freddi" } },
+  "testo": [
+    { "contenuto": "TODO: si aprono le piste alternative", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "indaga_voss", "testo": "TODO: pista Voss", "visibile_se": { "non": { "flag": { "id": "sospetto_voss" } } }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s03" },
+    { "id": "indaga_halloran", "testo": "TODO: pista Halloran", "visibile_se": { "non": { "flag": { "id": "sospetto_halloran" } } }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s04" },
+    { "id": "indaga_veil", "testo": "TODO: pista Veil", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "sospetto_veil" } } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s05" },
+    { "id": "vai_laboratorio", "testo": "TODO: laboratorio di Mara", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_lab" } } }, { "personaggio": { "id": "mara", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s08" },
+    { "id": "procedi_lucidita", "testo": "TODO: procedi - orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a2_s06" },
+    { "id": "procedi_pragmatismo", "testo": "TODO: procedi - orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s06" }
+  ]
+}

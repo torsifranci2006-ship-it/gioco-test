@@ -1,0 +1,16 @@
+{
+  "_commento": "A2_S12 Scena a rischio. Detour OPZIONALE (da a2_s10). Imposta visto_scena_rischio (guardia). 'esponi' ferisce un alleato (timer ferite).",
+  "id": "a2_s12",
+  "titolo": "Scena a rischio",
+  "atto": "atto2",
+  "precondizioni": { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] },
+  "testo": [
+    { "contenuto": "TODO: massima tensione; un alleato puo' essere ferito o ucciso", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "salva_alleato", "testo": "TODO: scelta orientata a empatia (metti in salvo)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "pragmatismo", "delta": -3 } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
+    { "id": "esponi_mara", "testo": "TODO: scelta orientata a pragmatismo (esponi Mara per la pista)", "visibile_se": { "personaggio": { "id": "mara", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "mara", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" },
+    { "id": "esponi_veil", "testo": "TODO: scelta orientata a pragmatismo (esponi Veil per la pista)", "visibile_se": { "personaggio": { "id": "veil", "stato": "normale" } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "veil", "stato": "ferito" } ], "flag_set": ["visto_scena_rischio"] }, "prossima": "a2_s10" }
+  ]
+}

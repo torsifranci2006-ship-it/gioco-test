@@ -1,0 +1,17 @@
+{
+  "_commento": "A2_S06 Caso Roeder. HUB-LITE (risolve T2): le scelte-contenuto tornano a a2_s06 (guardie su flag), procedi -> a2_s07. Cosi' M6 + Roeder + R4 sono raccoglibili insieme, non in alternativa. on_enter nullo. M6 richiede tobia normale.",
+  "id": "a2_s06",
+  "titolo": "Caso Roeder",
+  "atto": "atto2",
+  "precondizioni": { "flag": { "id": "pattern_casi_freddi" } },
+  "testo": [
+    { "contenuto": "TODO: la vittima ambigua (Roeder); Tobia, l'orfano, in pericolo", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "ascolta_tobia", "testo": "TODO: scelta orientata a empatia (ascolta Tobia)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "indizio_testimone_parziale" } } }, { "personaggio": { "id": "tobia", "stato": "normale" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["indizio_testimone_parziale"] }, "prossima": "a2_s06" },
+    { "id": "scava_roeder", "testo": "TODO: scelta orientata a lucidità (scopre l'innocenza di Roeder)", "visibile_se": { "non": { "flag": { "id": "roeder_innocente_scoperto" } } }, "abilitata_se": { "alcune": [ { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, { "attributo": { "id": "empatia", "op": ">=", "valore": 50 } } ] }, "motivo_blocco": "TODO: non hai ancora la lucidità per vederne i buchi", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["roeder_innocente_scoperto"] }, "prossima": "a2_s06" },
+    { "id": "momento_daniel", "testo": "TODO: scelta orientata a legame (R4 - momento umano con Daniel)", "visibile_se": { "non": { "flag": { "id": "visto_momento_daniel" } } }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ], "flag_set": ["visto_momento_daniel"] }, "prossima": "a2_s06" },
+    { "id": "procedi", "testo": "TODO: procedi alla protezione di Tobia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a2_s07" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_commento": "A1_S06 Momento con Daniel. Backbone. Scena-legame #1 forte. R6: l'apertura imposta confidenza_daniel (gate-alternativo di D6).",
+  "id": "a1_s06",
+  "titolo": "Momento con Daniel",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: momento personale fuori dall'indagine con Daniel", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "apriti", "testo": "TODO: scelta orientata a legame (apertura personale)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ], "flag_set": ["confidenza_daniel"] }, "prossima": "a1_s07" },
+    { "id": "resta_distante", "testo": "TODO: scelta orientata a pragmatismo (distanza professionale)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 }, { "id": "pragmatismo", "delta": 3 } ] }, "prossima": "a1_s07" }
+  ]
+}

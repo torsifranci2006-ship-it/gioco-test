@@ -1,0 +1,18 @@
+{
+  "_commento": "A3_S02 Raccolta prove. HUB: assicura S1/S2/S3/S4 (loop, guardia su prova_*), procedi -> a3_s03. on_enter nullo. S3 = R2 (lucidità>=60 + (D6 OR Mara viva&collab OR D4)).",
+  "id": "a3_s02",
+  "titolo": "Raccolta prove",
+  "atto": "atto3",
+  "precondizioni": { "flag": { "id": "piste_escluse" } },
+  "testo": [
+    { "contenuto": "TODO: costruire il caso contro Daniel con le prove disponibili", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "assicura_log", "testo": "TODO: assicura S1 (log d'archivio)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "prova_log_completo" } } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 3 } ], "flag_set": ["prova_log_completo"] }, "prossima": "a3_s02" },
+    { "id": "assicura_tobia", "testo": "TODO: assicura S2 (testimonianza di Tobia)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "prova_testimone_tobia" } } }, { "personaggio": { "id": "tobia", "stato": "normale" } }, { "flag": { "id": "tobia_salvo" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["prova_testimone_tobia"] }, "prossima": "a3_s02" },
+    { "id": "assicura_firma", "testo": "TODO: assicura S3 (firma personale)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "prova_firma_personale" } } }, { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } }, { "alcune": [ { "flag": { "id": "indizio_ritagli" } }, { "tutte": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "relazione": { "id": "mara", "op": ">=", "valore": 50 } } ] }, { "flag": { "id": "indizio_reazione_halloran" } } ] } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["prova_firma_personale"] }, "prossima": "a3_s02" },
+    { "id": "assicura_roeder", "testo": "TODO: assicura S4 (crepa Roeder)", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "prova_crepa_roeder" } } }, { "flag": { "id": "roeder_innocente_scoperto" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["prova_crepa_roeder"] }, "prossima": "a3_s02" },
+    { "id": "procedi_rivelazione", "testo": "TODO: procedi alla rivelazione", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a3_s03" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_commento": "A1_S03 Secondo delitto. Backbone. Pianta D3, D8, D7 (latente). Misdirezione 'affari'.",
+  "id": "a1_s03",
+  "titolo": "Secondo delitto",
+  "atto": "atto1",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: secondo omicidio apparentemente scollegato; ipotesi affari/criminalità", "condizione": null }
+  ],
+  "on_enter": { "flag_set": ["indizio_anticipo_scene", "indizio_angoli_ciechi", "indizio_tell_fisico"] },
+  "scelte": [
+    { "id": "leggi_anomalie", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a1_s06" },
+    { "id": "batti_pista_affari", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a1_s06" }
+  ]
+}

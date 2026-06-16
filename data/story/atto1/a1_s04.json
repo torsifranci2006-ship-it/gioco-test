@@ -1,0 +1,15 @@
+{
+  "_commento": "A1_S04 Obitorio. Detour OPZIONALE (da a1_s02). Ritorna all'hub. Imposta visto_obitorio. Muove relazione(mara).",
+  "id": "a1_s04",
+  "titolo": "Obitorio",
+  "atto": "atto1",
+  "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
+  "testo": [
+    { "contenuto": "TODO: prima lettura forense con Mara", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "rispetta_mara", "testo": "TODO: scelta orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 10 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" },
+    { "id": "spremi_risultato", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 4 } ], "flag_set": ["visto_obitorio"] }, "prossima": "a1_s02" }
+  ]
+}

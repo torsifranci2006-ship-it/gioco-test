@@ -1,0 +1,15 @@
+{
+  "_commento": "A3_S05 Testimonianza di Halloran. Detour OPZIONALE (da a3_s04). Imposta visto_testimonianza (guardia). 'accetta' setta halloran_testimonia.",
+  "id": "a3_s05",
+  "titolo": "Testimonianza di Halloran",
+  "atto": "atto3",
+  "precondizioni": { "flag": { "id": "halloran_pentito" } },
+  "testo": [
+    { "contenuto": "TODO: Halloran sceglie di riaprire i casi e assumersi la responsabilità", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "accetta_responsabilita", "testo": "TODO: scelta orientata a empatia (accogli la responsabilità di Halloran)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["visto_testimonianza", "halloran_testimonia"] }, "prossima": "a3_s04" },
+    { "id": "rifiuta_testimonianza", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 3 } ], "flag_set": ["visto_testimonianza"] }, "prossima": "a3_s04" }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_commento": "A2_S07 Protezione di Tobia. Backbone (decisione critica). R5: il beat di collaborazione con Daniel sta nella scelta 'proteggi' (legame). 'esca' ferisce Tobia (timer ferite). -> a2_s09.",
+  "id": "a2_s07",
+  "titolo": "Protezione di Tobia",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: mettere in salvo Tobia prima che sia troppo tardi", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "proteggi_tobia", "testo": "TODO: scelta orientata a empatia/legame (proteggi con Daniel - R5)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 5 }, { "id": "legame", "delta": 4 } ], "flag_set": ["tobia_salvo"] }, "prossima": "a2_s09" },
+    { "id": "usa_tobia_esca", "testo": "TODO: scelta orientata a pragmatismo (usa Tobia come esca)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ], "personaggio_stato": [ { "id": "tobia", "stato": "ferito" } ] }, "prossima": "a2_s09" }
+  ]
+}

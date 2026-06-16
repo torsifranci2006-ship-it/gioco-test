@@ -1,10 +1,10 @@
 {
-  "_commento": "Personaggi secondari chiave (template, 3). Pochi e centrali per evitare complessità. Stato: normale|ferito|morto. Le regole_stato sono transizioni automatiche valutate dall'engine.",
+  "_commento": "Personaggi chiave. Fase 5A: aggiunto 'daniel' (coprotagonista/killer, stato letto dal motore). Halloran ed Ellie NON sono personaggi del sistema: gestiti via flag narrativi.",
   "personaggi": [
     {
       "id": "mara",
       "nome": "Mara",
-      "descrizione": "Alleata di lunga data del protagonista; conosce parte della verità centrale.",
+      "descrizione": "Analista forense; alleata di lunga data. Pilastro della prova pubblica verso Daniel.",
       "stato_iniziale": "normale",
       "relazione_iniziale": 40,
       "regole_stato": [
@@ -23,7 +23,7 @@
     {
       "id": "tobia",
       "nome": "Tobia",
-      "descrizione": "Giovane sotto la protezione del protagonista; la sua sorte pesa sul finale.",
+      "descrizione": "Testimone fragile legato alla vittima ambigua (Roeder); la sua sorte pesa sul finale.",
       "stato_iniziale": "normale",
       "relazione_iniziale": 20,
       "regole_stato": [],
@@ -37,7 +37,15 @@
     {
       "id": "veil",
       "nome": "Veil",
-      "descrizione": "Figura ambigua legata alla verità centrale; può rivelarsi alleato o ostacolo.",
+      "descrizione": "Investigatrice degli Affari Interni; figura ambigua, alleata o ostacolo. Canale di esposizione esterna.",
+      "stato_iniziale": "normale",
+      "relazione_iniziale": 0,
+      "regole_stato": []
+    },
+    {
+      "id": "daniel",
+      "nome": "Daniel",
+      "descrizione": "Partner e migliore amico di Philip. Verità centrale: è il killer. La sua sorte è decisa dalla decisione finale (non dal sistema ferite).",
       "stato_iniziale": "normale",
       "relazione_iniziale": 0,
       "regole_stato": []

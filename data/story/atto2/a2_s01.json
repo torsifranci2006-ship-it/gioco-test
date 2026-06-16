@@ -1,0 +1,16 @@
+{
+  "_commento": "A2_S01 Hub del pattern. Backbone. Pianta M2 (pattern_casi_freddi). R3: aggiunta scelta orientata a legame con Daniel.",
+  "id": "a2_s01",
+  "titolo": "Il pattern",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: emerge la firma - le vittime sono casi freddi abbandonati", "condizione": null }
+  ],
+  "on_enter": { "flag_set": ["pattern_casi_freddi"] },
+  "scelte": [
+    { "id": "leggi_firma", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 5 } ] }, "prossima": "a2_s02" },
+    { "id": "imposta_caccia", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 5 } ] }, "prossima": "a2_s02" },
+    { "id": "condividi_con_daniel", "testo": "TODO: scelta orientata a legame (R3)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s02" }
+  ]
+}

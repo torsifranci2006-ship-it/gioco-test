@@ -1,0 +1,16 @@
+{
+  "_commento": "A3_S03 Rivelazione. Backbone (convergenza obbligata). Imposta verita_nota. Varianti di testo per 'quanto e' guadagnata' la rivelazione (gated su prove forti). -> a3_s04.",
+  "id": "a3_s03",
+  "titolo": "Rivelazione",
+  "atto": "atto3",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: la verità su Daniel emerge (testo base)", "condizione": null },
+    { "contenuto": "TODO: variante 'autoprodotta' - Philip ricostruisce da sé (rilegge gli indizi)", "condizione": { "alcune": [ { "flag": { "id": "prova_firma_personale" } }, { "flag": { "id": "prova_crepa_roeder" } } ] } },
+    { "contenuto": "TODO: variante 'assistita' - la verità arriva con l'aiuto delle prove", "condizione": { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } } ] } }
+  ],
+  "on_enter": { "flag_set": ["verita_nota"] },
+  "scelte": [
+    { "id": "affronta_daniel", "testo": "TODO: continua al confronto", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 3 } ] }, "prossima": "a3_s04" }
+  ]
+}

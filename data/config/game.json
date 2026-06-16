@@ -1,8 +1,8 @@
 {
-  "_commento": "Configurazione globale di gioco. Punti d'ingresso e percorsi dei dati. Nessuna logica: solo riferimenti.",
-  "titolo": "Gioco Narrativo (working title)",
-  "versione_dati": "0.1.0",
-  "scena_iniziale": "prologo",
+  "_commento": "Configurazione globale di gioco. Punti d'ingresso e percorsi dei dati. Fase 5A: scena_iniziale impostata su 'a1_s01'.",
+  "titolo": "Il caso che non chiude (working title)",
+  "versione_dati": "0.2.0",
+  "scena_iniziale": "a1_s01",
   "id_scena_finale": "finale",
   "percorsi": {
     "attributi": "res://data/config/attributes.json",

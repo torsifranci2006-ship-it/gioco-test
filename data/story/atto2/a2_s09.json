@@ -1,0 +1,17 @@
+{
+  "_commento": "A2_S09 Confidenza con Daniel. Backbone (R1): accesso libero a tutti; scena-persona affidabile di Atto 2. D6 dietro gate-fiducia interno (legame>=45 OR confidenza_daniel), via visibile_se (non telegrafa). -> a2_s10.",
+  "id": "a2_s09",
+  "titolo": "Confidenza con Daniel",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: debrief a casa di Daniel che diventa personale", "condizione": null },
+    { "contenuto": "TODO: variante piu' aperta", "condizione": { "flag": { "id": "confidenza_daniel" } } }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "apriti_daniel", "testo": "TODO: scelta orientata a legame (approfondire la confidenza)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 5 } ] }, "prossima": "a2_s10" },
+    { "id": "nota_ritagli", "testo": "TODO: scelta orientata a lucidità (soffermarsi sui ritagli)", "visibile_se": { "alcune": [ { "attributo": { "id": "legame", "op": ">=", "valore": 45 } }, { "flag": { "id": "confidenza_daniel" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["indizio_ritagli"] }, "prossima": "a2_s10" },
+    { "id": "resta_professionale", "testo": "TODO: scelta orientata a pragmatismo (mantenere le distanze)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": -4 } ] }, "prossima": "a2_s10" }
+  ]
+}

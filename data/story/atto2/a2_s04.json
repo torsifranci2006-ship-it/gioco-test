@@ -1,0 +1,16 @@
+{
+  "_commento": "A2_S04 Pista Halloran. Detour OPZIONALE. Imposta sospetto_halloran (guardia). D4 gated da lucidità.",
+  "id": "a2_s04",
+  "titolo": "Halloran",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: il falso sospetto istituzionale; il caso Mercer affiora", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "cogli_reazione", "testo": "TODO: scelta orientata a lucidità (coglie la reazione di Daniel)", "visibile_se": null, "abilitata_se": { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, "motivo_blocco": "TODO: non abbastanza lucido per notarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_halloran", "indizio_reazione_halloran"] }, "prossima": "a2_s02" },
+    { "id": "leggi_uomo", "testo": "TODO: scelta orientata a empatia (Halloran come uomo)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" },
+    { "id": "punta_movente", "testo": "TODO: scelta orientata a pragmatismo (movente dell'insabbiamento)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" }
+  ]
+}

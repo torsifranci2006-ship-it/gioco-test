@@ -1,0 +1,15 @@
+{
+  "_commento": "A3_S06 Decisione finale. Backbone (snodo terminale). Le due scelte combaciano con endings.requisiti.decisione_finale e puntano a 'finale' (sentinel). Giustizia: daniel_arrestato. Vendetta: verita_sepolta + daniel morto.",
+  "id": "a3_s06",
+  "titolo": "Decisione finale",
+  "atto": "atto3",
+  "precondizioni": { "flag": { "id": "verita_nota" } },
+  "testo": [
+    { "contenuto": "TODO: il momento della scelta (verità pubblica vs pace sepolta)", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "arresta_daniel", "testo": "TODO: arrestare Daniel (Giustizia)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["daniel_arrestato"] }, "prossima": "finale" },
+    { "id": "uccidi_daniel", "testo": "TODO: uccidere Daniel (Felicità/Vendetta)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["verita_sepolta"], "personaggio_stato": [ { "id": "daniel", "stato": "morto" } ] }, "prossima": "finale" }
+  ]
+}

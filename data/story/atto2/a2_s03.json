@@ -1,0 +1,15 @@
+{
+  "_commento": "A2_S03 Pista Voss. Detour OPZIONALE. Ritorna a a2_s02. Imposta sospetto_voss (guardia). Puo' settare M5.",
+  "id": "a2_s03",
+  "titolo": "Voss",
+  "atto": "atto2",
+  "precondizioni": null,
+  "testo": [
+    { "contenuto": "TODO: il falso sospetto ideologico (ex-detective)", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "indaga_lucida", "testo": "TODO: scelta orientata a lucidità (coglie il depistaggio)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_voss", "indizio_prova_comoda"] }, "prossima": "a2_s02" },
+    { "id": "forza_pista", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "flag_set": ["sospetto_voss"] }, "prossima": "a2_s02" }
+  ]
+}

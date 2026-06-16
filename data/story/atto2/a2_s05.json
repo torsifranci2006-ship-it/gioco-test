@@ -1,0 +1,15 @@
+{
+  "_commento": "A2_S05 Pista Veil. Detour OPZIONALE. Imposta sospetto_veil (guardia). Muove relazione(veil).",
+  "id": "a2_s05",
+  "titolo": "Veil sospetta",
+  "atto": "atto2",
+  "precondizioni": { "personaggio": { "id": "veil", "stato": "normale" } },
+  "testo": [
+    { "contenuto": "TODO: Veil sotto sospetto; test di fiducia", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "alleati_veil", "testo": "TODO: scelta orientata a empatia/fiducia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": 8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" },
+    { "id": "zittisci_veil", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "veil", "delta": -8 } ], "flag_set": ["sospetto_veil"] }, "prossima": "a2_s02" }
+  ]
+}

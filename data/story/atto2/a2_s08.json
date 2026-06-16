@@ -1,0 +1,15 @@
+{
+  "_commento": "A2_S08 Laboratorio di Mara. Detour OPZIONALE (da a2_s02). Imposta visto_lab (guardia). M3 e relazione(mara).",
+  "id": "a2_s08",
+  "titolo": "Laboratorio di Mara",
+  "atto": "atto2",
+  "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
+  "testo": [
+    { "contenuto": "TODO: il killer evita esattamente le tracce che cerchiamo (conoscenza insider)", "condizione": null }
+  ],
+  "on_enter": null,
+  "scelte": [
+    { "id": "analizza_con_mara", "testo": "TODO: scelta orientata a lucidità", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": 6 } ], "flag_set": ["visto_lab", "indizio_conoscenza_forense"] }, "prossima": "a2_s02" },
+    { "id": "spremi_mara", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "relazione": [ { "id": "mara", "delta": -3 } ], "flag_set": ["visto_lab"] }, "prossima": "a2_s02" }
+  ]
+}
