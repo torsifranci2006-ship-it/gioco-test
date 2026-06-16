@@ -1,47 +1,47 @@
 {
-  "_commento": "Due rami finali. Fase 5A: decisioni arresta_daniel/uccidi_daniel. Le 4 varianti d'anima (umile/fredda, misericordia/vendetta) sono MODULI-EPILOGO condizionati, non rami. Testo ed epiloghi: placeholder TODO con condizioni REALI. Halloran/Ellie via flag.",
+  "_commento": "Due rami finali. Fase 5B: testi narrativi scritti (titolo/testo/epiloghi). Condizioni, decisioni e struttura INVARIATE. Le 4 varianti d'anima sono moduli-epilogo, non rami. Nessun finale 'giusto': entrambi comprensibili e dolorosi.",
   "rami": [
     {
       "id": "ramo_giustizia",
-      "titolo": "TODO: titolo Finale Giustizia",
-      "testo": "TODO: testo base del ramo Giustizia (Philip arresta Daniel; la verità affidata al freno condiviso).",
+      "titolo": "Ciò che resta alla luce",
+      "testo": "Gli leggi i suoi diritti come si recita una preghiera in cui non credi più. Daniel non oppone niente. La verità uscirà tutta, nei giornali e nelle aule, e non risparmierà nessuno — lui meno di chiunque. Non è una vittoria: è un dovere, pagato con l'unico amico che ti restava. Lo guardi salire sull'auto, e una parte di te parte con lui.",
       "requisiti": {
         "decisione_finale": "arresta_daniel",
         "condizione": null
       },
       "epiloghi": [
-        { "contenuto": "TODO: Philip - variante fede umile", "condizione": { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } },
-        { "contenuto": "TODO: Philip - variante punizione fredda", "condizione": { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } } },
-        { "contenuto": "TODO: Daniel - dottrina confutata, innocente riconosciuto (verita completa)", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } }, { "flag": { "id": "prova_firma_personale" } } ] } ] } },
-        { "contenuto": "TODO: Daniel - dottrina intatta (Roeder mai riconosciuto)", "condizione": { "non": { "flag": { "id": "roeder_innocente_scoperto" } } } },
-        { "contenuto": "TODO: Mara - prosegue / testimone della verità", "condizione": { "personaggio": { "id": "mara", "stato": "normale" } } },
-        { "contenuto": "TODO: Mara - perduta, la via probatoria muore con lei", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
-        { "contenuto": "TODO: Veil - l'inchiesta esterna dà eco pubblica", "condizione": { "personaggio": { "id": "veil", "stato": "normale" } } },
-        { "contenuto": "TODO: Tobia - l'orfano ha un futuro", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
-        { "contenuto": "TODO: Tobia - perduto", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
-        { "contenuto": "TODO: Halloran - si assume la colpa e testimonia", "condizione": { "flag": { "id": "halloran_testimonia" } } },
-        { "contenuto": "TODO: Ellie - riconciliazione possibile", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } ] } },
-        { "contenuto": "TODO: Citta - verità esposta, riforma possibile (verita pubblica)", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] } }
+        { "contenuto": "Non ti sei fatto giudice. Hai lasciato che a decidere fosse qualcosa di più grande di te, anche se ti è costato tutto.", "condizione": { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } },
+        { "contenuto": "Lo hai consegnato senza una parola di troppo. Le mani ferme, la voce piatta. È andata come doveva, e non senti niente.", "condizione": { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } } },
+        { "contenuto": "Il nome di Roeder finisce a verbale, accanto agli altri: un innocente, riconosciuto troppo tardi. Da lì la logica di Daniel non regge più, smentita dai fatti prima che da te.", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } }, { "flag": { "id": "prova_firma_personale" } } ] } ] } },
+        { "contenuto": "Resta una crepa che non chiuderai: per qualcuno, là fuori, Daniel aveva fatto solo ciò che nessun altro aveva osato.", "condizione": { "non": { "flag": { "id": "roeder_innocente_scoperto" } } } },
+        { "contenuto": "Mara continua il lavoro dove tu non arrivi. La verità non muore con un uomo solo.", "condizione": { "personaggio": { "id": "mara", "stato": "normale" } } },
+        { "contenuto": "Senza Mara, metà di ciò che sai resta parola contro parola, su una pagina che nessuno riaprirà.", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
+        { "contenuto": "Veil porta la storia fuori dalle mura della centrale. Stavolta non si potrà più seppellire.", "condizione": { "personaggio": { "id": "veil", "stato": "normale" } } },
+        { "contenuto": "Tobia avrà altri inverni. Qualcuno, per una volta, è arrivato in tempo.", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
+        { "contenuto": "Dell'orfano di Roeder resta un banco vuoto e un nome che ormai non serve più a nessuno.", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
+        { "contenuto": "Halloran ci mette la faccia. I vecchi casi tornano sui tavoli, uno per uno, come avrebbero dovuto allora.", "condizione": { "flag": { "id": "halloran_testimonia" } } },
+        { "contenuto": "Chiami Ellie, e stavolta reggi il suo sguardo: hai scelto la verità senza spezzare nessuno con le tue mani.", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } } ] } },
+        { "contenuto": "Ciò che il sistema aveva sepolto torna alla luce. Fa male, ma è da lì che certe cose, a volte, cominciano a cambiare.", "condizione": { "tutte": [ { "flag": { "id": "roeder_innocente_scoperto" } }, { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] } ] } }
       ]
     },
     {
       "id": "ramo_vendetta",
-      "titolo": "TODO: titolo Finale Felicità/Vendetta",
-      "testo": "TODO: testo base del ramo Vendetta (Philip uccide Daniel; verità sepolta; pace apparente).",
+      "titolo": "Ciò che resta nel buio",
+      "testo": "Quando è finita, c'è solo la pioggia e il tuo respiro. Nessun processo, nessun nome sui giornali: la città dormirà tranquilla, senza sapere su cosa. Hai scelto il silenzio, e il silenzio adesso è tuo da portare. Resta una linea, alle tue spalle, e non sai più da che parte guardarla.",
       "requisiti": {
         "decisione_finale": "uccidi_daniel",
         "condizione": null
       },
       "epiloghi": [
-        { "contenuto": "TODO: Philip - variante misericordia", "condizione": { "tutte": [ { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": ">=", "valore": 50 } } ] } },
-        { "contenuto": "TODO: Philip - variante vendetta (diventa Daniel)", "condizione": { "alcune": [ { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": "<", "valore": 35 } } ] } },
-        { "contenuto": "TODO: Daniel - vittoria postuma, la verità resta sepolta", "condizione": null },
-        { "contenuto": "TODO: Roeder - Philip sapeva e copre comunque", "condizione": { "flag": { "id": "roeder_innocente_scoperto" } } },
-        { "contenuto": "TODO: Mara - perduta", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
-        { "contenuto": "TODO: Tobia - l'orfano vive, unico esito buono", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
-        { "contenuto": "TODO: Tobia - perduto, fallimento verso la vittima", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
-        { "contenuto": "TODO: Ellie - comprende troppo tardi cosa ha perso", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } } ] } },
-        { "contenuto": "TODO: Citta - pace apparente su una menzogna", "condizione": null }
+        { "contenuto": "Lo hai fatto per lui, in fondo: per risparmiargli le aule, gli sguardi, la fine lenta. Un gesto gentile, e proprio per questo impossibile da dimenticare.", "condizione": { "tutte": [ { "attributo": { "id": "empatia", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": ">=", "valore": 50 } } ] } },
+        { "contenuto": "Hai smesso di dubitare, e tutto è diventato semplice. Troppo semplice. C'è una linea che, una volta attraversata, smetti di vedere.", "condizione": { "alcune": [ { "attributo": { "id": "pragmatismo", "op": ">=", "valore": 55 } }, { "attributo": { "id": "legame", "op": "<", "valore": 35 } } ] } },
+        { "contenuto": "Daniel non parlerà più, e proprio per questo nessuno potrà mai dargli torto. La sua idea resta in piedi, intatta, là dove l'hai lasciata.", "condizione": null },
+        { "contenuto": "Sapevi che quella certezza poteva essere sbagliata. Lo tieni per te, insieme a tutto il resto.", "condizione": { "flag": { "id": "roeder_innocente_scoperto" } } },
+        { "contenuto": "Mara non c'è più. Con lei tace anche l'ultima voce che avrebbe potuto raccontarlo.", "condizione": { "personaggio": { "id": "mara", "stato": "morto" } } },
+        { "contenuto": "Almeno il ragazzo è vivo. È poco, ed è tutto ciò che questa notte concede.", "condizione": { "personaggio": { "id": "tobia", "stato": "normale" } } },
+        { "contenuto": "L'orfano non c'è più, e adesso non resta nessuno a chiedere perché.", "condizione": { "personaggio": { "id": "tobia", "stato": "morto" } } },
+        { "contenuto": "Pensi a Ellie, e capisci troppo tardi quanto ti costerà questo silenzio — e quanto, di nuovo, le toglie.", "condizione": { "tutte": [ { "flag": { "id": "ellie_contatto" } }, { "attributo": { "id": "lucidita", "op": ">=", "valore": 60 } } ] } },
+        { "contenuto": "La città ringrazia un uomo giusto. Tu non correggi nessuno, e torni a casa con il conto.", "condizione": null }
       ]
     }
   ]
