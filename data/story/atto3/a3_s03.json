@@ -5,12 +5,12 @@
   "atto": "atto3",
   "precondizioni": null,
   "testo": [
-    { "contenuto": "TODO: la verità su Daniel emerge (testo base)", "condizione": null },
-    { "contenuto": "TODO: variante 'autoprodotta' - Philip ricostruisce da sé (rilegge gli indizi)", "condizione": { "alcune": [ { "flag": { "id": "prova_firma_personale" } }, { "flag": { "id": "prova_crepa_roeder" } } ] } },
-    { "contenuto": "TODO: variante 'assistita' - la verità arriva con l'aiuto delle prove", "condizione": { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } } ] } }
+    { "contenuto": "Sei in macchina con lui, come mille altre volte. Il dettaglio che sapeva prima di tutti. Gli angoli senza telecamere, conosciuti a memoria. I vecchi fascicoli tirati fuori da dentro, e la sua voce che diceva di andarci piano. Tutto scivola al suo posto senza rumore. Quando alzi gli occhi, Daniel ti sta già guardando. Non dice niente. Non serve. Lo sai, e lui sa che lo sai.", "condizione": null },
+    { "contenuto": "Non è stato un lampo: è una somma. Piccole cose viste e messe via troppo in fretta, perché guardarle davvero voleva dire arrivare proprio qui. Adesso si leggono da sole.", "condizione": { "alcune": [ { "flag": { "id": "prova_firma_personale" } }, { "flag": { "id": "prova_crepa_roeder" } } ] } },
+    { "contenuto": "Da solo, forse, non avresti voluto vederlo. Ma stavolta le prove parlano al posto tuo, e non lasciano scampo.", "condizione": { "alcune": [ { "flag": { "id": "prova_log_completo" } }, { "flag": { "id": "prova_testimone_tobia" } } ] } }
   ],
   "on_enter": { "flag_set": ["verita_nota"] },
   "scelte": [
-    { "id": "affronta_daniel", "testo": "TODO: continua al confronto", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 3 } ] }, "prossima": "a3_s04" }
+    { "id": "affronta_daniel", "testo": "Fermare la macchina. È ora di parlare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 3 } ] }, "prossima": "a3_s04" }
   ]
 }

@@ -5,11 +5,11 @@
   "atto": "atto3",
   "precondizioni": { "flag": { "id": "verita_nota" } },
   "testo": [
-    { "contenuto": "TODO: il momento della scelta (verità pubblica vs pace sepolta)", "condizione": null }
+    { "contenuto": "Siete soli, alla fine, come all'inizio. Da una parte un processo, i giornali, la verità che esce intera e fa male a tutti — Daniel compreso. Dall'altra il silenzio: nessun nome infangato, una città che dorme, e un peso che resterà soltanto tuo. Daniel non implora e non si difende. Aspetta solo di vedere chi diventerai.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "arresta_daniel", "testo": "TODO: arrestare Daniel (Giustizia)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["daniel_arrestato"] }, "prossima": "finale" },
-    { "id": "uccidi_daniel", "testo": "TODO: uccidere Daniel (Felicità/Vendetta)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["verita_sepolta"], "personaggio_stato": [ { "id": "daniel", "stato": "morto" } ] }, "prossima": "finale" }
+    { "id": "arresta_daniel", "testo": "Arrestarlo. Lasciare che sia la legge a portarlo via.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["daniel_arrestato"] }, "prossima": "finale" },
+    { "id": "uccidi_daniel", "testo": "Chiudere tu, qui, e tenere la verità sepolta.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "flag_set": ["verita_sepolta"], "personaggio_stato": [ { "id": "daniel", "stato": "morto" } ] }, "prossima": "finale" }
   ]
 }

@@ -5,14 +5,14 @@
   "atto": "atto3",
   "precondizioni": { "flag": { "id": "verita_nota" } },
   "testo": [
-    { "contenuto": "TODO: dramma morale a due; Daniel espone la dottrina e cerca comprensione", "condizione": null }
+    { "contenuto": "Daniel non scappa. Resta seduto, le mani sul volante, e per un po' c'è solo la pioggia. «Quei casi erano già morti, negli archivi» dice infine. «Io li ho soltanto... finiti.» Non lo dice come una colpa, né come un vanto: come un fatto. Poi nomini Roeder, e qualcosa nella sua voce cede. «Quello» mormora. «Su quello non sono più sicuro.» È lì che la sua logica smette di reggere, e lo sa anche lui.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "vai_testimonianza", "testo": "TODO: detour testimonianza di Halloran", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_testimonianza" } } }, { "flag": { "id": "halloran_pentito" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a3_s05" },
-    { "id": "appello_umanita", "testo": "TODO: procedi - orientata a empatia", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ] }, "prossima": "a3_s06" },
-    { "id": "appello_amicizia", "testo": "TODO: procedi - orientata a legame", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s06" },
-    { "id": "leva_roeder", "testo": "TODO: procedi - orientata a lucidità (smonta la dottrina con Roeder)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a3_s06" },
-    { "id": "chiudi_freddo", "testo": "TODO: procedi - orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a3_s06" }
+    { "id": "vai_testimonianza", "testo": "Lasciarlo un momento: Halloran ha qualcosa da mettere a verbale.", "visibile_se": { "tutte": [ { "non": { "flag": { "id": "visto_testimonianza" } } }, { "flag": { "id": "halloran_pentito" } } ] }, "abilitata_se": null, "motivo_blocco": null, "effetti": null, "prossima": "a3_s05" },
+    { "id": "appello_umanita", "testo": "Cercare ancora l'uomo che credevi di conoscere.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "appello_amicizia", "testo": "Ricordargli chi siete stati l'uno per l'altro.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "legame", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "leva_roeder", "testo": "Tornare su Roeder, dove tutto si spezza.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ] }, "prossima": "a3_s06" },
+    { "id": "chiudi_freddo", "testo": "Smettere di ascoltarlo, e chiudere.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ] }, "prossima": "a3_s06" }
   ]
 }

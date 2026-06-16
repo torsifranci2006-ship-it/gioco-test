@@ -5,11 +5,11 @@
   "atto": "atto3",
   "precondizioni": { "flag": { "id": "halloran_pentito" } },
   "testo": [
-    { "contenuto": "TODO: Halloran sceglie di riaprire i casi e assumersi la responsabilità", "condizione": null }
+    { "contenuto": "Halloran ti aspetta con una cartella già pronta. «Se serve a riaprire quei casi, ci metto la faccia» dice. «È tardi, lo so. Ma è quello che dovevo fare allora.» Non chiede sconti. Offre solo la verità, finché c'è qualcuno disposto a riceverla.", "condizione": null }
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "accetta_responsabilita", "testo": "TODO: scelta orientata a empatia (accogli la responsabilità di Halloran)", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["visto_testimonianza", "halloran_testimonia"] }, "prossima": "a3_s04" },
-    { "id": "rifiuta_testimonianza", "testo": "TODO: scelta orientata a pragmatismo", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 3 } ], "flag_set": ["visto_testimonianza"] }, "prossima": "a3_s04" }
+    { "id": "accetta_responsabilita", "testo": "Prendere la sua testimonianza, e portarla alla luce.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["visto_testimonianza", "halloran_testimonia"] }, "prossima": "a3_s04" },
+    { "id": "rifiuta_testimonianza", "testo": "Dirgli che è troppo tardi, e andare.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 3 } ], "flag_set": ["visto_testimonianza"] }, "prossima": "a3_s04" }
   ]
 }
