@@ -8,6 +8,24 @@ const BG_PATH := "res://assets/backgrounds/bg_auto_notte.png"
 const DANIEL_CALDO := "res://assets/characters/daniel/char_daniel_caldo.png"
 const DANIEL_FREDDO := "res://assets/characters/daniel/char_daniel_freddo.png"
 
+## Mappe asset visuali: nome logico (dal campo "visual" delle scene) -> percorso res://.
+## NB: molti valori sono FALLBACK temporanei agli unici asset finora prodotti.
+const BG_MAP := {
+	"bg_esterno_crimine_notte": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_commissariato": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_obitorio": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_incontro_veil": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_bar_privato": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_tobia_rifugio": "res://assets/backgrounds/bg_auto_notte.png",
+}
+const PORTRAIT_MAP := {
+	"char_daniel_caldo": "res://assets/characters/daniel/char_daniel_caldo.png",
+	"char_daniel_freddo": "res://assets/characters/daniel/char_daniel_freddo.png",
+	"char_mara": "res://assets/characters/daniel/char_daniel_caldo.png",
+	"char_veil": "res://assets/characters/daniel/char_daniel_caldo.png",
+	"char_tobia": "res://assets/characters/daniel/char_daniel_caldo.png",
+}
+
 @onready var _scene_text: RichTextLabel = $Margin/Root/SceneText
 @onready var _choices: VBoxContainer = $Margin/Root/ChoicesScroll/Choices
 @onready var _new_game_button: Button = $Margin/Root/Controls/NewGameButton
@@ -64,10 +82,9 @@ func _on_load() -> void:
 
 # --- Reazione ai segnali del Core ---
 
-func _on_scene_changed(scene_id: String) -> void:
+func _on_scene_changed(_scene_id: String) -> void:
 	_ending_panel.visible = false
-	_character.visible = true
-	_update_portrait(scene_id)
+	_apply_visual(Game.current_scene())
 	_render_current()
 
 func _on_game_ended(_ending_id: String) -> void:
@@ -142,15 +159,47 @@ func _set_portrait_freddo(freddo: bool) -> void:
 	if tex != null:
 		_character.texture = tex
 
-func _update_portrait(scene_id: String) -> void:
-	_set_portrait_freddo(_is_act3_reveal(scene_id))
+## Applica i metadati visuali della scena (campo "visual"). Il metadata PREVALE sempre;
+## in sua assenza si usa il fallback (bg_auto_notte + ritratto secondo la regola Atto 3).
+func _apply_visual(scene: StoryScene) -> void:
+	if scene == null:
+		_character.visible = false
+		return
+	var visual: Dictionary = scene.visual
+	if visual.is_empty():
+		# Scene senza metadata (per ora Atti 2-3): fallback completo.
+		var bg := _try_load(BG_PATH)
+		if bg != null:
+			_background.texture = bg
+		_set_portrait_fallback(scene.id)
+		return
+	# Background: il metadata prevale; chiave assente/sconosciuta -> fallback bg_auto_notte.
+	var bg_tex := _try_load(BG_MAP.get(visual.get("background"), BG_PATH))
+	if bg_tex != null:
+		_background.texture = bg_tex
+	_apply_portrait(visual, scene.id)
 
-## REGOLA TEMPORANEA DELLO SLICE VISIVO.
-## Introduce conoscenza narrativa (id scena) nella UI, in deroga al principio
-## "nessuna logica narrativa qui". Da SOSTITUIRE in futuro con metadati visuali
-## nei JSON delle scene (es. un campo "ritratto"/"grading" per scena), cosi' la UI
-## non dovra' piu' interpretare gli id. Per ora: Daniel "freddo" dalla
-## rivelazione (a3_s03) in poi.
+func _apply_portrait(visual: Dictionary, scene_id: String) -> void:
+	if not visual.has("portrait"):
+		_set_portrait_fallback(scene_id)   # scena con visual ma senza chiave portrait
+		return
+	var key = visual.get("portrait")
+	if key == null or key == "none" or key == "":
+		_character.visible = false          # nessun ritratto in questa scena
+		return
+	var tex := _try_load(PORTRAIT_MAP.get(key, DANIEL_CALDO))   # chiave sconosciuta -> caldo
+	if tex != null:
+		_character.texture = tex
+	_character.visible = true
+
+## Fallback ritratto per scene SENZA campo "visual".
+## REGOLA TEMPORANEA: Daniel "freddo" dalla rivelazione (a3_s03) in poi, altrimenti caldo.
+## Si applica SOLO in assenza di metadata; da rimuovere quando anche gli Atti 2-3
+## avranno il campo "visual". Il metadata, se presente, prevale sempre su questa regola.
+func _set_portrait_fallback(scene_id: String) -> void:
+	_set_portrait_freddo(_is_act3_reveal(scene_id))
+	_character.visible = true
+
 func _is_act3_reveal(scene_id: String) -> bool:
 	var parts := scene_id.split("_")
 	if parts.size() != 2:

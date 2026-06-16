@@ -3,6 +3,7 @@
   "id": "a1_s06",
   "titolo": "Momento con Daniel",
   "atto": "atto1",
+  "visual": { "background": "bg_bar_privato", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Più tardi, due bicchieri e poche parole. Daniel ti chiede di Ellie, e lo fa come lo fa solo chi ti conosce da anni. «Lavori troppo per non pensarci, lo so» dice piano. Per un attimo il caso resta fuori dalla porta.", "condizione": null }

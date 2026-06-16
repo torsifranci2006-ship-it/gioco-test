@@ -3,6 +3,7 @@
   "id": "a1_s07",
   "titolo": "Ellie",
   "atto": "atto1",
+  "visual": { "background": "bg_bar_privato", "portrait": null },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Il numero di Ellie è ancora in cima alla rubrica. Squilla due volte nella tua testa prima che tu decida se premere. Ogni verità che hai inseguito le è costata qualcosa; stavolta la posta sei tu.", "condizione": null }

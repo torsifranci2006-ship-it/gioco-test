@@ -3,6 +3,7 @@
   "id": "a1_s08",
   "titolo": "Chiusura Atto 1",
   "atto": "atto1",
+  "visual": { "background": "bg_tobia_rifugio", "portrait": "char_tobia" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Stavolta colpisce vicino: un nome che conoscevi. E un ragazzo, Tobia, rannicchiato sul pianerottolo, che ha visto qualcosa e trema troppo per dirla. Ti guarda come si guarda l'ultima porta rimasta aperta.", "condizione": null }

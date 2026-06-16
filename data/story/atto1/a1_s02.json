@@ -3,6 +3,7 @@
   "id": "a1_s02",
   "titolo": "Commissariato",
   "atto": "atto1",
+  "visual": { "background": "bg_commissariato", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "In sala riunioni il caso ha già un numero e troppe poche risposte. Mara, dal laboratorio, ti passa le prime foto; sulla porta Veil, degli Affari Interni, resta appoggiata allo stipite come se aspettasse un tuo errore.", "condizione": null }

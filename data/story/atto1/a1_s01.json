@@ -3,6 +3,7 @@
   "id": "a1_s01",
   "titolo": "Prologo",
   "atto": "atto1",
+  "visual": { "background": "bg_esterno_crimine_notte", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Pioggia sottile, di quelle che non lavano via niente. Il corpo è contro la saracinesca, le luci blu che battono sull'asfalto. Daniel è già accovacciato accanto: «Faceva i turni di notte, scommetto. Mani come queste non dormono.» Lo dice prima ancora che arrivino i documenti.", "condizione": null }

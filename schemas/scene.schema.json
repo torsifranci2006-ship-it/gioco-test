@@ -62,6 +62,15 @@
     "prossima_default": {
       "description": "Per scene senza scelte: scena successiva automatica.",
       "type": ["string", "null"]
+    },
+    "visual": {
+      "description": "Metadati di presentazione per la UI (opzionale). Assente/null = fallback UI.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "background": { "type": ["string", "null"] },
+        "portrait": { "type": ["string", "null"] }
+      }
     }
   }
 }

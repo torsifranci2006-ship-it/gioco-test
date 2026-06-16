@@ -3,6 +3,7 @@
   "id": "a1_s04",
   "titolo": "Obitorio",
   "atto": "atto1",
+  "visual": { "background": "bg_obitorio", "portrait": "char_mara" },
   "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
   "testo": [
     { "contenuto": "L'obitorio è freddo e ordinato, come piace a Mara. «Stesso taglio, stessa mano ferma» dice senza guardarti. «Chi l'ha fatto sapeva dove. E non aveva fretta.»", "condizione": null }

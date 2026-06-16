@@ -3,6 +3,7 @@
   "id": "a1_s05",
   "titolo": "Affari Interni",
   "atto": "atto1",
+  "visual": { "background": "bg_incontro_veil", "portrait": "char_veil" },
   "precondizioni": { "personaggio": { "id": "veil", "stato": "normale" } },
   "testo": [
     { "contenuto": "Veil ti aspetta dove non ci sono orecchie. «Non sto indagando su di te» dice. «Ancora. Ma queste storie, detective, di solito marciscono dall'interno.» Sorride, e non capisci se è un avvertimento o un'esca.", "condizione": null }

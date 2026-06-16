@@ -61,6 +61,33 @@ del pulsante "Nuova Partita" del finale.
 6. **Salva / Carica** → `Game.save_game()` / `Game.load_game()` (path interno `user://savegame.json`);
    il caricamento emette `scene_changed` e la UI si aggiorna da sola. Esiti e errori in `Status`.
 
+## Livelli visivi data-driven (campo `visual` delle scene)
+
+La UI mostra uno **sfondo** (`Background`) e un **ritratto** (`Character`) dietro al testo, con uno
+`Scrim` semitrasparente per la leggibilità. La scelta degli asset è **guidata dai dati**: ogni scena
+può avere un campo opzionale `visual` (vedi `schemas/scene.schema.json`), trasportato dal modello
+`StoryScene` fino alla UI:
+
+```json
+"visual": { "background": "bg_obitorio", "portrait": "char_mara" }
+```
+
+`src/ui/main.gd` traduce i **nomi logici** in percorsi tramite due mappe interne (`BG_MAP`,
+`PORTRAIT_MAP`). Regole di risoluzione (in `_apply_visual` / `_apply_portrait`):
+
+- **Il metadata `visual` prevale sempre.**
+- `visual.background` sconosciuto/assente → fallback `bg_auto_notte.png`.
+- `visual.portrait` `null` / `"none"` / `""` → **ritratto nascosto**.
+- `visual.portrait` sconosciuto → fallback `char_daniel_caldo`.
+- **Scene senza `visual`** (per ora Atti 2–3) → fallback completo: `bg_auto_notte.png` + ritratto
+  secondo la **regola temporanea** `_is_act3_reveal` (Daniel "freddo" da `a3_s03` in poi, altrimenti
+  caldo). Questa regola id-based è un **ripiego**: si applica solo in assenza di metadata e andrà
+  rimossa quando anche gli Atti 2–3 avranno il campo `visual`.
+
+> Molti nomi logici puntano oggi a **fallback temporanei** agli unici asset prodotti; il plumbing è
+> completo e pronto per gli asset definitivi (basta aggiornare `BG_MAP`/`PORTRAIT_MAP`).
+> Prima della Nuova Partita il `Background` è visibile ma il `Character` resta nascosto.
+
 ## Note
 
 - La ricostruzione delle scelte libera i vecchi pulsanti con `queue_free()` (sicuro durante il

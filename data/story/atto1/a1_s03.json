@@ -3,6 +3,7 @@
   "id": "a1_s03",
   "titolo": "Secondo delitto",
   "atto": "atto1",
+  "visual": { "background": "bg_esterno_crimine_notte", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Un secondo morto, dall'altra parte della città. Niente che leghi i due, a parte la pioggia. Si parla di conti, di soldi spariti. Daniel intanto si muove nella stanza come se la conoscesse: «Qui niente telecamere» dice, indicando l'unico angolo cieco.", "condizione": null }
