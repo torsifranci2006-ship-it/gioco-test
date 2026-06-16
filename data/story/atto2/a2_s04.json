@@ -9,7 +9,7 @@
   ],
   "on_enter": null,
   "scelte": [
-    { "id": "cogli_reazione", "testo": "Fermarti, un secondo, su quella reazione.", "visibile_se": null, "abilitata_se": { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, "motivo_blocco": "TODO: non abbastanza lucido per notarlo", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_halloran", "indizio_reazione_halloran"] }, "prossima": "a2_s02" },
+    { "id": "cogli_reazione", "testo": "Fermarti, un secondo, su quella reazione.", "visibile_se": null, "abilitata_se": { "attributo": { "id": "lucidita", "op": ">=", "valore": 50 } }, "motivo_blocco": "Non hai la lucidità per cogliere certi dettagli, adesso.", "effetti": { "attributi": [ { "id": "lucidita", "delta": 4 } ], "flag_set": ["sospetto_halloran", "indizio_reazione_halloran"] }, "prossima": "a2_s02" },
     { "id": "leggi_uomo", "testo": "Guardare l'uomo, non solo il sospetto.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "empatia", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" },
     { "id": "punta_movente", "testo": "Insistere sul movente: chi insabbia, ha qualcosa da nascondere.", "visibile_se": null, "abilitata_se": null, "motivo_blocco": null, "effetti": { "attributi": [ { "id": "pragmatismo", "delta": 4 } ], "flag_set": ["sospetto_halloran"] }, "prossima": "a2_s02" }
   ]
