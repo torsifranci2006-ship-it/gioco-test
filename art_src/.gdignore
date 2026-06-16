@@ -1,0 +1,3 @@
+# Presenza di questo file: Godot IGNORA questa cartella (nessun import).
+# Qui vanno i sorgenti a layer (.kra/.psd) degli asset, NON gli export PNG.
+# Gli export finali vivono in res://assets/. Vedi docs/vertical_slice_assets.md
