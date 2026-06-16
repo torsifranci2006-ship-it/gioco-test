@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/vertical_slice.gd" id="1_vs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_box"]
+bg_color = Color(0.07, 0.08, 0.1, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="VerticalSlice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vs")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Character" type="TextureRect" parent="."]
+layout_mode = 1
+anchor_left = 0.4
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Textbox" type="Panel" parent="."]
+layout_mode = 1
+anchor_left = 0.0
+anchor_top = 0.66
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_box")
+
+[node name="Margin" type="MarginContainer" parent="Textbox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Textbox/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="DialogueText" type="RichTextLabel" parent="Textbox/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Pioggia sottile, di quelle che non lavano via niente. Il corpo è contro la saracinesca, le luci blu che battono sull'asfalto."
+fit_content = true
+
+[node name="Buttons" type="HBoxContainer" parent="Textbox/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ContinuaButton" type="Button" parent="Textbox/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Continua"
+
+[node name="ToggleDanielButton" type="Button" parent="Textbox/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Toggle Daniel (debug)"
