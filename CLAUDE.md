@@ -110,4 +110,4 @@ Il runner `tests/run_core_test.gd` istanzia direttamente lo `StoryEngine` (non d
 autoload) ed esercita: scena iniziale, scelte, gating per attributi, effetti, cambio scena,
 risoluzione dei due finali con epiloghi, e salvataggio/caricamento.
 
-Non esiste ancora una `main_scene`: va impostata in `project.godot` quando la UI sarà creata.
+La `main_scene` è impostata in `project.godot` su `res://scenes/main.tscn` (UI minima, vedi `docs/ui.md`).
