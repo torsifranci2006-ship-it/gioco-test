@@ -4,6 +4,10 @@ extends Control
 ## Nessun contenuto né logica narrativa qui: la UI parla SOLO con Game e con i segnali di EventBus.
 ## Non legge i JSON e non conosce i sistemi interni.
 
+const BG_PATH := "res://assets/backgrounds/bg_auto_notte.png"
+const DANIEL_CALDO := "res://assets/characters/daniel/char_daniel_caldo.png"
+const DANIEL_FREDDO := "res://assets/characters/daniel/char_daniel_freddo.png"
+
 @onready var _scene_text: RichTextLabel = $Margin/Root/SceneText
 @onready var _choices: VBoxContainer = $Margin/Root/ChoicesScroll/Choices
 @onready var _new_game_button: Button = $Margin/Root/Controls/NewGameButton
@@ -14,6 +18,8 @@ extends Control
 @onready var _ending_title: Label = $EndingPanel/EndingVBox/EndingTitle
 @onready var _ending_text: RichTextLabel = $EndingPanel/EndingVBox/EndingText
 @onready var _ending_new_game_button: Button = $EndingPanel/EndingVBox/EndingNewGameButton
+@onready var _background: TextureRect = $Background
+@onready var _character: TextureRect = $Character
 
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
@@ -30,6 +36,10 @@ func _ready() -> void:
 		_status.text = "Errore di inizializzazione: " + Game.last_error()
 	else:
 		_status.text = "Premi Nuova Partita per iniziare."
+	# --- Livelli visivi (vertical slice integrato) ---
+	_background.texture = _try_load(BG_PATH)
+	_set_portrait_freddo(false)   # pre-carica il ritratto caldo...
+	_character.visible = false    # ...ma Daniel non appare prima della Nuova Partita
 
 # --- Pulsanti principali ---
 
@@ -54,11 +64,14 @@ func _on_load() -> void:
 
 # --- Reazione ai segnali del Core ---
 
-func _on_scene_changed(_scene_id: String) -> void:
+func _on_scene_changed(scene_id: String) -> void:
 	_ending_panel.visible = false
+	_character.visible = true
+	_update_portrait(scene_id)
 	_render_current()
 
 func _on_game_ended(_ending_id: String) -> void:
+	_set_portrait_freddo(true)   # finale attivo -> Daniel freddo (regola temporanea slice)
 	_show_ending()
 
 # --- Rendering ---
@@ -114,3 +127,37 @@ func _join(lines: Array[String]) -> String:
 			out += "\n\n"
 		out += lines[i]
 	return out
+
+# --- Livelli visivi (vertical slice integrato) ---
+
+## Carica una texture solo se presente (la UI resta funzionante anche senza asset).
+func _try_load(path: String) -> Texture2D:
+	if ResourceLoader.exists(path):
+		return load(path) as Texture2D
+	push_warning("UI: asset visivo mancante: " + path)
+	return null
+
+func _set_portrait_freddo(freddo: bool) -> void:
+	var tex := _try_load(DANIEL_FREDDO if freddo else DANIEL_CALDO)
+	if tex != null:
+		_character.texture = tex
+
+func _update_portrait(scene_id: String) -> void:
+	_set_portrait_freddo(_is_act3_reveal(scene_id))
+
+## REGOLA TEMPORANEA DELLO SLICE VISIVO.
+## Introduce conoscenza narrativa (id scena) nella UI, in deroga al principio
+## "nessuna logica narrativa qui". Da SOSTITUIRE in futuro con metadati visuali
+## nei JSON delle scene (es. un campo "ritratto"/"grading" per scena), cosi' la UI
+## non dovra' piu' interpretare gli id. Per ora: Daniel "freddo" dalla
+## rivelazione (a3_s03) in poi.
+func _is_act3_reveal(scene_id: String) -> bool:
+	var parts := scene_id.split("_")
+	if parts.size() != 2:
+		return false
+	var atto: String = parts[0]
+	var scena: String = parts[1]
+	if not atto.begins_with("a") or not scena.begins_with("s"):
+		return false
+	return int(atto.substr(1)) == 3 and int(scena.substr(1)) >= 3
+
