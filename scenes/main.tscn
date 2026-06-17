@@ -222,26 +222,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 12
 
-[node name="ChoicesPanel" type="PanelContainer" parent="BottomArea"]
-visible = false
-custom_minimum_size = Vector2(0, 150)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("sb_choices")
-
-[node name="ChoicesMargin" type="MarginContainer" parent="BottomArea/ChoicesPanel"]
-layout_mode = 2
-
-[node name="ChoicesScroll" type="ScrollContainer" parent="BottomArea/ChoicesPanel/ChoicesMargin"]
-layout_mode = 2
-size_flags_vertical = 3
-horizontal_scroll_mode = 0
-
-[node name="Choices" type="VBoxContainer" parent="BottomArea/ChoicesPanel/ChoicesMargin/ChoicesScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
-
 [node name="TextPanel" type="PanelContainer" parent="BottomArea"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -253,8 +233,23 @@ layout_mode = 2
 [node name="SceneText" type="RichTextLabel" parent="BottomArea/TextPanel/TextMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
-custom_minimum_size = Vector2(0, 140)
+custom_minimum_size = Vector2(0, 180)
 fit_content = true
+
+[node name="ChoicesPanel" type="PanelContainer" parent="BottomArea"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("sb_choices")
+
+[node name="ChoicesMargin" type="MarginContainer" parent="BottomArea/ChoicesPanel"]
+layout_mode = 2
+
+[node name="Choices" type="HFlowContainer" parent="BottomArea/ChoicesPanel/ChoicesMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
 
 [node name="EndingPanel" type="PanelContainer" parent="."]
 visible = false

@@ -33,7 +33,7 @@ const PORTRAIT_MAP := {
 
 @onready var _scene_text: RichTextLabel = $BottomArea/TextPanel/TextMargin/SceneText
 @onready var _choices_panel: PanelContainer = $BottomArea/ChoicesPanel
-@onready var _choices: VBoxContainer = $BottomArea/ChoicesPanel/ChoicesMargin/ChoicesScroll/Choices
+@onready var _choices: HFlowContainer = $BottomArea/ChoicesPanel/ChoicesMargin/Choices
 @onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
 @onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
 @onready var _load_button: Button = $TopBar/TopBarMargin/Controls/LoadButton
@@ -115,6 +115,7 @@ func _build_choices() -> void:
 	for choice in choices:
 		var button := Button.new()
 		button.text = choice.testo
+		button.custom_minimum_size = Vector2(180, 44)
 		button.disabled = not choice.abilitata
 		if not choice.abilitata and choice.motivo_blocco != "":
 			button.tooltip_text = choice.motivo_blocco
