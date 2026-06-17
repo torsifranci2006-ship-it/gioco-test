@@ -100,16 +100,34 @@ motore narrativo.
 | **Carica** | nascosto | nascosto | nascosto | `LoadPanel` |
 | **Salva** | nascosto | nascosto | nascosto | `SavePanel` (+ `SaveConfirm`) |
 
-- **Avvio** → stato Menu; `Riprendi` e `Salva` disabilitati (nessuna partita in memoria).
-- **Nuova Partita / Carica** → `scene_changed` → stato Gioco; `Riprendi` e `Salva` si abilitano.
-- **Menu** (in gioco) → torna allo stato Menu **senza** resettare il motore; la partita resta in memoria.
-- **Riprendi** (a menu) → torna alla partita corrente (ri-renderizza la scena attiva, nessun reload).
-- **Esci** → conferma centrale; **Conferma** = `get_tree().quit()`, **Annulla** = torna al menu.
+- **Avvio** → stato Menu; `Salva` disabilitato (nessuna partita); `Riprendi` abilitato **sse esiste
+  l'autosave** su disco, altrimenti disabilitato.
+- **Nuova Partita / Carica** → `scene_changed` → stato Gioco; `Salva` si abilita.
+- **Menu** (in gioco) → **autosalva** e torna allo stato Menu **senza** resettare il motore; così
+  `Riprendi` punta sempre all'ultimo stato giocato.
+- **Riprendi** (a menu) → **carica l'autosave da disco** ed entra in gioco; non apre liste/pannelli.
+- **Esci** → conferma centrale; **Conferma** = `Game.quit_with_autosave()` (autosalva poi esce),
+  **Annulla** = torna al menu.
 - **Salva / Carica** (da StartMenu *o* TopBar) → aprono `SavePanel`/`LoadPanel`; una variabile
-  `_panel_origin` ricorda il contesto, così **Annulla** torna a Menu o a Gioco. I salvataggi sono
-  slot multipli in `user://saves/save_<N>.json`, elencati per data/ora decrescente; ogni voce mostra
+  `_panel_origin` ricorda il contesto, così **Annulla** torna a Menu o a Gioco. I salvataggi **manuali**
+  sono slot multipli in `user://saves/save_<N>.json`, elencati per data/ora decrescente; ogni voce mostra
   **titolo scena**, **id scena** e **data/ora**. Creare un nuovo slot o sovrascriverne uno passa da
   `SaveConfirm`.
+
+### Autosave
+
+Esiste **un solo autosave** in `user://autosave.json`, separato dagli slot manuali (`user://saves/`)
+e **mai elencato** in `LoadPanel`/`SavePanel` (i pannelli mostrano una nota che lo ricorda). Viene
+sovrascritto a ogni uscita: nessuna cronologia.
+
+- **Quando si autosalva** (gestito in `Game`, autoload): premendo **Menu**, su **Esci** confermato
+  (`quit_with_autosave`), e alla **chiusura finestra/sessione** via `NOTIFICATION_WM_CLOSE_REQUEST`
+  (con `set_auto_accept_quit(false)` in `Game._ready`), più `_exit_tree()` come rete di sicurezza. Un
+  flag `_autosave_done_on_exit` evita doppi salvataggi in chiusura.
+- `Game.autosave()` non crea nulla se non c'è partita in corso (motore con `state == null`).
+- **Riprendi** usa esclusivamente l'autosave: abilitato sse `Game.has_autosave()`; se il file è
+  presente ma non valido, il caricamento fallisce con un messaggio e il pulsante viene disabilitato.
+- `Carica`/`Salva` lavorano **solo** sugli slot manuali e non toccano mai l'autosave.
 
 ## Segnali
 

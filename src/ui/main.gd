@@ -100,6 +100,7 @@ func _ready() -> void:
 		_load_button.disabled = true
 		_start_new_game_button.disabled = true
 		_start_load_button.disabled = true
+		_start_resume_button.disabled = true
 		# _start_save_button resta disabilitato (nessuna partita da salvare)
 		_show_status("Errore di inizializzazione: " + Game.last_error())
 	else:
@@ -242,6 +243,8 @@ func _enter_menu() -> void:
 	_bottom_area.visible = false
 	_character.visible = false
 	_start_menu.visible = true
+	# "Riprendi" dipende esclusivamente dall'esistenza dell'autosave su disco.
+	_start_resume_button.disabled = not Game.has_autosave()
 
 ## Stato GIOCO: UI di gioco visibile, menu/overlay nascosti. Abilita Riprendi e Salva
 ## (da qui una partita esiste in memoria). Il ritratto è gestito da _apply_visual.
@@ -254,30 +257,34 @@ func _enter_game() -> void:
 	_start_menu.visible = false
 	_top_bar.visible = true
 	_bottom_area.visible = true
-	_start_resume_button.disabled = false
 	_start_save_button.disabled = false
 
 ## "Menu" (in gioco): torna alla schermata iniziale senza toccare lo stato del motore.
 func _on_menu() -> void:
+	Game.autosave()   # così "Riprendi" punta sempre all'ultimo stato giocato
 	_enter_menu()
-	_show_status("Partita in pausa.")
+	_show_status("Partita in pausa. Autosave aggiornato.")
 
-## "Riprendi" (menu): torna alla partita corrente senza ricaricare né resettare.
+## "Riprendi" (menu): carica l'autosave da disco ed entra direttamente in gioco.
+## Non apre il menu Carica e non mostra liste.
 func _on_resume() -> void:
-	if Game.current_scene() == null:
+	if not Game.has_autosave():
 		return
-	_enter_game()
-	_apply_visual(Game.current_scene())
-	_render_current()
+	if Game.load_autosave():
+		# load_autosave emette scene_changed -> _on_scene_changed -> _enter_game
+		_show_status("Partita ripresa.")
+	else:
+		_show_status("Autosave non valido.")
+		_start_resume_button.disabled = true
 
 ## "Esci" (menu): mostra la conferma centrale, non chiude subito.
 func _on_exit() -> void:
 	_start_menu.visible = false
 	_exit_confirm.visible = true
 
-## "Conferma" (dialog uscita): chiude l'applicazione.
+## "Conferma" (dialog uscita): autosalva e chiude l'applicazione.
 func _on_exit_confirm() -> void:
-	get_tree().quit()
+	Game.quit_with_autosave()
 
 ## "Annulla" (dialog uscita): chiude la conferma e torna al menu iniziale.
 func _on_exit_cancel() -> void:

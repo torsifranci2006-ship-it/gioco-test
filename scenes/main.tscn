@@ -418,6 +418,12 @@ theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
 theme_override_font_sizes/font_size = 22
 text = "Carica partita"
 
+[node name="LoadNote" type="Label" parent="LoadPanel/LoadMargin/LoadVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.71, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text = "L'autosave non è qui: usa Riprendi nel menu."
+
 [node name="LoadScroll" type="ScrollContainer" parent="LoadPanel/LoadMargin/LoadVBox"]
 custom_minimum_size = Vector2(380, 260)
 layout_mode = 2
@@ -455,6 +461,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
 theme_override_font_sizes/font_size = 22
 text = "Salva partita"
+
+[node name="SaveNote" type="Label" parent="SavePanel/SaveMargin/SaveVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.71, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text = "Salvataggi manuali — l'autosave è separato."
 
 [node name="SaveNewButton" type="Button" parent="SavePanel/SaveMargin/SaveVBox"]
 layout_mode = 2

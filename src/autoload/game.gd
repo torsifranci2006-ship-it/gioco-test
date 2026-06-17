@@ -7,15 +7,36 @@ extends Node
 
 const SAVE_PATH := "user://savegame.json"   ## legacy slot singolo (non più usato dalla UI)
 const SAVE_DIR := "user://saves/"           ## directory degli slot multipli
+const AUTOSAVE_PATH := "user://autosave.json"  ## unico autosave, separato dagli slot manuali
 
 var engine: StoryEngine
 var ready_ok: bool = false        ## true se il setup del motore è riuscito
+var _autosave_done_on_exit: bool = false  ## evita doppi autosave alla chiusura
 
 func _ready() -> void:
 	engine = StoryEngine.new()
 	ready_ok = engine.setup()
 	if not ready_ok:
 		push_error("Game: inizializzazione del motore fallita — " + engine.last_error)
+	# Gestiamo noi la chiusura, così possiamo autosalvare prima di uscire.
+	get_tree().set_auto_accept_quit(false)
+
+## Chiusura finestra / richiesta di quit dal sistema: autosalva e poi esce.
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		_autosave_on_exit()
+		get_tree().quit()
+
+## Rete di sicurezza per percorsi di chiusura che non passano da WM_CLOSE_REQUEST.
+func _exit_tree() -> void:
+	_autosave_on_exit()
+
+## Esegue l'autosave una sola volta per chiusura (flag anti-doppione).
+func _autosave_on_exit() -> void:
+	if _autosave_done_on_exit:
+		return
+	_autosave_done_on_exit = true
+	autosave()
 
 # --- Controllo partita ---
 
@@ -92,6 +113,30 @@ func load_slot(slot: int) -> bool:
 	if not ready_ok:
 		return false
 	return engine.load_game(_slot_path(slot))
+
+# --- Autosave (unico file dedicato, separato dagli slot manuali) ---
+
+## Salva la partita corrente sull'autosave. Ritorna false se non c'è partita in corso
+## (state == null) o motore non pronto: in tal caso nessun file viene creato.
+func autosave() -> bool:
+	if not ready_ok:
+		return false
+	return engine.save_game(AUTOSAVE_PATH)
+
+## True se esiste un autosave su disco (usato per abilitare "Riprendi").
+func has_autosave() -> bool:
+	return FileAccess.file_exists(AUTOSAVE_PATH)
+
+## Carica l'autosave (emette scene_changed tramite il motore). False se assente/non valido.
+func load_autosave() -> bool:
+	if not ready_ok:
+		return false
+	return engine.load_game(AUTOSAVE_PATH)
+
+## "Esci" confermato: autosalva (una sola volta) e chiude l'applicazione.
+func quit_with_autosave() -> void:
+	_autosave_on_exit()
+	get_tree().quit()
 
 ## Titolo leggibile di una scena dato il suo id (pass-through al motore). "" se sconosciuto.
 func scene_title(scene_id: String) -> String:
