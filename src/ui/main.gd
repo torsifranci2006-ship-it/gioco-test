@@ -14,7 +14,7 @@ const BG_MAP := {
 	"bg_esterno_crimine_notte": "res://assets/backgrounds/bg_auto_notte.png",
 	"bg_commissariato": "res://assets/backgrounds/bg_auto_notte.png",
 	"bg_obitorio": "res://assets/backgrounds/bg_obitorio.png",
-	"bg_incontro_veil": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_incontro_veil": "res://assets/backgrounds/bg_incontro_veil.png",
 	"bg_bar_privato": "res://assets/backgrounds/bg_bar_privato.png",
 	"bg_tobia_rifugio": "res://assets/backgrounds/bg_tobia_rifugio.png",
 }
