@@ -19,22 +19,40 @@ dell'interfaccia ("Nuova Partita", "Salva", "Carica").
 
 ## Struttura dei nodi (`main.tscn`)
 
+Layout in stile visual novel/noir: sfondo e ritratto a tutto schermo, testo e scelte in pannelli
+ancorati in basso, comandi di sistema in una barra sottile in alto. Il nodo radice `Main` porta un
+`Theme` (sub-resource) che stila i pulsanti — inclusi quelli **generati a runtime** — con
+`StyleBoxFlat` (normale/hover/pressed/disabled).
+
 ```
-Main (Control)                         [script: src/ui/main.gd]
-└── Margin (MarginContainer)
-    └── Root (VBoxContainer)
-        ├── SceneText (RichTextLabel)          # testo della scena
-        ├── ChoicesScroll (ScrollContainer)
-        │   └── Choices (VBoxContainer)        # pulsanti scelta generati a runtime
-        ├── Controls (HBoxContainer)
-        │   ├── NewGameButton / SaveButton / LoadButton
-        └── Status (Label)                     # messaggi ed errori leggibili
-└── EndingPanel (PanelContainer, nascosto)     # schermata finale (overlay)
+Main (Control)                         [script: src/ui/main.gd; theme: noir]
+├── Background (TextureRect)            # sfondo a tutto schermo (dietro a tutto)
+├── Character (TextureRect)             # ritratto sopra il background
+├── Scrim (ColorRect, α0.40)           # velo scuro leggero per la leggibilità
+├── TopBar (PanelContainer, in alto)   # barra comandi sottile (StyleBoxFlat)
+│   └── TopBarMargin (MarginContainer)
+│       └── Controls (HBoxContainer)
+│           ├── NewGameButton / SaveButton / LoadButton
+│           └── Status (Label)                  # messaggi ed errori (allineati a dx)
+└── BottomArea (VBoxContainer, in basso, cresce verso l'alto)
+    ├── ChoicesPanel (PanelContainer)           # menu scelte SOPRA il testo (StyleBoxFlat)
+    │   └── ChoicesMargin (MarginContainer)
+    │       └── ChoicesScroll (ScrollContainer)
+    │           └── Choices (VBoxContainer)      # pulsanti scelta generati a runtime
+    └── TextPanel (PanelContainer)              # textbox noir, bordo sottile, angoli arrotondati
+        └── TextMargin (MarginContainer)
+            └── SceneText (RichTextLabel)        # testo della scena
+EndingPanel (PanelContainer, nascosto)          # schermata finale (overlay, StyleBoxFlat)
+└── EndingMargin (MarginContainer)
     └── EndingVBox (VBoxContainer)
         ├── EndingTitle (Label)
-        ├── EndingText (RichTextLabel)         # testo finale + epiloghi
+        ├── EndingText (RichTextLabel)           # testo finale + epiloghi
         └── EndingNewGameButton (Button)
 ```
+
+> Stile gestito **solo** con nodi standard e `StyleBoxFlat`/`Theme` (nessun plugin, nessun asset UI).
+> I pannelli (`TextPanel`, `ChoicesPanel`, `TopBar`, `EndingPanel`) usano `StyleBoxFlat` scuri
+> semi-trasparenti con bordo sottile in tono ottone; i pulsanti hanno hover/pressed visibili.
 
 ## Segnali
 

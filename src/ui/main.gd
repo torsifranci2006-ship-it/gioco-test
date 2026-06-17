@@ -31,16 +31,16 @@ const PORTRAIT_MAP := {
 	"char_voss": "res://assets/characters/voss/char_voss.png",
 }
 
-@onready var _scene_text: RichTextLabel = $Margin/Root/SceneText
-@onready var _choices: VBoxContainer = $Margin/Root/ChoicesScroll/Choices
-@onready var _new_game_button: Button = $Margin/Root/Controls/NewGameButton
-@onready var _save_button: Button = $Margin/Root/Controls/SaveButton
-@onready var _load_button: Button = $Margin/Root/Controls/LoadButton
-@onready var _status: Label = $Margin/Root/Status
+@onready var _scene_text: RichTextLabel = $BottomArea/TextPanel/TextMargin/SceneText
+@onready var _choices: VBoxContainer = $BottomArea/ChoicesPanel/ChoicesMargin/ChoicesScroll/Choices
+@onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
+@onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
+@onready var _load_button: Button = $TopBar/TopBarMargin/Controls/LoadButton
+@onready var _status: Label = $TopBar/TopBarMargin/Controls/Status
 @onready var _ending_panel: PanelContainer = $EndingPanel
-@onready var _ending_title: Label = $EndingPanel/EndingVBox/EndingTitle
-@onready var _ending_text: RichTextLabel = $EndingPanel/EndingVBox/EndingText
-@onready var _ending_new_game_button: Button = $EndingPanel/EndingVBox/EndingNewGameButton
+@onready var _ending_title: Label = $EndingPanel/EndingMargin/EndingVBox/EndingTitle
+@onready var _ending_text: RichTextLabel = $EndingPanel/EndingMargin/EndingVBox/EndingText
+@onready var _ending_new_game_button: Button = $EndingPanel/EndingMargin/EndingVBox/EndingNewGameButton
 @onready var _background: TextureRect = $Background
 @onready var _character: TextureRect = $Character
 
