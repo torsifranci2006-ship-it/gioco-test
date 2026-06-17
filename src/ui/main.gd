@@ -32,6 +32,7 @@ const PORTRAIT_MAP := {
 }
 
 @onready var _scene_text: RichTextLabel = $BottomArea/TextPanel/TextMargin/SceneText
+@onready var _choices_panel: PanelContainer = $BottomArea/ChoicesPanel
 @onready var _choices: VBoxContainer = $BottomArea/ChoicesPanel/ChoicesMargin/ChoicesScroll/Choices
 @onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
 @onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
@@ -119,6 +120,7 @@ func _build_choices() -> void:
 			button.tooltip_text = choice.motivo_blocco
 		button.pressed.connect(_on_choice.bind(choice.id))
 		_choices.add_child(button)
+	_choices_panel.visible = _choices.get_child_count() > 0
 	if choices.is_empty():
 		_status.text = "Nessuna scelta disponibile in questa scena."
 
