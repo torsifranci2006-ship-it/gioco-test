@@ -57,21 +57,40 @@ const PORTRAIT_MAP := {
 @onready var _ending_new_game_button: Button = $EndingPanel/EndingMargin/EndingVBox/EndingNewGameButton
 @onready var _background: TextureRect = $Background
 @onready var _character: TextureRect = $Character
+@onready var _load_panel: PanelContainer = $LoadPanel
+@onready var _load_list: VBoxContainer = $LoadPanel/LoadMargin/LoadVBox/LoadScroll/LoadList
+@onready var _load_cancel_button: Button = $LoadPanel/LoadMargin/LoadVBox/LoadCancelButton
+@onready var _save_panel: PanelContainer = $SavePanel
+@onready var _save_list: VBoxContainer = $SavePanel/SaveMargin/SaveVBox/SaveScroll/SaveList
+@onready var _save_new_button: Button = $SavePanel/SaveMargin/SaveVBox/SaveNewButton
+@onready var _save_cancel_button: Button = $SavePanel/SaveMargin/SaveVBox/SaveCancelButton
+@onready var _save_confirm: PanelContainer = $SaveConfirm
+@onready var _save_confirm_label: Label = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmLabel
+@onready var _save_confirm_yes_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmYesButton
+@onready var _save_confirm_no_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmNoButton
+
+var _panel_origin: String = "menu"   ## contesto di apertura di Save/Load: "menu" o "game"
+var _pending_save_slot: int = 0       ## slot da confermare nel SaveConfirm
 
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
 	EventBus.game_ended.connect(_on_game_ended)
 	_new_game_button.pressed.connect(_on_new_game)
-	_save_button.pressed.connect(_on_save)
-	_load_button.pressed.connect(_on_load)
+	_save_button.pressed.connect(_on_open_save.bind("game"))
+	_load_button.pressed.connect(_on_open_load.bind("game"))
 	_start_new_game_button.pressed.connect(_on_new_game)
-	_start_save_button.pressed.connect(_on_save)
-	_start_load_button.pressed.connect(_on_load)
+	_start_save_button.pressed.connect(_on_open_save.bind("menu"))
+	_start_load_button.pressed.connect(_on_open_load.bind("menu"))
 	_start_resume_button.pressed.connect(_on_resume)
 	_start_exit_button.pressed.connect(_on_exit)
 	_menu_button.pressed.connect(_on_menu)
 	_exit_confirm_button.pressed.connect(_on_exit_confirm)
 	_exit_cancel_button.pressed.connect(_on_exit_cancel)
+	_load_cancel_button.pressed.connect(_on_panel_cancel)
+	_save_cancel_button.pressed.connect(_on_panel_cancel)
+	_save_new_button.pressed.connect(_on_save_new)
+	_save_confirm_yes_button.pressed.connect(_on_save_confirm_yes)
+	_save_confirm_no_button.pressed.connect(_on_save_confirm_no)
 	_ending_new_game_button.pressed.connect(_on_new_game)
 	# Stato iniziale: schermata di menu (Riprendi/Salva restano disabilitati finché non si gioca).
 	_enter_menu()
@@ -99,17 +118,111 @@ func _on_new_game() -> void:
 	Game.new_game()
 	_show_status("Nuova partita avviata.")
 
-func _on_save() -> void:
-	if Game.save_game():
-		_show_status("Partita salvata.")
-	else:
-		_show_status("Impossibile salvare la partita.")
+# --- Menu salvataggi / caricamenti (overlay centrati) ---
 
-func _on_load() -> void:
-	if Game.load_game():
+## Apre il pannello Carica. origin = "menu" | "game" (per il ritorno con Annulla).
+func _on_open_load(origin: String) -> void:
+	_panel_origin = origin
+	_start_menu.visible = false
+	_top_bar.visible = false
+	_bottom_area.visible = false
+	_populate_load_list()
+	_load_panel.visible = true
+
+## Apre il pannello Salva.
+func _on_open_save(origin: String) -> void:
+	_panel_origin = origin
+	_start_menu.visible = false
+	_top_bar.visible = false
+	_bottom_area.visible = false
+	_populate_save_list()
+	_save_panel.visible = true
+
+## Annulla da LoadPanel/SavePanel: torna al contesto di provenienza.
+func _on_panel_cancel() -> void:
+	if _panel_origin == "game":
+		_enter_game()
+	else:
+		_enter_menu()
+
+## Popola la lista Carica: una riga-pulsante per salvataggio (clic = carica subito).
+func _populate_load_list() -> void:
+	_clear_container(_load_list)
+	var saves := Game.list_saves()
+	for entry in saves:
+		_load_list.add_child(_make_save_row(entry, _on_load_slot.bind(int(entry["slot"]))))
+	if saves.is_empty():
+		_load_list.add_child(_make_empty_label("Nessun salvataggio disponibile."))
+
+## Popola la lista Salva: righe sovrascrivibili (clic = conferma sovrascrittura).
+func _populate_save_list() -> void:
+	_clear_container(_save_list)
+	for entry in Game.list_saves():
+		_save_list.add_child(_make_save_row(entry, _on_overwrite_slot.bind(int(entry["slot"]))))
+
+## Clic su uno slot nel LoadPanel: carica (nessuna conferma). load_slot emette scene_changed.
+func _on_load_slot(slot: int) -> void:
+	if Game.load_slot(slot):
 		_show_status("Partita caricata.")
 	else:
-		_show_status("Nessun salvataggio valido da caricare.")
+		_show_status("Caricamento non riuscito.")
+
+## "Nuovo salvataggio": chiede conferma per creare un nuovo slot.
+func _on_save_new() -> void:
+	_pending_save_slot = Game.next_free_slot()
+	_save_confirm_label.text = "Creare un nuovo salvataggio?"
+	_save_panel.visible = false
+	_save_confirm.visible = true
+
+## Clic su uno slot esistente nel SavePanel: chiede conferma di sovrascrittura.
+func _on_overwrite_slot(slot: int) -> void:
+	_pending_save_slot = slot
+	_save_confirm_label.text = "Sovrascrivere lo slot %d?" % slot
+	_save_panel.visible = false
+	_save_confirm.visible = true
+
+## Conferma salvataggio (nuovo o sovrascrittura): salva e torna al SavePanel aggiornato.
+func _on_save_confirm_yes() -> void:
+	var ok := Game.save_slot(_pending_save_slot)
+	_save_confirm.visible = false
+	_populate_save_list()
+	_save_panel.visible = true
+	_show_status("Salvato." if ok else "Salvataggio non riuscito.")
+
+## Annulla la conferma: torna al menu salvataggi senza salvare.
+func _on_save_confirm_no() -> void:
+	_save_confirm.visible = false
+	_save_panel.visible = true
+
+## Riga-salvataggio: Button cliccabile multi-riga (titolo / id · data-ora).
+func _make_save_row(entry: Dictionary, on_press: Callable) -> Button:
+	var title := String(entry.get("scene_title", ""))
+	var scene_id := String(entry.get("scene_id", ""))
+	if title == "":
+		title = scene_id
+	var btn := Button.new()
+	btn.text = "%s\n%s · %s" % [title, scene_id, _format_datetime(int(entry.get("mtime", 0)))]
+	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	btn.custom_minimum_size = Vector2(360, 0)
+	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	btn.pressed.connect(on_press)
+	return btn
+
+func _make_empty_label(msg: String) -> Label:
+	var l := Label.new()
+	l.text = msg
+	return l
+
+func _clear_container(c: Node) -> void:
+	for child in c.get_children():
+		child.queue_free()
+
+## Formatta un timestamp Unix come "gg/mm/aaaa hh:mm".
+func _format_datetime(unix_time: int) -> String:
+	if unix_time <= 0:
+		return "—"
+	var d := Time.get_datetime_dict_from_unix_time(unix_time)
+	return "%02d/%02d/%04d %02d:%02d" % [d.day, d.month, d.year, d.hour, d.minute]
 
 ## Mostra un messaggio di stato sia nella TopBar (in gioco) sia nel menu iniziale (pre-partita).
 func _show_status(msg: String) -> void:
@@ -122,6 +235,9 @@ func _show_status(msg: String) -> void:
 func _enter_menu() -> void:
 	_exit_confirm.visible = false
 	_ending_panel.visible = false
+	_load_panel.visible = false
+	_save_panel.visible = false
+	_save_confirm.visible = false
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_character.visible = false
@@ -132,6 +248,9 @@ func _enter_menu() -> void:
 func _enter_game() -> void:
 	_exit_confirm.visible = false
 	_ending_panel.visible = false
+	_load_panel.visible = false
+	_save_panel.visible = false
+	_save_confirm.visible = false
 	_start_menu.visible = false
 	_top_bar.visible = true
 	_bottom_area.visible = true

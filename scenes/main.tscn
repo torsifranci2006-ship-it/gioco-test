@@ -393,3 +393,121 @@ text = "Conferma"
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Annulla"
+
+[node name="LoadPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="LoadMargin" type="MarginContainer" parent="LoadPanel"]
+layout_mode = 2
+
+[node name="LoadVBox" type="VBoxContainer" parent="LoadPanel/LoadMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="LoadTitle" type="Label" parent="LoadPanel/LoadMargin/LoadVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Carica partita"
+
+[node name="LoadScroll" type="ScrollContainer" parent="LoadPanel/LoadMargin/LoadVBox"]
+custom_minimum_size = Vector2(380, 260)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="LoadList" type="VBoxContainer" parent="LoadPanel/LoadMargin/LoadVBox/LoadScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="LoadCancelButton" type="Button" parent="LoadPanel/LoadMargin/LoadVBox"]
+layout_mode = 2
+text = "Annulla"
+
+[node name="SavePanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="SaveMargin" type="MarginContainer" parent="SavePanel"]
+layout_mode = 2
+
+[node name="SaveVBox" type="VBoxContainer" parent="SavePanel/SaveMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="SaveTitle" type="Label" parent="SavePanel/SaveMargin/SaveVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Salva partita"
+
+[node name="SaveNewButton" type="Button" parent="SavePanel/SaveMargin/SaveVBox"]
+layout_mode = 2
+text = "Nuovo salvataggio"
+
+[node name="SaveScroll" type="ScrollContainer" parent="SavePanel/SaveMargin/SaveVBox"]
+custom_minimum_size = Vector2(380, 220)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="SaveList" type="VBoxContainer" parent="SavePanel/SaveMargin/SaveVBox/SaveScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SaveCancelButton" type="Button" parent="SavePanel/SaveMargin/SaveVBox"]
+layout_mode = 2
+text = "Annulla"
+
+[node name="SaveConfirm" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="SaveConfirmMargin" type="MarginContainer" parent="SaveConfirm"]
+layout_mode = 2
+
+[node name="SaveConfirmVBox" type="VBoxContainer" parent="SaveConfirm/SaveConfirmMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="SaveConfirmLabel" type="Label" parent="SaveConfirm/SaveConfirmMargin/SaveConfirmVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Sovrascrivere questo salvataggio?"
+
+[node name="SaveConfirmButtons" type="HBoxContainer" parent="SaveConfirm/SaveConfirmMargin/SaveConfirmVBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="SaveConfirmYesButton" type="Button" parent="SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Conferma"
+
+[node name="SaveConfirmNoButton" type="Button" parent="SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Annulla"

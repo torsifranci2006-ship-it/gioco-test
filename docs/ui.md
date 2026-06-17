@@ -56,35 +56,60 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │           ├── EndingTitle (Label)
 │           ├── EndingText (RichTextLabel)          # testo finale + epiloghi
 │           └── EndingNewGameButton (Button)
-└── ExitConfirm (PanelContainer, centrato, nascosto)  # conferma uscita (overlay, sb_ending)
-    └── ExitMargin (MarginContainer)
-        └── ExitVBox (VBoxContainer)
-            ├── ExitLabel (Label, "Vuoi davvero uscire?")
-            └── ExitButtons (HBoxContainer)
-                ├── ExitConfirmButton (Button, "Conferma" -> get_tree().quit())
-                └── ExitCancelButton (Button, "Annulla" -> torna al menu)
+├── ExitConfirm (PanelContainer, centrato, nascosto)  # conferma uscita (overlay, sb_ending)
+│   └── ExitMargin (MarginContainer)
+│       └── ExitVBox (VBoxContainer)
+│           ├── ExitLabel (Label, "Vuoi davvero uscire?")
+│           └── ExitButtons (HBoxContainer)
+│               ├── ExitConfirmButton (Button, "Conferma" -> get_tree().quit())
+│               └── ExitCancelButton (Button, "Annulla" -> torna al menu)
+├── LoadPanel (PanelContainer, centrato, nascosto)   # "Carica partita" (overlay, sb_ending)
+│   └── LoadMargin → LoadVBox
+│       ├── LoadTitle (Label, "Carica partita")
+│       ├── LoadScroll (ScrollContainer) → LoadList (VBoxContainer)  # righe a runtime, clic = carica
+│       └── LoadCancelButton (Button, "Annulla" -> origine)
+├── SavePanel (PanelContainer, centrato, nascosto)   # "Salva partita" (overlay, sb_ending)
+│   └── SaveMargin → SaveVBox
+│       ├── SaveTitle (Label, "Salva partita")
+│       ├── SaveNewButton (Button, "Nuovo salvataggio")
+│       ├── SaveScroll (ScrollContainer) → SaveList (VBoxContainer)  # slot sovrascrivibili a runtime
+│       └── SaveCancelButton (Button, "Annulla" -> origine)
+└── SaveConfirm (PanelContainer, centrato, nascosto)  # conferma nuovo/sovrascrittura (sb_ending)
+    └── SaveConfirmMargin → SaveConfirmVBox
+        ├── SaveConfirmLabel (Label, testo dinamico)
+        └── SaveConfirmButtons (HBoxContainer)
+            ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
+            └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
 ```
 
 > Stile gestito **solo** con nodi standard e `StyleBoxFlat`/`Theme` (nessun plugin, nessun asset UI).
-> I pannelli (`TextPanel`, `ChoicesPanel`, `TopBar`, `StartMenu`, `EndingPanel`, `ExitConfirm`) usano
-> `StyleBoxFlat` scuri semi-trasparenti con bordo sottile in tono ottone; i pulsanti hanno hover/pressed visibili.
+> Tutti i pannelli usano `StyleBoxFlat` scuri semi-trasparenti con bordo sottile in tono ottone; gli
+> overlay centrati (`ExitConfirm`, `LoadPanel`, `SavePanel`, `SaveConfirm`) riusano `sb_ending`.
 
 ### Stati della UI
 
-La UI ha tre stati, gestiti in `src/ui/main.gd` da `_enter_menu()` / `_enter_game()` (più gli
-overlay `EndingPanel` e `ExitConfirm`). Nessuno di essi tocca lo stato del motore narrativo.
+Gli stati sono gestiti in `src/ui/main.gd` da `_enter_menu()` / `_enter_game()` più gli overlay
+(`EndingPanel`, `ExitConfirm`, `LoadPanel`, `SavePanel`, `SaveConfirm`). Nessuno tocca lo stato del
+motore narrativo.
 
-| Stato | StartMenu | TopBar | BottomArea | Character | ExitConfirm |
-| --- | --- | --- | --- | --- | --- |
-| **Menu** | visibile | nascosto | nascosto | nascosto | nascosto |
-| **Gioco** | nascosto | visibile | visibile | per-scena | nascosto |
-| **Conferma uscita** | nascosto | nascosto | nascosto | nascosto | visibile |
+| Stato | StartMenu | TopBar | BottomArea | Overlay attivo |
+| --- | --- | --- | --- | --- |
+| **Menu** | visibile | nascosto | nascosto | — |
+| **Gioco** | nascosto | visibile | visibile | — |
+| **Conferma uscita** | nascosto | nascosto | nascosto | `ExitConfirm` |
+| **Carica** | nascosto | nascosto | nascosto | `LoadPanel` |
+| **Salva** | nascosto | nascosto | nascosto | `SavePanel` (+ `SaveConfirm`) |
 
 - **Avvio** → stato Menu; `Riprendi` e `Salva` disabilitati (nessuna partita in memoria).
 - **Nuova Partita / Carica** → `scene_changed` → stato Gioco; `Riprendi` e `Salva` si abilitano.
 - **Menu** (in gioco) → torna allo stato Menu **senza** resettare il motore; la partita resta in memoria.
 - **Riprendi** (a menu) → torna alla partita corrente (ri-renderizza la scena attiva, nessun reload).
 - **Esci** → conferma centrale; **Conferma** = `get_tree().quit()`, **Annulla** = torna al menu.
+- **Salva / Carica** (da StartMenu *o* TopBar) → aprono `SavePanel`/`LoadPanel`; una variabile
+  `_panel_origin` ricorda il contesto, così **Annulla** torna a Menu o a Gioco. I salvataggi sono
+  slot multipli in `user://saves/save_<N>.json`, elencati per data/ora decrescente; ogni voce mostra
+  **titolo scena**, **id scena** e **data/ora**. Creare un nuovo slot o sovrascriverne uno passa da
+  `SaveConfirm`.
 
 ## Segnali
 

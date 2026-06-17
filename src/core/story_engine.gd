@@ -67,6 +67,12 @@ func current_scene() -> StoryScene:
 		return null
 	return _scenes.get(state.current_scene_id)
 
+## Accessor di sola lettura: titolo leggibile di una scena dato il suo id (per la UI dei
+## salvataggi). Ritorna "" se l'id non esiste. Non altera lo stato né la logica narrativa.
+func scene_title(scene_id: String) -> String:
+	var sc: StoryScene = _scenes.get(scene_id)
+	return sc.titolo if sc != null else ""
+
 ## Frammenti di testo della scena corrente la cui condizione è soddisfatta.
 func current_text() -> Array[String]:
 	var out: Array[String] = []
