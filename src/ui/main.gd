@@ -15,15 +15,15 @@ const BG_MAP := {
 	"bg_commissariato": "res://assets/backgrounds/bg_auto_notte.png",
 	"bg_obitorio": "res://assets/backgrounds/bg_auto_notte.png",
 	"bg_incontro_veil": "res://assets/backgrounds/bg_auto_notte.png",
-	"bg_bar_privato": "res://assets/backgrounds/bg_auto_notte.png",
-	"bg_tobia_rifugio": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_bar_privato": "res://assets/backgrounds/bg_bar_privato.png",
+	"bg_tobia_rifugio": "res://assets/backgrounds/bg_tobia_rifugio.png",
 }
 const PORTRAIT_MAP := {
 	"char_daniel_caldo": "res://assets/characters/daniel/char_daniel_caldo.png",
 	"char_daniel_freddo": "res://assets/characters/daniel/char_daniel_freddo.png",
-	"char_mara": "res://assets/characters/daniel/char_daniel_caldo.png",
-	"char_veil": "res://assets/characters/daniel/char_daniel_caldo.png",
-	"char_tobia": "res://assets/characters/daniel/char_daniel_caldo.png",
+	"char_mara": "res://assets/characters/mara/char_mara.png",
+	"char_veil": "res://assets/characters/veil/char_veil.png",
+	"char_tobia": "res://assets/characters/tobia/char_tobia.png",
 }
 
 @onready var _scene_text: RichTextLabel = $Margin/Root/SceneText
