@@ -3,6 +3,7 @@
   "id": "a3_s06",
   "titolo": "Decisione finale",
   "atto": "atto3",
+  "visual": { "background": "bg_auto_notte", "portrait": "char_daniel_freddo" },
   "precondizioni": { "flag": { "id": "verita_nota" } },
   "testo": [
     { "contenuto": "Siete soli, alla fine, come all'inizio. Da una parte un processo, i giornali, la verità che esce intera e fa male a tutti — Daniel compreso. Dall'altra il silenzio: nessun nome infangato, una città che dorme, e un peso che resterà soltanto tuo. Daniel non implora e non si difende. Aspetta solo di vedere chi diventerai.", "condizione": null }

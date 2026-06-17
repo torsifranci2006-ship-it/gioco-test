@@ -3,6 +3,7 @@
   "id": "a3_s03",
   "titolo": "Rivelazione",
   "atto": "atto3",
+  "visual": { "background": "bg_auto_notte", "portrait": "char_daniel_freddo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Sei in macchina con lui, come mille altre volte. Il dettaglio che sapeva prima di tutti. Gli angoli senza telecamere, conosciuti a memoria. I vecchi fascicoli tirati fuori da dentro, e la sua voce che diceva di andarci piano. Tutto scivola al suo posto senza rumore. Quando alzi gli occhi, Daniel ti sta già guardando. Non dice niente. Non serve. Lo sai, e lui sa che lo sai.", "condizione": null },

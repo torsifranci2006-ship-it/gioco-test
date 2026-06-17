@@ -3,6 +3,7 @@
   "id": "a3_s01",
   "titolo": "Crollo delle false piste",
   "atto": "atto3",
+  "visual": { "background": "bg_commissariato", "portrait": null },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Li elimini a uno a uno, senza fretta. Voss non ha accesso agli archivi da anni, e quella notte era ricoverato. Halloran avrebbe voluto seppellire quei casi, non riaprirli a colpi di sangue. Veil viene da fuori, non ha le chiavi che servono. Resta una forma sola, ritagliata dai fatti: qualcuno di dentro, con le mani in mezzo all'indagine. Una forma che non vuoi guardare in faccia.", "condizione": null }

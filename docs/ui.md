@@ -79,13 +79,12 @@ può avere un campo opzionale `visual` (vedi `schemas/scene.schema.json`), trasp
 - `visual.background` sconosciuto/assente → fallback `bg_auto_notte.png`.
 - `visual.portrait` `null` / `"none"` / `""` → **ritratto nascosto**.
 - `visual.portrait` sconosciuto → fallback `char_daniel_caldo`.
-- **Scene senza `visual`** (per ora **Atto 3**) → fallback completo: `bg_auto_notte.png` + ritratto
-  secondo la **regola temporanea** `_is_act3_reveal` (Daniel "freddo" da `a3_s03` in poi, altrimenti
-  caldo). Questa regola id-based è un **ripiego**: si applica solo in assenza di metadata e andrà
-  rimossa quando anche l'Atto 3 avrà il campo `visual`.
+- **Scene senza `visual`** (rete di sicurezza: oggi tutte le scene di Atti 1–3 hanno `visual`) →
+  fallback completo: `bg_auto_notte.png` + ritratto di default `char_daniel_caldo`. Nessuna
+  regola id-based: il campo `visual` di ogni scena determina sempre la presentazione.
 
-> Gli Atti 1 e 2 hanno asset dedicati: tutte le chiavi di `BG_MAP`/`PORTRAIT_MAP` puntano a file reali.
-> L'Atto 3 usa ancora il fallback id-based finché non riceverà il campo `visual`.
+> Tutti gli Atti (1–3) hanno asset dedicati e campo `visual`: tutte le chiavi di
+> `BG_MAP`/`PORTRAIT_MAP` puntano a file reali e nessun fallback id-based è più in uso.
 > Prima della Nuova Partita il `Background` è visibile ma il `Character` resta nascosto.
 
 ## Note

@@ -3,6 +3,7 @@
   "id": "a3_s05",
   "titolo": "Testimonianza di Halloran",
   "atto": "atto3",
+  "visual": { "background": "bg_commissariato", "portrait": "char_halloran" },
   "precondizioni": { "flag": { "id": "halloran_pentito" } },
   "testo": [
     { "contenuto": "Halloran ti aspetta con una cartella già pronta. «Se serve a riaprire quei casi, ci metto la faccia» dice. «È tardi, lo so. Ma è quello che dovevo fare allora.» Non chiede sconti. Offre solo la verità, finché c'è qualcuno disposto a riceverla.", "condizione": null }

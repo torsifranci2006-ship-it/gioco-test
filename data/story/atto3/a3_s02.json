@@ -3,6 +3,7 @@
   "id": "a3_s02",
   "titolo": "Raccolta prove",
   "atto": "atto3",
+  "visual": { "background": "bg_commissariato", "portrait": null },
   "precondizioni": { "flag": { "id": "piste_escluse" } },
   "testo": [
     { "contenuto": "Le prove non gridano. Si dispongono in fila, ordinate, e fanno più freddo di qualunque accusa. Metti insieme ciò che hai: ogni pezzo che incastri pesa come un tradimento.", "condizione": null }

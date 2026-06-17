@@ -3,6 +3,7 @@
   "id": "a3_s04",
   "titolo": "Confronto con Daniel",
   "atto": "atto3",
+  "visual": { "background": "bg_auto_notte", "portrait": "char_daniel_freddo" },
   "precondizioni": { "flag": { "id": "verita_nota" } },
   "testo": [
     { "contenuto": "Daniel non scappa. Resta seduto, le mani sul volante, e per un po' c'è solo la pioggia. «Quei casi erano già morti, negli archivi» dice infine. «Io li ho soltanto... finiti.» Non lo dice come una colpa, né come un vanto: come un fatto. Poi nomini Roeder, e qualcosa nella sua voce cede. «Quello» mormora. «Su quello non sono più sicuro.» È lì che la sua logica smette di reggere, e lo sa anche lui.", "condizione": null }

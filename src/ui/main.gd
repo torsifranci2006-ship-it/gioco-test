@@ -165,14 +165,14 @@ func _set_portrait_freddo(freddo: bool) -> void:
 		_character.texture = tex
 
 ## Applica i metadati visuali della scena (campo "visual"). Il metadata PREVALE sempre;
-## in sua assenza si usa il fallback (bg_auto_notte + ritratto secondo la regola Atto 3).
+## in sua assenza si usa il fallback (bg_auto_notte + ritratto di default).
 func _apply_visual(scene: StoryScene) -> void:
 	if scene == null:
 		_character.visible = false
 		return
 	var visual: Dictionary = scene.visual
 	if visual.is_empty():
-		# Scene senza metadata (per ora Atti 2-3): fallback completo.
+		# Scene senza metadata (rete di sicurezza): fallback completo.
 		var bg := _try_load(BG_PATH)
 		if bg != null:
 			_background.texture = bg
@@ -197,21 +197,9 @@ func _apply_portrait(visual: Dictionary, scene_id: String) -> void:
 		_character.texture = tex
 	_character.visible = true
 
-## Fallback ritratto per scene SENZA campo "visual".
-## REGOLA TEMPORANEA: Daniel "freddo" dalla rivelazione (a3_s03) in poi, altrimenti caldo.
-## Si applica SOLO in assenza di metadata; da rimuovere quando anche gli Atti 2-3
-## avranno il campo "visual". Il metadata, se presente, prevale sempre su questa regola.
-func _set_portrait_fallback(scene_id: String) -> void:
-	_set_portrait_freddo(_is_act3_reveal(scene_id))
+## Fallback ritratto per scene SENZA campo "visual" (rete di sicurezza: oggi tutte le scene
+## di Atti 1-3 hanno "visual"). Default neutro "caldo", senza logica id-based.
+func _set_portrait_fallback(_scene_id: String) -> void:
+	_set_portrait_freddo(false)
 	_character.visible = true
-
-func _is_act3_reveal(scene_id: String) -> bool:
-	var parts := scene_id.split("_")
-	if parts.size() != 2:
-		return false
-	var atto: String = parts[0]
-	var scena: String = parts[1]
-	if not atto.begins_with("a") or not scena.begins_with("s"):
-		return false
-	return int(atto.substr(1)) == 3 and int(scena.substr(1)) >= 3
 
