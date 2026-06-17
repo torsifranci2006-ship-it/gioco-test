@@ -11,8 +11,8 @@ const DANIEL_FREDDO := "res://assets/characters/daniel/char_daniel_freddo.png"
 ## Mappe asset visuali: nome logico (dal campo "visual" delle scene) -> percorso res://.
 ## NB: molti valori sono FALLBACK temporanei agli unici asset finora prodotti.
 const BG_MAP := {
-	"bg_esterno_crimine_notte": "res://assets/backgrounds/bg_auto_notte.png",
-	"bg_commissariato": "res://assets/backgrounds/bg_auto_notte.png",
+	"bg_esterno_crimine_notte": "res://assets/backgrounds/bg_esterno_crimine_notte.png",
+	"bg_commissariato": "res://assets/backgrounds/bg_commissariato.png",
 	"bg_obitorio": "res://assets/backgrounds/bg_obitorio.png",
 	"bg_incontro_veil": "res://assets/backgrounds/bg_incontro_veil.png",
 	"bg_bar_privato": "res://assets/backgrounds/bg_bar_privato.png",
