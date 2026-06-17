@@ -3,6 +3,7 @@
   "id": "a2_s11",
   "titolo": "Halloran umano",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": "char_halloran" },
   "precondizioni": { "flag": { "id": "sospetto_halloran" } },
   "testo": [
     { "contenuto": "Halloran non si difende. «Ho lasciato cadere quei casi per quieto vivere, e qualcuno ne è morto. Lo so.» È un uomo che porta i suoi morti, non un mostro. E chi vuole seppellire i casi non li riapre uccidendo: il suo movente non regge fino in fondo.", "condizione": null }

@@ -3,6 +3,7 @@
   "id": "a2_s08",
   "titolo": "Laboratorio di Mara",
   "atto": "atto2",
+  "visual": { "background": "bg_laboratorio", "portrait": "char_mara" },
   "precondizioni": { "personaggio": { "id": "mara", "stato": "normale" } },
   "testo": [
     { "contenuto": "Mara ti mostra ciò che manca più di ciò che c'è. «Niente impronte dove uno sbaglierebbe. Sa cosa cerchiamo, e lo evita» dice. «Non è un dilettante. È uno che conosce il mestiere da dentro.» Lo dice piano, come se le pesasse.", "condizione": null }

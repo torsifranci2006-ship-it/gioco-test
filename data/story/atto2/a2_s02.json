@@ -3,6 +3,7 @@
   "id": "a2_s02",
   "titolo": "I sospetti",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": null },
   "precondizioni": { "flag": { "id": "pattern_casi_freddi" } },
   "testo": [
     { "contenuto": "Se il bersaglio sono i casi che abbiamo abbandonato, allora il colpevole li conosce bene. Troppo bene. La rosa si stringe in fretta, e nessuno dei nomi ti piace: un vecchio della Omicidi, un superiore di allora, una donna degli Affari Interni che ti gira intorno da giorni.", "condizione": null }

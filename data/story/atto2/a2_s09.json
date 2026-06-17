@@ -3,6 +3,7 @@
   "id": "a2_s09",
   "titolo": "Confidenza con Daniel",
   "atto": "atto2",
+  "visual": { "background": "bg_casa_daniel", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "A casa di Daniel il caso resta sull'uscio. Due bicchieri, il silenzio comodo di chi non deve riempirlo. Per un po' siete solo due uomini stanchi.", "condizione": null },

@@ -3,6 +3,7 @@
   "id": "a2_s06",
   "titolo": "Caso Roeder",
   "atto": "atto2",
+  "visual": { "background": "bg_tobia_rifugio", "portrait": "char_tobia" },
   "precondizioni": { "flag": { "id": "pattern_casi_freddi" } },
   "testo": [
     { "contenuto": "Roeder doveva essere come gli altri: un caso chiuso male, un colpevole sfuggito. Ma più scavi, più le prove a suo carico si sgretolano tra le mani. E sul pianerottolo c'è Tobia, suo figlio, che da quella notte non smette di guardare la porta.", "condizione": null }

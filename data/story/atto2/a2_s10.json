@@ -3,6 +3,7 @@
   "id": "a2_s10",
   "titolo": "Svolta interna",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "I tabulati dell'archivio dicono una cosa sola: qualcuno ha tirato fuori quei vecchi fascicoli, uno per uno, prima che i nomi diventassero cadaveri. E l'accesso è interno. Daniel scuote la testa: «Andiamoci piano, prima di infangare la divisa.» Non ha torto. Eppure qualcosa, dentro di te, si stringe.", "condizione": null }

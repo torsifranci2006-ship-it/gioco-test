@@ -3,6 +3,7 @@
   "id": "a2_s07",
   "titolo": "Protezione di Tobia",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Tobia sa qualcosa, e qualcuno potrebbe volerlo zitto. Ogni ora che passa lo lascia più scoperto. Daniel è già al telefono per una macchina e un posto sicuro: «Non lo perdiamo, questo» dice, e per un attimo non ti senti solo.", "condizione": null }

@@ -3,6 +3,7 @@
   "id": "a2_s04",
   "titolo": "Halloran",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": "char_halloran" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Halloran ti aspettava. Fu lui a chiudere quei fascicoli, anni fa, il caso Mercer compreso; oggi ha gli occhi di chi non dorme bene. Mentre il nome di quel vecchio caso resta sospeso nell'aria, ti pare che Daniel, accanto a te, si irrigidisca per un istante. Poi è di nuovo solo il tuo partner.", "condizione": null }

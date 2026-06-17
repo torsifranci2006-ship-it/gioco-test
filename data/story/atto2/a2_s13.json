@@ -3,6 +3,7 @@
   "id": "a2_s13",
   "titolo": "Soglia Atto 2",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": null },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Il cerchio si stringe: un insider, qualcuno con accesso e mestiere, qualcuno che conosce quei casi da vicino. Eppure nessuna ipotesi regge da sola — ogni volta che provi a chiudere il conto, resta fuori un pezzo che non quadra. Ti ritrovi con una certezza sgradevole e nessun volto da darle.", "condizione": null }

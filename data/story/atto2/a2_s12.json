@@ -3,6 +3,7 @@
   "id": "a2_s12",
   "titolo": "Scena a rischio",
   "atto": "atto2",
+  "visual": { "background": "bg_esterno_crimine_notte", "portrait": null },
   "precondizioni": { "alcune": [ { "personaggio": { "id": "mara", "stato": "normale" } }, { "personaggio": { "id": "veil", "stato": "normale" } } ] },
   "testo": [
     { "contenuto": "La pista corre veloce, e qualcuno ti sta accanto mentre corre. Basta un passo di troppo e non sarai tu a pagarlo. C'è un istante in cui puoi ancora scegliere chi proteggere — o cosa.", "condizione": null }

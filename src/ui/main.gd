@@ -17,6 +17,9 @@ const BG_MAP := {
 	"bg_incontro_veil": "res://assets/backgrounds/bg_incontro_veil.png",
 	"bg_bar_privato": "res://assets/backgrounds/bg_bar_privato.png",
 	"bg_tobia_rifugio": "res://assets/backgrounds/bg_tobia_rifugio.png",
+	"bg_casa_daniel": "res://assets/backgrounds/bg_casa_daniel.png",
+	"bg_laboratorio": "res://assets/backgrounds/bg_laboratorio.png",
+	"bg_voss_archivio": "res://assets/backgrounds/bg_voss_archivio.png",
 }
 const PORTRAIT_MAP := {
 	"char_daniel_caldo": "res://assets/characters/daniel/char_daniel_caldo.png",
@@ -24,6 +27,8 @@ const PORTRAIT_MAP := {
 	"char_mara": "res://assets/characters/mara/char_mara.png",
 	"char_veil": "res://assets/characters/veil/char_veil.png",
 	"char_tobia": "res://assets/characters/tobia/char_tobia.png",
+	"char_halloran": "res://assets/characters/halloran/char_halloran.png",
+	"char_voss": "res://assets/characters/voss/char_voss.png",
 }
 
 @onready var _scene_text: RichTextLabel = $Margin/Root/SceneText

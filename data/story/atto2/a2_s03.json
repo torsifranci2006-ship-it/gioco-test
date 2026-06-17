@@ -3,6 +3,7 @@
   "id": "a2_s03",
   "titolo": "Voss",
   "atto": "atto2",
+  "visual": { "background": "bg_voss_archivio", "portrait": "char_voss" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Voss ti riceve tra faldoni e ritagli ingialliti. «Quei casi gridavano, e nessuno ascoltava» dice, senza vergogna. Ha rabbia da vendere e tempo da perdere. Poi, quasi troppo in fretta, salta fuori un dettaglio che lo inchioderebbe.", "condizione": null }

@@ -3,6 +3,7 @@
   "id": "a2_s05",
   "titolo": "Veil sospetta",
   "atto": "atto2",
+  "visual": { "background": "bg_incontro_veil", "portrait": "char_veil" },
   "precondizioni": { "personaggio": { "id": "veil", "stato": "normale" } },
   "testo": [
     { "contenuto": "Veil non nega di averti seguito. «Cerco il marcio dentro la polizia da prima di te» dice. «Forse lo stesso che cerchi tu.» Potrebbe essere un'alleata. Potrebbe essere lei a tirare i fili. Con lei non capisci mai dove finisce l'indagine e dove comincia il gioco.", "condizione": null }

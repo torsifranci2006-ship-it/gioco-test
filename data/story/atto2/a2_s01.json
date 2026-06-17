@@ -3,6 +3,7 @@
   "id": "a2_s01",
   "titolo": "Il pattern",
   "atto": "atto2",
+  "visual": { "background": "bg_commissariato", "portrait": "char_daniel_caldo" },
   "precondizioni": null,
   "testo": [
     { "contenuto": "Le metti in fila, le vittime, e stavolta non scivolano via. Ognuna aveva un caso alle spalle: archiviato, perso, lasciato a marcire negli scaffali. Daniel studia la lavagna a lungo. «Vecchi conti che qualcuno ha deciso di saldare» mormora. Non è una buona notizia per nessuno.", "condizione": null }
