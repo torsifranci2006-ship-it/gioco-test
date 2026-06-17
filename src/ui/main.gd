@@ -34,16 +34,23 @@ const PORTRAIT_MAP := {
 @onready var _scene_text: RichTextLabel = $BottomArea/TextPanel/TextMargin/SceneText
 @onready var _choices_panel: PanelContainer = $BottomArea/ChoicesPanel
 @onready var _choices: HFlowContainer = $BottomArea/ChoicesPanel/ChoicesMargin/Choices
+@onready var _bottom_area: VBoxContainer = $BottomArea
 @onready var _top_bar: PanelContainer = $TopBar
 @onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
 @onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
 @onready var _load_button: Button = $TopBar/TopBarMargin/Controls/LoadButton
+@onready var _menu_button: Button = $TopBar/TopBarMargin/Controls/MenuButton
 @onready var _status: Label = $TopBar/TopBarMargin/Controls/Status
 @onready var _start_menu: PanelContainer = $StartMenu
+@onready var _start_resume_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartResumeButton
 @onready var _start_new_game_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartNewGameButton
 @onready var _start_load_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartLoadButton
 @onready var _start_save_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartSaveButton
+@onready var _start_exit_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartExitButton
 @onready var _start_status: Label = $StartMenu/StartMenuMargin/StartMenuVBox/StartStatus
+@onready var _exit_confirm: PanelContainer = $ExitConfirm
+@onready var _exit_confirm_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitConfirmButton
+@onready var _exit_cancel_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitCancelButton
 @onready var _ending_panel: PanelContainer = $EndingPanel
 @onready var _ending_title: Label = $EndingPanel/EndingMargin/EndingVBox/EndingTitle
 @onready var _ending_text: RichTextLabel = $EndingPanel/EndingMargin/EndingVBox/EndingText
@@ -60,11 +67,14 @@ func _ready() -> void:
 	_start_new_game_button.pressed.connect(_on_new_game)
 	_start_save_button.pressed.connect(_on_save)
 	_start_load_button.pressed.connect(_on_load)
+	_start_resume_button.pressed.connect(_on_resume)
+	_start_exit_button.pressed.connect(_on_exit)
+	_menu_button.pressed.connect(_on_menu)
+	_exit_confirm_button.pressed.connect(_on_exit_confirm)
+	_exit_cancel_button.pressed.connect(_on_exit_cancel)
 	_ending_new_game_button.pressed.connect(_on_new_game)
-	_ending_panel.visible = false
-	# Schermata iniziale: menu grande visibile, TopBar discreta nascosta finché non si gioca.
-	_start_menu.visible = true
-	_top_bar.visible = false
+	# Stato iniziale: schermata di menu (Riprendi/Salva restano disabilitati finché non si gioca).
+	_enter_menu()
 	if not Game.is_ready():
 		_new_game_button.disabled = true
 		_save_button.disabled = true
@@ -106,13 +116,58 @@ func _show_status(msg: String) -> void:
 	_status.text = msg
 	_start_status.text = msg
 
+# --- Navigazione UI (stati: menu iniziale / gioco / conferma uscita) ---
+
+## Stato MENU: schermata iniziale visibile, UI di gioco e overlay nascosti.
+func _enter_menu() -> void:
+	_exit_confirm.visible = false
+	_ending_panel.visible = false
+	_top_bar.visible = false
+	_bottom_area.visible = false
+	_character.visible = false
+	_start_menu.visible = true
+
+## Stato GIOCO: UI di gioco visibile, menu/overlay nascosti. Abilita Riprendi e Salva
+## (da qui una partita esiste in memoria). Il ritratto è gestito da _apply_visual.
+func _enter_game() -> void:
+	_exit_confirm.visible = false
+	_ending_panel.visible = false
+	_start_menu.visible = false
+	_top_bar.visible = true
+	_bottom_area.visible = true
+	_start_resume_button.disabled = false
+	_start_save_button.disabled = false
+
+## "Menu" (in gioco): torna alla schermata iniziale senza toccare lo stato del motore.
+func _on_menu() -> void:
+	_enter_menu()
+	_show_status("Partita in pausa.")
+
+## "Riprendi" (menu): torna alla partita corrente senza ricaricare né resettare.
+func _on_resume() -> void:
+	if Game.current_scene() == null:
+		return
+	_enter_game()
+	_apply_visual(Game.current_scene())
+	_render_current()
+
+## "Esci" (menu): mostra la conferma centrale, non chiude subito.
+func _on_exit() -> void:
+	_start_menu.visible = false
+	_exit_confirm.visible = true
+
+## "Conferma" (dialog uscita): chiude l'applicazione.
+func _on_exit_confirm() -> void:
+	get_tree().quit()
+
+## "Annulla" (dialog uscita): chiude la conferma e torna al menu iniziale.
+func _on_exit_cancel() -> void:
+	_enter_menu()
+
 # --- Reazione ai segnali del Core ---
 
 func _on_scene_changed(_scene_id: String) -> void:
-	_ending_panel.visible = false
-	# In gioco: nascondi il menu iniziale grande, mostra i controlli discreti.
-	_start_menu.visible = false
-	_top_bar.visible = true
+	_enter_game()
 	_apply_visual(Game.current_scene())
 	_render_current()
 

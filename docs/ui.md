@@ -30,35 +30,61 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 ├── Background (TextureRect)            # sfondo a tutto schermo (dietro a tutto)
 ├── Character (TextureRect)             # ritratto sopra il background
 ├── Scrim (ColorRect, α0.40)           # velo scuro leggero per la leggibilità
-├── StartMenu (PanelContainer, sinistra, v-centrato)  # menu iniziale (solo pre-partita)
+├── StartMenu (PanelContainer, sinistra, v-centrato)  # menu iniziale (pre-partita e su "Menu")
 │   └── StartMenuMargin (MarginContainer)
 │       └── StartMenuVBox (VBoxContainer)
+│           ├── StartResumeButton                      # "Riprendi" (disabilitato finché non si gioca)
 │           ├── StartNewGameButton / StartLoadButton   # pulsanti grandi 260×56
-│           ├── StartSaveButton                        # grande, disabilitato pre-partita
+│           ├── StartSaveButton                        # disabilitato finché non si gioca
+│           ├── StartExitButton                        # "Esci" -> conferma
 │           └── StartStatus (Label)                    # feedback pre-partita
 ├── TopBar (PanelContainer, in alto; visibile solo in gioco)
 │   └── TopBarMargin (MarginContainer)
 │       └── Controls (HBoxContainer)
-│           ├── NewGameButton / SaveButton / LoadButton  # controlli discreti
+│           ├── NewGameButton / SaveButton / LoadButton / MenuButton  # controlli discreti
 │           └── Status (Label)                  # messaggi ed errori (allineati a dx)
-└── BottomArea (VBoxContainer, in basso, cresce verso l'alto)
-    ├── TextPanel (PanelContainer)             # textbox noir, bordo sottile, angoli arrotondati
-    │   └── TextMargin (MarginContainer)
-    │       └── SceneText (RichTextLabel)       # testo della scena
-    └── ChoicesPanel (PanelContainer, nascosto se senza scelte)  # menu scelte a piè di pagina
-        └── ChoicesMargin (MarginContainer)
-            └── Choices (HFlowContainer)        # pulsanti scelta a runtime, affiancati + a-capo
-EndingPanel (PanelContainer, nascosto)          # schermata finale (overlay, StyleBoxFlat)
-└── EndingMargin (MarginContainer)
-    └── EndingVBox (VBoxContainer)
-        ├── EndingTitle (Label)
-        ├── EndingText (RichTextLabel)           # testo finale + epiloghi
-        └── EndingNewGameButton (Button)
+├── BottomArea (VBoxContainer, in basso, cresce verso l'alto; nascosta a menu)
+│   ├── TextPanel (PanelContainer)             # textbox noir, bordo sottile, angoli arrotondati
+│   │   └── TextMargin (MarginContainer)
+│   │       └── SceneText (RichTextLabel)       # testo della scena
+│   └── ChoicesPanel (PanelContainer, nascosto se senza scelte)  # menu scelte a piè di pagina
+│       └── ChoicesMargin (MarginContainer)
+│           └── Choices (HFlowContainer)        # pulsanti scelta a runtime, affiancati + a-capo
+├── EndingPanel (PanelContainer, nascosto)         # schermata finale (overlay, StyleBoxFlat)
+│   └── EndingMargin (MarginContainer)
+│       └── EndingVBox (VBoxContainer)
+│           ├── EndingTitle (Label)
+│           ├── EndingText (RichTextLabel)          # testo finale + epiloghi
+│           └── EndingNewGameButton (Button)
+└── ExitConfirm (PanelContainer, centrato, nascosto)  # conferma uscita (overlay, sb_ending)
+    └── ExitMargin (MarginContainer)
+        └── ExitVBox (VBoxContainer)
+            ├── ExitLabel (Label, "Vuoi davvero uscire?")
+            └── ExitButtons (HBoxContainer)
+                ├── ExitConfirmButton (Button, "Conferma" -> get_tree().quit())
+                └── ExitCancelButton (Button, "Annulla" -> torna al menu)
 ```
 
 > Stile gestito **solo** con nodi standard e `StyleBoxFlat`/`Theme` (nessun plugin, nessun asset UI).
-> I pannelli (`TextPanel`, `ChoicesPanel`, `TopBar`, `EndingPanel`) usano `StyleBoxFlat` scuri
-> semi-trasparenti con bordo sottile in tono ottone; i pulsanti hanno hover/pressed visibili.
+> I pannelli (`TextPanel`, `ChoicesPanel`, `TopBar`, `StartMenu`, `EndingPanel`, `ExitConfirm`) usano
+> `StyleBoxFlat` scuri semi-trasparenti con bordo sottile in tono ottone; i pulsanti hanno hover/pressed visibili.
+
+### Stati della UI
+
+La UI ha tre stati, gestiti in `src/ui/main.gd` da `_enter_menu()` / `_enter_game()` (più gli
+overlay `EndingPanel` e `ExitConfirm`). Nessuno di essi tocca lo stato del motore narrativo.
+
+| Stato | StartMenu | TopBar | BottomArea | Character | ExitConfirm |
+| --- | --- | --- | --- | --- | --- |
+| **Menu** | visibile | nascosto | nascosto | nascosto | nascosto |
+| **Gioco** | nascosto | visibile | visibile | per-scena | nascosto |
+| **Conferma uscita** | nascosto | nascosto | nascosto | nascosto | visibile |
+
+- **Avvio** → stato Menu; `Riprendi` e `Salva` disabilitati (nessuna partita in memoria).
+- **Nuova Partita / Carica** → `scene_changed` → stato Gioco; `Riprendi` e `Salva` si abilitano.
+- **Menu** (in gioco) → torna allo stato Menu **senza** resettare il motore; la partita resta in memoria.
+- **Riprendi** (a menu) → torna alla partita corrente (ri-renderizza la scena attiva, nessun reload).
+- **Esci** → conferma centrale; **Conferma** = `get_tree().quit()`, **Annulla** = torna al menu.
 
 ## Segnali
 

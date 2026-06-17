@@ -211,6 +211,13 @@ layout_mode = 2
 layout_mode = 2
 theme_override_constants/separation = 16
 
+[node name="StartResumeButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+disabled = true
+theme_override_font_sizes/font_size = 20
+text = "Riprendi"
+
 [node name="StartNewGameButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
 custom_minimum_size = Vector2(260, 56)
 layout_mode = 2
@@ -229,6 +236,12 @@ layout_mode = 2
 disabled = true
 theme_override_font_sizes/font_size = 20
 text = "Salva"
+
+[node name="StartExitButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Esci"
 
 [node name="StartStatus" type="Label" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
 custom_minimum_size = Vector2(260, 0)
@@ -261,6 +274,10 @@ text = "Salva"
 [node name="LoadButton" type="Button" parent="TopBar/TopBarMargin/Controls"]
 layout_mode = 2
 text = "Carica"
+
+[node name="MenuButton" type="Button" parent="TopBar/TopBarMargin/Controls"]
+layout_mode = 2
+text = "Menu"
 
 [node name="Status" type="Label" parent="TopBar/TopBarMargin/Controls"]
 layout_mode = 2
@@ -338,3 +355,41 @@ fit_content = true
 [node name="EndingNewGameButton" type="Button" parent="EndingPanel/EndingMargin/EndingVBox"]
 layout_mode = 2
 text = "Nuova Partita"
+
+[node name="ExitConfirm" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="ExitMargin" type="MarginContainer" parent="ExitConfirm"]
+layout_mode = 2
+
+[node name="ExitVBox" type="VBoxContainer" parent="ExitConfirm/ExitMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="ExitLabel" type="Label" parent="ExitConfirm/ExitMargin/ExitVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Vuoi davvero uscire?"
+
+[node name="ExitButtons" type="HBoxContainer" parent="ExitConfirm/ExitMargin/ExitVBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="ExitConfirmButton" type="Button" parent="ExitConfirm/ExitMargin/ExitVBox/ExitButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Conferma"
+
+[node name="ExitCancelButton" type="Button" parent="ExitConfirm/ExitMargin/ExitVBox/ExitButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Annulla"
