@@ -41,7 +41,7 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 ├── TopBar (PanelContainer, in alto; visibile solo in gioco)
 │   └── TopBarMargin (MarginContainer)
 │       └── Controls (HBoxContainer)
-│           ├── NewGameButton / SaveButton / LoadButton / MenuButton  # controlli discreti
+│           ├── MenuButton (Button, "Menu")     # unico comando in gioco -> torna al menu/pausa
 │           └── Status (Label)                  # messaggi ed errori (allineati a dx)
 ├── BottomArea (VBoxContainer, in basso, cresce verso l'alto; nascosta a menu)
 │   ├── TextPanel (PanelContainer)             # textbox noir, bordo sottile, angoli arrotondati

@@ -36,9 +36,6 @@ const PORTRAIT_MAP := {
 @onready var _choices: HFlowContainer = $BottomArea/ChoicesPanel/ChoicesMargin/Choices
 @onready var _bottom_area: VBoxContainer = $BottomArea
 @onready var _top_bar: PanelContainer = $TopBar
-@onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
-@onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
-@onready var _load_button: Button = $TopBar/TopBarMargin/Controls/LoadButton
 @onready var _menu_button: Button = $TopBar/TopBarMargin/Controls/MenuButton
 @onready var _status: Label = $TopBar/TopBarMargin/Controls/Status
 @onready var _start_menu: PanelContainer = $StartMenu
@@ -75,9 +72,6 @@ var _pending_save_slot: int = 0       ## slot da confermare nel SaveConfirm
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
 	EventBus.game_ended.connect(_on_game_ended)
-	_new_game_button.pressed.connect(_on_new_game)
-	_save_button.pressed.connect(_on_open_save.bind("game"))
-	_load_button.pressed.connect(_on_open_load.bind("game"))
 	_start_new_game_button.pressed.connect(_on_new_game)
 	_start_save_button.pressed.connect(_on_open_save.bind("menu"))
 	_start_load_button.pressed.connect(_on_open_load.bind("menu"))
@@ -95,9 +89,6 @@ func _ready() -> void:
 	# Stato iniziale: schermata di menu (Riprendi/Salva restano disabilitati finché non si gioca).
 	_enter_menu()
 	if not Game.is_ready():
-		_new_game_button.disabled = true
-		_save_button.disabled = true
-		_load_button.disabled = true
 		_start_new_game_button.disabled = true
 		_start_load_button.disabled = true
 		_start_resume_button.disabled = true
