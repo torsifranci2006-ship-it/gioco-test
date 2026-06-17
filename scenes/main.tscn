@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3]
+[gd_scene load_steps=12 format=3]
 
 [ext_resource type="Script" path="res://src/ui/main.gd" id="1"]
 
@@ -49,6 +49,22 @@ content_margin_top = 20.0
 content_margin_right = 24.0
 content_margin_bottom = 20.0
 bg_color = Color(0.05, 0.06, 0.09, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.62, 0.56, 0.43, 0.5)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_startmenu"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.05, 0.06, 0.09, 0.88)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -178,6 +194,47 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.05, 0.06, 0.08, 0.4)
+
+[node name="StartMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+grow_horizontal = 1
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_startmenu")
+
+[node name="StartMenuMargin" type="MarginContainer" parent="StartMenu"]
+layout_mode = 2
+
+[node name="StartMenuVBox" type="VBoxContainer" parent="StartMenu/StartMenuMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="StartNewGameButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Nuova Partita"
+
+[node name="StartLoadButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Carica"
+
+[node name="StartSaveButton" type="Button" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 56)
+layout_mode = 2
+disabled = true
+theme_override_font_sizes/font_size = 20
+text = "Salva"
+
+[node name="StartStatus" type="Label" parent="StartMenu/StartMenuMargin/StartMenuVBox"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="TopBar" type="PanelContainer" parent="."]
 layout_mode = 1

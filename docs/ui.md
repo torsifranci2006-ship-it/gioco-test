@@ -19,29 +19,35 @@ dell'interfaccia ("Nuova Partita", "Salva", "Carica").
 
 ## Struttura dei nodi (`main.tscn`)
 
-Layout in stile visual novel/noir: sfondo e ritratto a tutto schermo, testo e scelte in pannelli
-ancorati in basso, comandi di sistema in una barra sottile in alto. Il nodo radice `Main` porta un
-`Theme` (sub-resource) che stila i pulsanti — inclusi quelli **generati a runtime** — con
-`StyleBoxFlat` (normale/hover/pressed/disabled).
+Layout in stile visual novel/noir: sfondo e ritratto a tutto schermo, testo sopra e scelte a piè
+di pagina in pannelli ancorati in basso. Una **schermata iniziale** (`StartMenu`, menu verticale a
+sinistra) appare prima della partita; in gioco la sostituisce una **barra comandi discreta**
+(`TopBar`) in alto. Il nodo radice `Main` porta un `Theme` (sub-resource) che stila i pulsanti —
+inclusi quelli **generati a runtime** — con `StyleBoxFlat` (normale/hover/pressed/disabled).
 
 ```
 Main (Control)                         [script: src/ui/main.gd; theme: noir]
 ├── Background (TextureRect)            # sfondo a tutto schermo (dietro a tutto)
 ├── Character (TextureRect)             # ritratto sopra il background
 ├── Scrim (ColorRect, α0.40)           # velo scuro leggero per la leggibilità
-├── TopBar (PanelContainer, in alto)   # barra comandi sottile (StyleBoxFlat)
+├── StartMenu (PanelContainer, sinistra, v-centrato)  # menu iniziale (solo pre-partita)
+│   └── StartMenuMargin (MarginContainer)
+│       └── StartMenuVBox (VBoxContainer)
+│           ├── StartNewGameButton / StartLoadButton   # pulsanti grandi 260×56
+│           ├── StartSaveButton                        # grande, disabilitato pre-partita
+│           └── StartStatus (Label)                    # feedback pre-partita
+├── TopBar (PanelContainer, in alto; visibile solo in gioco)
 │   └── TopBarMargin (MarginContainer)
 │       └── Controls (HBoxContainer)
-│           ├── NewGameButton / SaveButton / LoadButton
+│           ├── NewGameButton / SaveButton / LoadButton  # controlli discreti
 │           └── Status (Label)                  # messaggi ed errori (allineati a dx)
 └── BottomArea (VBoxContainer, in basso, cresce verso l'alto)
-    ├── ChoicesPanel (PanelContainer)           # menu scelte SOPRA il testo (StyleBoxFlat)
-    │   └── ChoicesMargin (MarginContainer)
-    │       └── ChoicesScroll (ScrollContainer)
-    │           └── Choices (VBoxContainer)      # pulsanti scelta generati a runtime
-    └── TextPanel (PanelContainer)              # textbox noir, bordo sottile, angoli arrotondati
-        └── TextMargin (MarginContainer)
-            └── SceneText (RichTextLabel)        # testo della scena
+    ├── TextPanel (PanelContainer)             # textbox noir, bordo sottile, angoli arrotondati
+    │   └── TextMargin (MarginContainer)
+    │       └── SceneText (RichTextLabel)       # testo della scena
+    └── ChoicesPanel (PanelContainer, nascosto se senza scelte)  # menu scelte a piè di pagina
+        └── ChoicesMargin (MarginContainer)
+            └── Choices (HFlowContainer)        # pulsanti scelta a runtime, affiancati + a-capo
 EndingPanel (PanelContainer, nascosto)          # schermata finale (overlay, StyleBoxFlat)
 └── EndingMargin (MarginContainer)
     └── EndingVBox (VBoxContainer)

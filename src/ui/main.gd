@@ -34,10 +34,16 @@ const PORTRAIT_MAP := {
 @onready var _scene_text: RichTextLabel = $BottomArea/TextPanel/TextMargin/SceneText
 @onready var _choices_panel: PanelContainer = $BottomArea/ChoicesPanel
 @onready var _choices: HFlowContainer = $BottomArea/ChoicesPanel/ChoicesMargin/Choices
+@onready var _top_bar: PanelContainer = $TopBar
 @onready var _new_game_button: Button = $TopBar/TopBarMargin/Controls/NewGameButton
 @onready var _save_button: Button = $TopBar/TopBarMargin/Controls/SaveButton
 @onready var _load_button: Button = $TopBar/TopBarMargin/Controls/LoadButton
 @onready var _status: Label = $TopBar/TopBarMargin/Controls/Status
+@onready var _start_menu: PanelContainer = $StartMenu
+@onready var _start_new_game_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartNewGameButton
+@onready var _start_load_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartLoadButton
+@onready var _start_save_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartSaveButton
+@onready var _start_status: Label = $StartMenu/StartMenuMargin/StartMenuVBox/StartStatus
 @onready var _ending_panel: PanelContainer = $EndingPanel
 @onready var _ending_title: Label = $EndingPanel/EndingMargin/EndingVBox/EndingTitle
 @onready var _ending_text: RichTextLabel = $EndingPanel/EndingMargin/EndingVBox/EndingText
@@ -51,15 +57,24 @@ func _ready() -> void:
 	_new_game_button.pressed.connect(_on_new_game)
 	_save_button.pressed.connect(_on_save)
 	_load_button.pressed.connect(_on_load)
+	_start_new_game_button.pressed.connect(_on_new_game)
+	_start_save_button.pressed.connect(_on_save)
+	_start_load_button.pressed.connect(_on_load)
 	_ending_new_game_button.pressed.connect(_on_new_game)
 	_ending_panel.visible = false
+	# Schermata iniziale: menu grande visibile, TopBar discreta nascosta finché non si gioca.
+	_start_menu.visible = true
+	_top_bar.visible = false
 	if not Game.is_ready():
 		_new_game_button.disabled = true
 		_save_button.disabled = true
 		_load_button.disabled = true
-		_status.text = "Errore di inizializzazione: " + Game.last_error()
+		_start_new_game_button.disabled = true
+		_start_load_button.disabled = true
+		# _start_save_button resta disabilitato (nessuna partita da salvare)
+		_show_status("Errore di inizializzazione: " + Game.last_error())
 	else:
-		_status.text = "Premi Nuova Partita per iniziare."
+		_show_status("Premi Nuova Partita per iniziare.")
 	# --- Livelli visivi (vertical slice integrato) ---
 	_background.texture = _try_load(BG_PATH)
 	_set_portrait_freddo(false)   # pre-carica il ritratto caldo...
@@ -72,24 +87,32 @@ func _on_new_game() -> void:
 		return
 	_ending_panel.visible = false
 	Game.new_game()
-	_status.text = "Nuova partita avviata."
+	_show_status("Nuova partita avviata.")
 
 func _on_save() -> void:
 	if Game.save_game():
-		_status.text = "Partita salvata."
+		_show_status("Partita salvata.")
 	else:
-		_status.text = "Impossibile salvare la partita."
+		_show_status("Impossibile salvare la partita.")
 
 func _on_load() -> void:
 	if Game.load_game():
-		_status.text = "Partita caricata."
+		_show_status("Partita caricata.")
 	else:
-		_status.text = "Nessun salvataggio valido da caricare."
+		_show_status("Nessun salvataggio valido da caricare.")
+
+## Mostra un messaggio di stato sia nella TopBar (in gioco) sia nel menu iniziale (pre-partita).
+func _show_status(msg: String) -> void:
+	_status.text = msg
+	_start_status.text = msg
 
 # --- Reazione ai segnali del Core ---
 
 func _on_scene_changed(_scene_id: String) -> void:
 	_ending_panel.visible = false
+	# In gioco: nascondi il menu iniziale grande, mostra i controlli discreti.
+	_start_menu.visible = false
+	_top_bar.visible = true
 	_apply_visual(Game.current_scene())
 	_render_current()
 
@@ -104,7 +127,7 @@ func _render_current() -> void:
 	if scene == null:
 		_scene_text.text = ""
 		_clear_choices()
-		_status.text = "Scena non disponibile (dati incoerenti?)."
+		_show_status("Scena non disponibile (dati incoerenti?).")
 		return
 	_scene_text.text = _join(Game.current_text())
 	_build_choices()
@@ -123,7 +146,7 @@ func _build_choices() -> void:
 		_choices.add_child(button)
 	_choices_panel.visible = _choices.get_child_count() > 0
 	if choices.is_empty():
-		_status.text = "Nessuna scelta disponibile in questa scena."
+		_show_status("Nessuna scelta disponibile in questa scena.")
 
 func _clear_choices() -> void:
 	for child in _choices.get_children():
@@ -135,7 +158,7 @@ func _on_choice(choice_id: String) -> void:
 func _show_ending() -> void:
 	var ending := Game.current_ending()
 	if ending == null:
-		_status.text = "Finale non disponibile."
+		_show_status("Finale non disponibile.")
 		return
 	_ending_title.text = ending.titolo
 	var parts: Array[String] = [ending.testo]
