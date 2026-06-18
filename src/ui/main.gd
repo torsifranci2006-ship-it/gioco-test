@@ -50,7 +50,7 @@ const PORTRAIT_MAP := {
 @onready var _exit_confirm: PanelContainer = $ExitConfirm
 @onready var _exit_confirm_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitConfirmButton
 @onready var _exit_cancel_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitCancelButton
-@onready var _ending_panel: PanelContainer = $EndingPanel
+@onready var _ending_panel: Control = $EndingPanel
 @onready var _ending_title: Label = $EndingPanel/EndingMargin/EndingVBox/EndingTitle
 @onready var _ending_text: RichTextLabel = $EndingPanel/EndingMargin/EndingVBox/EndingText
 @onready var _ending_new_game_button: Button = $EndingPanel/EndingMargin/EndingVBox/EndingNewGameButton
@@ -136,7 +136,7 @@ func _ready() -> void:
 	_save_new_button.pressed.connect(_on_save_new)
 	_save_confirm_yes_button.pressed.connect(_on_save_confirm_yes)
 	_save_confirm_no_button.pressed.connect(_on_save_confirm_no)
-	_ending_new_game_button.pressed.connect(_on_new_game)
+	_ending_new_game_button.pressed.connect(_on_ending_to_menu)
 	# Stato iniziale: schermata di menu (Riprendi/Salva restano disabilitati finché non si gioca).
 	_enter_menu()
 	if not Game.is_ready():
@@ -526,8 +526,20 @@ func _show_ending() -> void:
 	var parts: Array[String] = [ending.testo]
 	for ep in Game.current_epilogues():
 		parts.append(ep)
-	_ending_text.text = _join(parts)
+	# Testo invariato, solo centrato via bbcode (le '[' eventuali sono neutralizzate, resa identica).
+	_ending_text.text = "[center]" + _bbcode_escape(_join(parts)) + "[/center]"
+	# Schermata cinematografica: nascondi la UI di gioco, lascia background+ritratto dietro lo scrim.
+	_top_bar.visible = false
+	_bottom_area.visible = false
 	_ending_panel.visible = true
+
+## "Torna al menu" (schermata finale): rientra nel menu iniziale/pausa senza avviare una partita.
+func _on_ending_to_menu() -> void:
+	_enter_menu()
+
+## Neutralizza le parentesi quadre per il bbcode (resa visiva identica, contenuto non alterato).
+func _bbcode_escape(s: String) -> String:
+	return s.replace("[", "[lb]")
 
 # Unisce le righe con una riga vuota di separazione (evita dipendenze da String.join/PackedStringArray).
 func _join(lines: Array[String]) -> String:

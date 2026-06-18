@@ -54,12 +54,15 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │   └── ChoicesPanel (PanelContainer, nascosto se senza scelte)  # menu scelte a piè di pagina
 │       └── ChoicesMargin (MarginContainer)
 │           └── Choices (HFlowContainer)        # pulsanti scelta a runtime, affiancati + a-capo
-├── EndingPanel (PanelContainer, nascosto)         # schermata finale (overlay, StyleBoxFlat)
-│   └── EndingMargin (MarginContainer)
-│       └── EndingVBox (VBoxContainer)
-│           ├── EndingTitle (Label)
-│           ├── EndingText (RichTextLabel)          # testo finale + epiloghi
-│           └── EndingNewGameButton (Button)
+├── EndingPanel (Control, full screen, nascosto)   # schermata finale cinematografica (no box-finestra)
+│   ├── EndingScrim (ColorRect, α0.72)             # scurisce il background, che resta visibile dietro
+│   └── EndingMargin (MarginContainer) → EndingVBox (VBoxContainer, testo centrato)
+│       ├── EndingGameTitle1 (Label, "CIÒ CHE RESTA", font 60, ottone, ombra+outline)
+│       ├── EndingGameTitle2 (Label, "NEL BUIO", font 60, ottone, ombra+outline)
+│       ├── EndingTitle (Label)                     # sottotitolo = ending.titolo (runtime)
+│       ├── EndingHeading (Label, "EPILOGO")
+│       ├── EndingText (RichTextLabel, centrato, scrollabile)  # ending.testo + epiloghi (invariati)
+│       └── EndingNewGameButton (Button, "Torna al menu" -> _enter_menu)
 ├── ExitConfirm (PanelContainer, centrato, nascosto)  # conferma uscita (overlay, sb_ending)
 │   └── ExitMargin (MarginContainer)
 │       └── ExitVBox (VBoxContainer)
@@ -232,7 +235,11 @@ del pulsante "Nuova Partita" del finale.
 3. **Scelta** → `Game.choose(id)` → il motore avanza → `scene_changed` o `game_ended`.
 4. **Render** → `SceneText` = testo corrente; `Choices` ricostruito (pulsanti `disabled` se la
    scelta non è abilitata, con `tooltip` dal motivo di blocco).
-5. **Finale** → `game_ended` → `EndingPanel` con titolo, testo ed epiloghi (letti da `Game`).
+5. **Finale** → `game_ended` → `_show_ending()` mostra `EndingPanel` (schermata cinematografica):
+   nasconde `TopBar`/`BottomArea`, scurisce il background con `EndingScrim`, e impagina titolo-gioco +
+   `ending.titolo` + "EPILOGO" + testo (`ending.testo` + epiloghi, **invariati**, centrati via bbcode
+   `[center]` e scrollabili se lunghi). "Torna al menu" chiama `_enter_menu()` (non avvia una partita).
+   La UI di gioco è ripristinata da `_enter_menu`/`_enter_game`.
 6. **Salva / Carica** → `Game.save_game()` / `Game.load_game()` (path interno `user://savegame.json`);
    il caricamento emette `scene_changed` e la UI si aggiorna da sola. Esiti e errori in `Status`.
 

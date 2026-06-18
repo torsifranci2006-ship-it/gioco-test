@@ -377,7 +377,7 @@ size_flags_horizontal = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 
-[node name="EndingPanel" type="PanelContainer" parent="."]
+[node name="EndingPanel" type="Control" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -385,28 +385,83 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("sb_ending")
+mouse_filter = 2
+
+[node name="EndingScrim" type="ColorRect" parent="EndingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.03, 0.04, 0.06, 0.72)
 
 [node name="EndingMargin" type="MarginContainer" parent="EndingPanel"]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 40
 
 [node name="EndingVBox" type="VBoxContainer" parent="EndingPanel/EndingMargin"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
+
+[node name="EndingGameTitle1" type="Label" parent="EndingPanel/EndingMargin/EndingVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.83, 0.7, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+text = "CIÒ CHE RESTA"
+
+[node name="EndingGameTitle2" type="Label" parent="EndingPanel/EndingMargin/EndingVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.83, 0.7, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.5)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+text = "NEL BUIO"
 
 [node name="EndingTitle" type="Label" parent="EndingPanel/EndingMargin/EndingVBox"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="EndingHeading" type="Label" parent="EndingPanel/EndingMargin/EndingVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.68, 0.55, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "EPILOGO"
 
 [node name="EndingText" type="RichTextLabel" parent="EndingPanel/EndingMargin/EndingVBox"]
 layout_mode = 2
 size_flags_vertical = 3
-fit_content = true
+bbcode_enabled = true
+fit_content = false
+scroll_active = true
 
 [node name="EndingNewGameButton" type="Button" parent="EndingPanel/EndingMargin/EndingVBox"]
 layout_mode = 2
-text = "Nuova Partita"
+size_flags_horizontal = 4
+text = "Torna al menu"
 
 [node name="ExitConfirm" type="PanelContainer" parent="."]
 visible = false
