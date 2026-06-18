@@ -91,6 +91,23 @@ const SUPPORTO_LABEL := {
 	"limitato": "Limitato",
 	"nessuno": "Nessuno",
 }
+## Etichette della riga "Ferite" (derivata dallo stato; copre anche "morto").
+const FERITE_LABEL := {
+	"normale": "Nessuna",
+	"ferito": "Ferito",
+	"morto": "Morto",
+}
+## Valori (0-100) delle barre di presentazione. Mappature UI, non contenuto narrativo.
+const SUPPORTO_BAR := {
+	"pieno": 100,
+	"limitato": 50,
+	"nessuno": 0,
+}
+const FERITE_BAR := {
+	"normale": 100,
+	"ferito": 50,
+	"morto": 0,
+}
 
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
@@ -347,28 +364,43 @@ func _populate_dossier() -> void:
 		_dossier_list.add_child(btn)
 	_show_dossier_details(chars[0])
 
-## Mostra i dettagli del personaggio selezionato. Solo: nome, stato, supporto, eventuale ferita,
-## fascia qualitativa di relazione. Nessuna descrizione, nessun numero, nessun attributo nascosto.
+## Mostra i dettagli del personaggio selezionato. Nome + Stato, poi un blocco etichetta+barra per
+## Supporto, Relazione e Ferite. Nessuna descrizione, nessun numero, nessun attributo nascosto.
 func _show_dossier_details(entry: Dictionary) -> void:
 	_clear_container(_dossier_details)
 	_dossier_details.add_child(_make_detail_label(String(entry.get("nome", "")), 20, Color(0.9, 0.85, 0.7)))
 	var stato_code := String(entry.get("stato", ""))
 	_dossier_details.add_child(_make_detail_label("Stato: " + STATO_LABEL.get(stato_code, stato_code)))
+	# Supporto (pieno/limitato/nessuno -> 100/50/0)
 	var supp_code := String(entry.get("supporto", ""))
-	_dossier_details.add_child(_make_detail_label("Supporto: " + SUPPORTO_LABEL.get(supp_code, supp_code)))
-	if bool(entry.get("ferita", false)):
-		_dossier_details.add_child(_make_detail_label("Ferita: Sì"))
+	_dossier_details.add_child(_make_stat_block(
+		"Supporto: " + SUPPORTO_LABEL.get(supp_code, supp_code),
+		SUPPORTO_BAR.get(supp_code, 0)))
+	# Relazione (valore reale dal Core, clampato 0-100 solo per la barra); fascia testuale mantenuta
 	var band := String(entry.get("relazione_fascia", ""))
-	_dossier_details.add_child(_make_detail_label("Relazione: " + RELAZIONE_BAND_LABEL.get(band, band)))
-	_dossier_details.add_child(_make_relazione_bar(int(entry.get("relazione_value", 0))))
+	_dossier_details.add_child(_make_stat_block(
+		"Relazione: " + RELAZIONE_BAND_LABEL.get(band, band),
+		int(entry.get("relazione_value", 0))))
+	# Ferite (derivata dallo stato: normale/ferito/morto -> 100/50/0)
+	_dossier_details.add_child(_make_stat_block(
+		"Ferite: " + FERITE_LABEL.get(stato_code, stato_code),
+		FERITE_BAR.get(stato_code, 0)))
 
-## Barra visiva della relazione (stile noir dal Theme). Il valore reale arriva dal Core; qui viene
-## SOLO clampato 0-100 a fini grafici e non è mai mostrato come testo (show_percentage = false).
-func _make_relazione_bar(relazione_value: int) -> ProgressBar:
+## Blocco di una statistica: etichetta con, subito sotto, la sua barra (raggruppate strette).
+func _make_stat_block(label_text: String, bar_value: int) -> VBoxContainer:
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 3)
+	box.add_child(_make_detail_label(label_text))
+	box.add_child(_make_stat_bar(bar_value))
+	return box
+
+## Barra visiva di una statistica (stile noir dal Theme). Il value è clampato 0-100 SOLO a fini
+## grafici e non è mai mostrato come testo (show_percentage = false).
+func _make_stat_bar(value: int) -> ProgressBar:
 	var bar := ProgressBar.new()
 	bar.min_value = 0
 	bar.max_value = 100
-	bar.value = clampi(relazione_value, 0, 100)
+	bar.value = clampi(value, 0, 100)
 	bar.show_percentage = false
 	bar.custom_minimum_size = Vector2(0, 14)
 	return bar

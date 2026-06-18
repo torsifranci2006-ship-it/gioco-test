@@ -154,11 +154,18 @@ visibile dietro e ai lati.
   `diffidente`, `0..24` → `neutrale`, `25..49` → `fiducia`, `>= 50` → `alleato`. Le etichette
   leggibili (e quelle di `stato`/`supporto`) vivono nella UI (`RELAZIONE_BAND_LABEL`, `STATO_LABEL`,
   `SUPPORTO_LABEL`), coerentemente con la regola di disaccoppiamento.
-- **Barra relazione.** Sotto la fascia, `_make_relazione_bar` mostra una `ProgressBar` noir
-  (`min_value=0`, `max_value=100`, `show_percentage=false`, stile dal `Theme` radice via
-  `ProgressBar/styles/background`+`fill`). Il Core restituisce il **valore reale** (`relazione_value`,
-  non clampato: nessuna perdita di informazione); è la **UI** a fare `value = clampi(relazione_value,
-  0, 100)` solo a fini grafici. Nessun numero/percentuale è visibile.
+- **Layout per-statistica con barre.** Il dettaglio mostra `Nome`, poi `Stato:`
+  (Normale/Ferito/Morto), quindi tre blocchi **etichetta + barra** (`_make_stat_block`), ognuno con la
+  `ProgressBar` noir **subito sotto** la propria etichetta (nessuna barra unica in fondo). Tutte le
+  barre: `min_value=0`, `max_value=100`, `show_percentage=false`, stile dal `Theme` radice
+  (`ProgressBar/styles/background`+`fill`). Mappe dei valori (0–100):
+  - **Supporto** (`SUPPORTO_BAR`, UI): `pieno=100`, `limitato=50`, `nessuno=0`.
+  - **Relazione**: valore **reale** dal Core (`relazione_value`, non clampato); è la UI a fare
+    `value = clampi(relazione_value, 0, 100)` solo a fini grafici. La fascia testuale
+    (Diffidente/Neutrale/Fiducia/Alleato) resta sopra la barra.
+  - **Ferite** (`FERITE_BAR`/`FERITE_LABEL`, UI, derivata da `stato`): `normale`→"Nessuna"`=100`,
+    `ferito`→"Ferito"`=50`, `morto`→"Morto"`=0`.
+  - Nessun numero/percentuale è mai visibile al giocatore.
 
 ### Autosave
 
