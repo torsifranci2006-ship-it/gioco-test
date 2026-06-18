@@ -123,6 +123,14 @@ func load_slot(slot: int) -> bool:
 		return false
 	return engine.load_game(_slot_path(slot))
 
+## Elimina il file di uno slot manuale. Opera SOLO su user://saves/save_<N>.json: l'autosave
+## (path diverso) non è raggiungibile da qui e non viene mai toccato. False se assente o errore.
+func delete_slot(slot: int) -> bool:
+	var path := _slot_path(slot)
+	if not FileAccess.file_exists(path):
+		return false
+	return DirAccess.remove_absolute(path) == OK
+
 # --- Autosave (unico file dedicato, separato dagli slot manuali) ---
 
 ## Salva la partita corrente sull'autosave. Ritorna false se non c'è partita in corso

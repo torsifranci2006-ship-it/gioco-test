@@ -631,6 +631,44 @@ custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Annulla"
 
+[node name="DeleteConfirm" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="DeleteConfirmMargin" type="MarginContainer" parent="DeleteConfirm"]
+layout_mode = 2
+
+[node name="DeleteConfirmVBox" type="VBoxContainer" parent="DeleteConfirm/DeleteConfirmMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DeleteConfirmLabel" type="Label" parent="DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "Eliminare questo salvataggio?"
+
+[node name="DeleteConfirmButtons" type="HBoxContainer" parent="DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 8
+
+[node name="DeleteConfirmYesButton" type="Button" parent="DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox/DeleteConfirmButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Conferma"
+
+[node name="DeleteConfirmNoButton" type="Button" parent="DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox/DeleteConfirmButtons"]
+custom_minimum_size = Vector2(120, 44)
+layout_mode = 2
+text = "Annulla"
+
 [node name="DossierPanel" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1

@@ -73,13 +73,13 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 ├── LoadPanel (PanelContainer, centrato, nascosto)   # "Carica partita" (overlay, sb_ending)
 │   └── LoadMargin → LoadVBox
 │       ├── LoadTitle (Label, "Carica partita")
-│       ├── LoadScroll (ScrollContainer) → LoadList (VBoxContainer)  # righe a runtime, clic = carica
+│       ├── LoadScroll (ScrollContainer) → LoadList (VBoxContainer)  # righe a runtime (HBox: Button carica + "✕" elimina)
 │       └── LoadCancelButton (Button, "Annulla" -> origine)
 ├── SavePanel (PanelContainer, centrato, nascosto)   # "Salva partita" (overlay, sb_ending)
 │   └── SaveMargin → SaveVBox
 │       ├── SaveTitle (Label, "Salva partita")
 │       ├── SaveNewButton (Button, "Nuovo salvataggio")
-│       ├── SaveScroll (ScrollContainer) → SaveList (VBoxContainer)  # slot sovrascrivibili a runtime
+│       ├── SaveScroll (ScrollContainer) → SaveList (VBoxContainer)  # righe a runtime (HBox: Button sovrascrivi + "✕" elimina)
 │       └── SaveCancelButton (Button, "Annulla" -> origine)
 ├── SaveConfirm (PanelContainer, centrato, nascosto)  # conferma nuovo/sovrascrittura (sb_ending)
 │   └── SaveConfirmMargin → SaveConfirmVBox
@@ -87,6 +87,12 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │       └── SaveConfirmButtons (HBoxContainer)
 │           ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
 │           └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
+├── DeleteConfirm (PanelContainer, centrato, nascosto)  # conferma eliminazione slot manuale (sb_ending)
+│   └── DeleteConfirmMargin → DeleteConfirmVBox
+│       ├── DeleteConfirmLabel (Label, "Eliminare questo salvataggio?")
+│       └── DeleteConfirmButtons (HBoxContainer)
+│           ├── DeleteConfirmYesButton (Button, "Conferma" -> Game.delete_slot)
+│           └── DeleteConfirmNoButton (Button, "Annulla" -> pannello d'origine)
 └── DossierPanel (PanelContainer, sidebar destra ~400px, dalla TopBar al bordo sup. di BottomArea, nascosto)  # "Dossier" personaggi (sb_ending)
     └── DossierMargin → DossierVBox
         ├── DossierTitle (Label, "Dossier")
@@ -134,6 +140,12 @@ dello `StartMenu` passa per l'helper `_set_menu_screen_visible(v)`, che imposta 
   sono slot multipli in `user://saves/save_<N>.json`, elencati per data/ora decrescente; ogni voce mostra
   **titolo scena**, **id scena** e **data/ora**. Creare un nuovo slot o sovrascriverne uno passa da
   `SaveConfirm`.
+- **Eliminare un salvataggio** → ogni riga (in `LoadPanel` *e* `SavePanel`) ha una **"✕"** (tooltip
+  "Elimina") distinta dalla Button principale: non carica né sovrascrive. Apre `DeleteConfirm`
+  ("Eliminare questo salvataggio?"); **Conferma** = `Game.delete_slot(slot)` (cancella **solo**
+  `user://saves/save_<N>.json`, **mai** l'autosave) e riapre il pannello d'origine con la lista
+  aggiornata; **Annulla** torna al pannello d'origine senza cancellare. Lo stato `_delete_return_panel`
+  ("load"/"save") garantisce il ritorno al pannello corretto.
 
 ### Dossier personaggi
 

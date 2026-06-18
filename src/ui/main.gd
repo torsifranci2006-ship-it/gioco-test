@@ -67,6 +67,9 @@ const PORTRAIT_MAP := {
 @onready var _save_confirm_label: Label = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmLabel
 @onready var _save_confirm_yes_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmYesButton
 @onready var _save_confirm_no_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmNoButton
+@onready var _delete_confirm: PanelContainer = $DeleteConfirm
+@onready var _delete_confirm_yes_button: Button = $DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox/DeleteConfirmButtons/DeleteConfirmYesButton
+@onready var _delete_confirm_no_button: Button = $DeleteConfirm/DeleteConfirmMargin/DeleteConfirmVBox/DeleteConfirmButtons/DeleteConfirmNoButton
 @onready var _dossier_panel: PanelContainer = $DossierPanel
 @onready var _dossier_list: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierListScroll/DossierList
 @onready var _dossier_details: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierDetails
@@ -77,6 +80,8 @@ const PORTRAIT_MAP := {
 
 var _panel_origin: String = "menu"   ## contesto di apertura di Save/Load: "menu" o "game"
 var _pending_save_slot: int = 0       ## slot da confermare nel SaveConfirm
+var _pending_delete_slot: int = 0     ## slot da confermare nel DeleteConfirm
+var _delete_return_panel: String = "load"  ## pannello a cui tornare dopo delete: "load" o "save"
 
 ## Traduzione dei codici neutri del Core in etichette leggibili (le etichette UI vivono qui).
 const RELAZIONE_BAND_LABEL := {
@@ -136,6 +141,8 @@ func _ready() -> void:
 	_save_new_button.pressed.connect(_on_save_new)
 	_save_confirm_yes_button.pressed.connect(_on_save_confirm_yes)
 	_save_confirm_no_button.pressed.connect(_on_save_confirm_no)
+	_delete_confirm_yes_button.pressed.connect(_on_delete_confirm_yes)
+	_delete_confirm_no_button.pressed.connect(_on_delete_confirm_no)
 	_ending_new_game_button.pressed.connect(_on_ending_to_menu)
 	# Stato iniziale: schermata di menu (Riprendi/Salva restano disabilitati finché non si gioca).
 	_enter_menu()
@@ -193,7 +200,8 @@ func _populate_load_list() -> void:
 	_clear_container(_load_list)
 	var saves := Game.list_saves()
 	for entry in saves:
-		_load_list.add_child(_make_save_row(entry, _on_load_slot.bind(int(entry["slot"]))))
+		var slot := int(entry["slot"])
+		_load_list.add_child(_make_save_row(entry, _on_load_slot.bind(slot), _on_delete_request.bind(slot, "load")))
 	if saves.is_empty():
 		_load_list.add_child(_make_empty_label("Nessun salvataggio disponibile."))
 
@@ -201,7 +209,8 @@ func _populate_load_list() -> void:
 func _populate_save_list() -> void:
 	_clear_container(_save_list)
 	for entry in Game.list_saves():
-		_save_list.add_child(_make_save_row(entry, _on_overwrite_slot.bind(int(entry["slot"]))))
+		var slot := int(entry["slot"])
+		_save_list.add_child(_make_save_row(entry, _on_overwrite_slot.bind(slot), _on_delete_request.bind(slot, "save")))
 
 ## Clic su uno slot nel LoadPanel: carica (nessuna conferma). load_slot emette scene_changed.
 func _on_load_slot(slot: int) -> void:
@@ -237,19 +246,61 @@ func _on_save_confirm_no() -> void:
 	_save_confirm.visible = false
 	_save_panel.visible = true
 
-## Riga-salvataggio: Button cliccabile multi-riga (titolo / id · data-ora).
-func _make_save_row(entry: Dictionary, on_press: Callable) -> Button:
+## Riga-salvataggio: la Button multi-riga (titolo / id · data-ora) + una "✕" per eliminare.
+## I due pulsanti sono distinti: la "✕" NON carica né sovrascrive.
+func _make_save_row(entry: Dictionary, on_press: Callable, on_delete: Callable) -> HBoxContainer:
 	var title := String(entry.get("scene_title", ""))
 	var scene_id := String(entry.get("scene_id", ""))
 	if title == "":
 		title = scene_id
+	var row := HBoxContainer.new()
+	row.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	row.add_theme_constant_override("separation", 6)
 	var btn := Button.new()
 	btn.text = "%s\n%s · %s" % [title, scene_id, _format_datetime(int(entry.get("mtime", 0)))]
 	btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
-	btn.custom_minimum_size = Vector2(360, 0)
+	btn.custom_minimum_size = Vector2(300, 0)
 	btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	btn.pressed.connect(on_press)
-	return btn
+	row.add_child(btn)
+	var del := Button.new()
+	del.text = "✕"
+	del.tooltip_text = "Elimina"
+	del.custom_minimum_size = Vector2(44, 0)
+	del.pressed.connect(on_delete)
+	row.add_child(del)
+	return row
+
+## Clic sulla "✕" di una riga: apre la conferma di eliminazione, ricordando lo slot e il pannello
+## di origine ("load"/"save"). NON elimina subito.
+func _on_delete_request(slot: int, return_panel: String) -> void:
+	_pending_delete_slot = slot
+	_delete_return_panel = return_panel
+	_load_panel.visible = false
+	_save_panel.visible = false
+	_delete_confirm.visible = true
+
+## Conferma eliminazione: cancella il file dello slot manuale (mai l'autosave), poi riapre e
+## aggiorna il pannello di origine.
+func _on_delete_confirm_yes() -> void:
+	var ok := Game.delete_slot(_pending_delete_slot)
+	_delete_confirm.visible = false
+	_reopen_saves_panel(_delete_return_panel)
+	_show_status("Salvataggio eliminato." if ok else "Eliminazione non riuscita.")
+
+## Annulla eliminazione: torna al pannello di origine senza cancellare nulla.
+func _on_delete_confirm_no() -> void:
+	_delete_confirm.visible = false
+	_reopen_saves_panel(_delete_return_panel)
+
+## Riapre (ripopolando) il pannello Carica o Salva dopo una conferma/annulla di eliminazione.
+func _reopen_saves_panel(panel: String) -> void:
+	if panel == "save":
+		_populate_save_list()
+		_save_panel.visible = true
+	else:
+		_populate_load_list()
+		_load_panel.visible = true
 
 func _make_empty_label(msg: String) -> Label:
 	var l := Label.new()
@@ -287,6 +338,7 @@ func _enter_menu() -> void:
 	_load_panel.visible = false
 	_save_panel.visible = false
 	_save_confirm.visible = false
+	_delete_confirm.visible = false
 	_dossier_panel.visible = false
 	_changes_overlay.visible = false
 	_changes_timer.stop()
@@ -305,6 +357,7 @@ func _enter_game() -> void:
 	_load_panel.visible = false
 	_save_panel.visible = false
 	_save_confirm.visible = false
+	_delete_confirm.visible = false
 	_dossier_panel.visible = false
 	_set_menu_screen_visible(false)
 	_top_bar.visible = true
