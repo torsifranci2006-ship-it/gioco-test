@@ -81,13 +81,13 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │       └── SaveConfirmButtons (HBoxContainer)
 │           ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
 │           └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
-└── DossierPanel (PanelContainer, centrato, nascosto)   # "Dossier" personaggi (overlay, sb_ending)
+└── DossierPanel (PanelContainer, sidebar destra ~400px, sotto la TopBar→fondo, nascosto)  # "Dossier" personaggi (sb_ending)
     └── DossierMargin → DossierVBox
         ├── DossierTitle (Label, "Dossier")
-        ├── DossierBody (HBoxContainer)
-        │   ├── DossierListScroll (ScrollContainer) → DossierList (VBox)  # un Button per personaggio incontrato
-        │   └── DossierDetails (VBoxContainer)         # nome/stato/supporto/ferita/relazione del selezionato
-        └── DossierCloseButton (Button, "Chiudi" -> torna in gioco)
+        ├── DossierBody (VBoxContainer)               # impilato verticalmente nella sidebar stretta
+        │   ├── DossierListScroll (ScrollContainer) → DossierList (VBox)  # lista compatta in alto: un Button per personaggio
+        │   └── DossierDetails (VBoxContainer)         # dettagli sotto: nome/stato/supporto/ferita/relazione del selezionato
+        └── DossierCloseButton (Button, "Chiudi" -> nasconde la sidebar)
 ```
 
 > Stile gestito **solo** con nodi standard e `StyleBoxFlat`/`Theme` (nessun plugin, nessun asset UI).
@@ -107,7 +107,7 @@ motore narrativo.
 | **Conferma uscita** | nascosto | nascosto | nascosto | `ExitConfirm` |
 | **Carica** | nascosto | nascosto | nascosto | `LoadPanel` |
 | **Salva** | nascosto | nascosto | nascosto | `SavePanel` (+ `SaveConfirm`) |
-| **Dossier** | nascosto | nascosto | nascosto | `DossierPanel` |
+| **Dossier** | nascosto | **visibile** | **visibile** | `DossierPanel` (sidebar destra, la partita resta visibile dietro) |
 
 - **Avvio** → stato Menu; `Salva` disabilitato (nessuna partita); `Riprendi` abilitato **sse esiste
   l'autosave** su disco, altrimenti disabilitato.
@@ -125,10 +125,13 @@ motore narrativo.
 
 ### Dossier personaggi
 
-Il pulsante **Dossier** nella `TopBar` (in gioco) apre un overlay centrato (`DossierPanel`, stile
-`sb_ending` come gli altri overlay) con i personaggi **già incontrati**: lista a sinistra, dettagli a
-destra, pulsante **Chiudi** che torna in gioco. La UI ottiene i dati **solo** da
-`Game.met_characters()`; non legge JSON né stato interno.
+Il pulsante **Dossier** nella `TopBar` (in gioco) apre una **sidebar a destra** (`DossierPanel`,
+larghezza ~400px, ancorata sotto la `TopBar` fino in fondo, stile `sb_ending`) con i personaggi
+**già incontrati**: lista compatta in alto, dettagli sotto, pulsante **Chiudi** in basso. La sidebar
+**non nasconde** `TopBar`/`BottomArea`: la partita (background, ritratto, testo) resta visibile
+dietro e ai lati. **Apri** = `_on_open_dossier` (popola e mostra il pannello); **Chiudi** =
+`_on_dossier_close` (nasconde il pannello, senza toccare lo stato del motore). La UI ottiene i dati
+**solo** da `Game.met_characters()`; non legge JSON né stato interno.
 
 - **"Incontrato"** è derivato dal Core (`StoryEngine.met_characters`) incrociando `history` (scene
   visitate) con `StoryScene.visual.portrait`, risolto al personaggio con la convenzione generica

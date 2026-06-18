@@ -310,17 +310,15 @@ func _on_exit_cancel() -> void:
 
 # --- Dossier personaggi (overlay in gioco, sola lettura) ---
 
-## "Dossier" (in gioco): apre il pannello con i personaggi incontrati. Non tocca il motore.
+## "Dossier" (in gioco): apre la sidebar con i personaggi incontrati. Non tocca il motore e
+## NON nasconde TopBar/BottomArea: la partita resta visibile dietro la sidebar.
 func _on_open_dossier() -> void:
-	_top_bar.visible = false
-	_bottom_area.visible = false
 	_populate_dossier()
 	_dossier_panel.visible = true
 
-## "Chiudi": torna allo stato di gioco (ripristina TopBar/BottomArea).
+## "Chiudi": nasconde la sidebar lasciando la partita esattamente com'è.
 func _on_dossier_close() -> void:
 	_dossier_panel.visible = false
-	_enter_game()
 
 ## Popola la lista a sinistra dai dati (già privi di spoiler) forniti da Game; mostra il primo.
 func _populate_dossier() -> void:
