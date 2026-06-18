@@ -103,6 +103,9 @@ func _ready() -> void:
 	_menu_button.pressed.connect(_on_menu)
 	_dossier_button.pressed.connect(_on_open_dossier)
 	_dossier_close_button.pressed.connect(_on_dossier_close)
+	# La sidebar Dossier deve terminare sul bordo superiore di BottomArea, la cui altezza è
+	# dinamica (testo + scelte): la ri-allineiamo a ogni resize di BottomArea (e della finestra).
+	_bottom_area.resized.connect(_sync_dossier_height)
 	_exit_confirm_button.pressed.connect(_on_exit_confirm)
 	_exit_cancel_button.pressed.connect(_on_exit_cancel)
 	_load_cancel_button.pressed.connect(_on_panel_cancel)
@@ -313,12 +316,19 @@ func _on_exit_cancel() -> void:
 ## "Dossier" (in gioco): apre la sidebar con i personaggi incontrati. Non tocca il motore e
 ## NON nasconde TopBar/BottomArea: la partita resta visibile dietro la sidebar.
 func _on_open_dossier() -> void:
+	_sync_dossier_height()   # allinea il fondo della sidebar a BottomArea già prima di mostrarla
 	_populate_dossier()
 	_dossier_panel.visible = true
 
 ## "Chiudi": nasconde la sidebar lasciando la partita esattamente com'è.
 func _on_dossier_close() -> void:
 	_dossier_panel.visible = false
+
+## Allinea il bordo INFERIORE della sidebar Dossier al bordo SUPERIORE di BottomArea (zona scena).
+## BottomArea è ancorata in basso e cresce verso l'alto: la sua altezza renderizzata (size.y) varia
+## con testo e scelte, quindi un offset fisso sarebbe fragile. Leggiamo l'altezza reale a runtime.
+func _sync_dossier_height() -> void:
+	_dossier_panel.offset_bottom = -_bottom_area.size.y
 
 ## Popola la lista a sinistra dai dati (già privi di spoiler) forniti da Game; mostra il primo.
 func _populate_dossier() -> void:

@@ -81,7 +81,7 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │       └── SaveConfirmButtons (HBoxContainer)
 │           ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
 │           └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
-└── DossierPanel (PanelContainer, sidebar destra ~400px, sotto la TopBar→fondo, nascosto)  # "Dossier" personaggi (sb_ending)
+└── DossierPanel (PanelContainer, sidebar destra ~400px, dalla TopBar al bordo sup. di BottomArea, nascosto)  # "Dossier" personaggi (sb_ending)
     └── DossierMargin → DossierVBox
         ├── DossierTitle (Label, "Dossier")
         ├── DossierBody (VBoxContainer)               # impilato verticalmente nella sidebar stretta
@@ -126,12 +126,21 @@ motore narrativo.
 ### Dossier personaggi
 
 Il pulsante **Dossier** nella `TopBar` (in gioco) apre una **sidebar a destra** (`DossierPanel`,
-larghezza ~400px, ancorata sotto la `TopBar` fino in fondo, stile `sb_ending`) con i personaggi
-**già incontrati**: lista compatta in alto, dettagli sotto, pulsante **Chiudi** in basso. La sidebar
-**non nasconde** `TopBar`/`BottomArea`: la partita (background, ritratto, testo) resta visibile
-dietro e ai lati. **Apri** = `_on_open_dossier` (popola e mostra il pannello); **Chiudi** =
-`_on_dossier_close` (nasconde il pannello, senza toccare lo stato del motore). La UI ottiene i dati
-**solo** da `Game.met_characters()`; non legge JSON né stato interno.
+larghezza ~400px, stile `sb_ending`) con i personaggi **già incontrati**: lista compatta in alto,
+dettagli sotto, pulsante **Chiudi** in basso. La sidebar occupa **solo l'area scena**: parte sotto la
+`TopBar` (`offset_top=48`) e termina esattamente sul **bordo superiore di `BottomArea`**, così
+`TextPanel` e `ChoicesPanel` restano **sempre completamente visibili** (la sidebar non li copre mai).
+La sidebar **non nasconde** `TopBar`/`BottomArea`: la partita (background, ritratto, testo) resta
+visibile dietro e ai lati.
+
+- **Allineamento dinamico:** `BottomArea` è ancorata in basso e cresce verso l'alto; la sua altezza
+  varia con testo e scelte. La UI tiene il bordo inferiore della sidebar allineato leggendo l'altezza
+  reale (`_sync_dossier_height` → `DossierPanel.offset_bottom = -_bottom_area.size.y`), agganciata al
+  segnale `BottomArea.resized` (copre cambi di contenuto **e** di risoluzione/finestra) e richiamata
+  all'apertura. Il valore `offset_bottom` nel `.tscn` è solo un fallback per editor/primo frame.
+- **Apri** = `_on_open_dossier` (allinea, popola, mostra); **Chiudi** = `_on_dossier_close` (nasconde
+  il pannello, senza toccare lo stato del motore). La UI ottiene i dati **solo** da
+  `Game.met_characters()`; non legge JSON né stato interno.
 
 - **"Incontrato"** è derivato dal Core (`StoryEngine.met_characters`) incrociando `history` (scene
   visitate) con `StoryScene.visual.portrait`, risolto al personaggio con la convenzione generica
