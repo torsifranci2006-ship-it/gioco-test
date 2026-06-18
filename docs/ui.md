@@ -38,6 +38,9 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │           ├── StartSaveButton                        # disabilitato finché non si gioca
 │           ├── StartExitButton                        # "Esci" -> conferma
 │           └── StartStatus (Label)                    # feedback pre-partita
+├── TitleOverlay (VBoxContainer, centro-destra, v-centrato; visibile solo a menu/pausa)
+│   ├── TitleLine1 (Label, "CIÒ CHE RESTA", font 64, avorio/ottone, ombra+outline)
+│   └── TitleLine2 (Label, "NEL BUIO", font 64, avorio/ottone, ombra+outline)
 ├── TopBar (PanelContainer, in alto; visibile solo in gioco)
 │   └── TopBarMargin (MarginContainer)
 │       └── Controls (HBoxContainer)
@@ -99,6 +102,12 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 Gli stati sono gestiti in `src/ui/main.gd` da `_enter_menu()` / `_enter_game()` più gli overlay
 (`EndingPanel`, `ExitConfirm`, `LoadPanel`, `SavePanel`, `SaveConfirm`). Nessuno tocca lo stato del
 motore narrativo.
+
+Il **titolo del gioco** (`TitleOverlay`, nodo separato a destra del menu) è visibile **esattamente
+quando lo è `StartMenu`**: menu iniziale e pausa lo mostrano; gioco e tutti gli overlay (Carica,
+Salva, Esci, Dossier) lo nascondono. La sincronizzazione è centralizzata: ogni cambio di visibilità
+dello `StartMenu` passa per l'helper `_set_menu_screen_visible(v)`, che imposta insieme
+`StartMenu` e `TitleOverlay` (unica fonte di verità, niente disallineamenti).
 
 | Stato | StartMenu | TopBar | BottomArea | Overlay attivo |
 | --- | --- | --- | --- | --- |

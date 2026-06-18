@@ -46,6 +46,7 @@ const PORTRAIT_MAP := {
 @onready var _start_save_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartSaveButton
 @onready var _start_exit_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartExitButton
 @onready var _start_status: Label = $StartMenu/StartMenuMargin/StartMenuVBox/StartStatus
+@onready var _title_overlay: VBoxContainer = $TitleOverlay
 @onready var _exit_confirm: PanelContainer = $ExitConfirm
 @onready var _exit_confirm_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitConfirmButton
 @onready var _exit_cancel_button: Button = $ExitConfirm/ExitMargin/ExitVBox/ExitButtons/ExitCancelButton
@@ -165,7 +166,7 @@ func _on_new_game() -> void:
 ## Apre il pannello Carica. origin = "menu" | "game" (per il ritorno con Annulla).
 func _on_open_load(origin: String) -> void:
 	_panel_origin = origin
-	_start_menu.visible = false
+	_set_menu_screen_visible(false)
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_populate_load_list()
@@ -174,7 +175,7 @@ func _on_open_load(origin: String) -> void:
 ## Apre il pannello Salva.
 func _on_open_save(origin: String) -> void:
 	_panel_origin = origin
-	_start_menu.visible = false
+	_set_menu_screen_visible(false)
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_populate_save_list()
@@ -273,6 +274,12 @@ func _show_status(msg: String) -> void:
 
 # --- Navigazione UI (stati: menu iniziale / gioco / conferma uscita) ---
 
+## Mostra/nasconde insieme il menu iniziale e il titolo del gioco (TitleOverlay): unica fonte di
+## verità per la visibilità della schermata-menu, così il titolo resta sempre allineato a StartMenu.
+func _set_menu_screen_visible(v: bool) -> void:
+	_start_menu.visible = v
+	_title_overlay.visible = v
+
 ## Stato MENU: schermata iniziale visibile, UI di gioco e overlay nascosti.
 func _enter_menu() -> void:
 	_exit_confirm.visible = false
@@ -286,7 +293,7 @@ func _enter_menu() -> void:
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_character.visible = false
-	_start_menu.visible = true
+	_set_menu_screen_visible(true)
 	# "Riprendi" dipende esclusivamente dall'esistenza dell'autosave su disco.
 	_start_resume_button.disabled = not Game.has_autosave()
 
@@ -299,7 +306,7 @@ func _enter_game() -> void:
 	_save_panel.visible = false
 	_save_confirm.visible = false
 	_dossier_panel.visible = false
-	_start_menu.visible = false
+	_set_menu_screen_visible(false)
 	_top_bar.visible = true
 	_bottom_area.visible = true
 	_start_save_button.disabled = false
@@ -324,7 +331,7 @@ func _on_resume() -> void:
 
 ## "Esci" (menu): mostra la conferma centrale, non chiude subito.
 func _on_exit() -> void:
-	_start_menu.visible = false
+	_set_menu_screen_visible(false)
 	_exit_confirm.visible = true
 
 ## "Conferma" (dialog uscita): autosalva e chiude l'applicazione.
