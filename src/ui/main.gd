@@ -70,6 +70,9 @@ const PORTRAIT_MAP := {
 @onready var _dossier_list: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierListScroll/DossierList
 @onready var _dossier_details: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierDetails
 @onready var _dossier_close_button: Button = $DossierPanel/DossierMargin/DossierVBox/DossierCloseButton
+@onready var _changes_overlay: PanelContainer = $ChangesOverlay
+@onready var _changes_list: VBoxContainer = $ChangesOverlay/ChangesMargin/ChangesList
+@onready var _changes_timer: Timer = $ChangesTimer
 
 var _panel_origin: String = "menu"   ## contesto di apertura di Save/Load: "menu" o "game"
 var _pending_save_slot: int = 0       ## slot da confermare nel SaveConfirm
@@ -112,6 +115,8 @@ const FERITE_BAR := {
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
 	EventBus.game_ended.connect(_on_game_ended)
+	EventBus.choice_effects_applied.connect(_on_choice_effects)
+	_changes_timer.timeout.connect(_on_changes_timer_timeout)
 	_start_new_game_button.pressed.connect(_on_new_game)
 	_start_save_button.pressed.connect(_on_open_save.bind("menu"))
 	_start_load_button.pressed.connect(_on_open_load.bind("menu"))
@@ -276,6 +281,8 @@ func _enter_menu() -> void:
 	_save_panel.visible = false
 	_save_confirm.visible = false
 	_dossier_panel.visible = false
+	_changes_overlay.visible = false
+	_changes_timer.stop()
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_character.visible = false
@@ -414,6 +421,47 @@ func _make_detail_label(text: String, font_size: int = 0, color: Color = Color(0
 		l.add_theme_font_size_override("font_size", font_size)
 	if color.a > 0.0:
 		l.add_theme_color_override("font_color", color)
+	return l
+
+# --- Overlay cambiamenti dopo scelta (alto a destra, transitorio) ---
+
+## Mostra l'overlay con i cambiamenti (già spoiler-free) ricevuti dal Core; auto-nascosto dal Timer.
+func _on_choice_effects(changes: Array) -> void:
+	_clear_container(_changes_list)
+	for change in changes:
+		_changes_list.add_child(_make_change_label(change))
+	if _changes_list.get_child_count() == 0:
+		return
+	_changes_overlay.visible = true
+	_changes_timer.start()   # one_shot: riparte da capo a ogni scelta
+
+func _on_changes_timer_timeout() -> void:
+	_changes_overlay.visible = false
+
+## Riga dell'overlay: "Nome ↑/↓" per attributi/relazioni, "Nome: Stato" per i cambi di stato.
+## Solo direzione e nome: nessun valore numerico mostrato.
+func _make_change_label(change: Dictionary) -> Label:
+	var l := Label.new()
+	var nome := String(change.get("nome", ""))
+	var tipo := String(change.get("tipo", ""))
+	var direction := int(change.get("direzione", 0))
+	var up := Color(0.62, 0.78, 0.58)
+	var down := Color(0.85, 0.6, 0.52)
+	var text := ""
+	var color := Color(0.9, 0.85, 0.7)
+	if tipo == "stato":
+		var stato_code := String(change.get("stato", ""))
+		text = nome + ": " + STATO_LABEL.get(stato_code, stato_code)
+		color = up if stato_code == "normale" else down
+	elif tipo == "relazione":
+		text = "Fiducia " + nome + " " + ("↑" if direction > 0 else "↓")
+		color = up if direction > 0 else down
+	elif tipo == "attributo":
+		text = nome + " " + ("↑" if direction > 0 else "↓")
+		color = up if direction > 0 else down
+	l.text = text
+	l.add_theme_color_override("font_color", color)
+	l.add_theme_font_size_override("font_size", 15)
 	return l
 
 # --- Reazione ai segnali del Core ---

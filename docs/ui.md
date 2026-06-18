@@ -167,6 +167,25 @@ visibile dietro e ai lati.
     `ferito`→"Ferito"`=50`, `morto`→"Morto"`=0`.
   - Nessun numero/percentuale è mai visibile al giocatore.
 
+### Overlay cambiamenti dopo scelta
+
+Dopo ogni scelta che produce effetti **diretti**, un piccolo overlay noir (`ChangesOverlay`) appare
+**in alto a destra** (sotto la `TopBar`) per ~2.5s, poi sparisce da solo (`ChangesTimer`, `one_shot`).
+Mostra **solo la direzione**, mai numeri.
+
+- **Dato dal Core:** `StoryEngine.choose()` fa uno snapshot **prima** di applicare `chosen.effetti`,
+  applica, poi calcola il diff (attributi, relazione, stato personaggi) e — **dopo** `scene_changed`,
+  mai sul finale — emette `EventBus.choice_effects_applied(changes)`. Il diff è preso **solo** intorno
+  agli effetti diretti della scelta (esclude `on_enter` e morte-da-ferita della scena d'arrivo).
+- **Contenuto spoiler-free:** ogni voce è già pronta per la UI con nome visualizzato + direzione/stato.
+  Righe rese: `Nome: Ferito/Morto/Normale` (cambi di stato), `Fiducia <Nome> ↑/↓` (relazione),
+  `<Attributo> ↑/↓` (attributi nascosti — **solo direzione**, mai il valore). **Nessun flag** è mostrato
+  (in v1 non c'è metadata anti-spoiler sui flag). Ordine e taglio a **max 5 righe**: stati → relazioni
+  → attributi (deciso nel Core in `_build_changes`). Frecce colorate noir (verde tenue ↑ / ruggine ↓).
+- **Disaccoppiamento:** la UI (`_on_choice_effects`/`_make_change_label`) fa **solo** rendering e
+  auto-hide; non conosce id interni (i nomi arrivano dal Core; le etichette di stato riusano
+  `STATO_LABEL`).
+
 ### Autosave
 
 Esiste **un solo autosave** in `user://autosave.json`, separato dagli slot manuali (`user://saves/`)
@@ -186,10 +205,11 @@ sovrascritto a ogni uscita: nessuna cronologia.
 
 In ascolto da `EventBus`:
 - `scene_changed(scene_id)` → ridisegna testo e scelte;
-- `game_ended(ending_id)` → mostra `EndingPanel`.
+- `game_ended(ending_id)` → mostra `EndingPanel`;
+- `choice_effects_applied(changes)` → mostra l'overlay cambiamenti in alto a destra (vedi sopra).
 
-I segnali `attribute_changed` e `character_state_changed` non sono usati (gli attributi sono
-nascosti e lo stato dei personaggi traspare solo dal testo guidato dai dati).
+I segnali `attribute_changed` e `character_state_changed` non sono usati direttamente dalla UI (i
+cambiamenti rilevanti arrivano già aggregati e spoiler-free via `choice_effects_applied`).
 
 Dai nodi UI: `pressed` dei pulsanti principali, dei pulsanti scelta (via `_on_choice.bind(id)`) e
 del pulsante "Nuova Partita" del finale.

@@ -18,6 +18,8 @@ var _final_scene_id: String = "finale"
 var _last_ending: Ending = null            ## ultimo finale risolto (per la UI)
 var _last_epilogues: Array[String] = []    ## epiloghi composti dell'ultimo finale
 
+var _attribute_names: Dictionary = {}      ## id attributo -> nome visualizzato (per overlay cambiamenti)
+
 ## Carica i dati e inizializza lo stato. Ritorna false (con last_error) in caso di errore.
 func setup() -> bool:
 	last_error = ""
@@ -42,6 +44,12 @@ func setup() -> bool:
 		return _fail("nessun finale caricato")
 	if not _scenes.has(_initial_scene_id):
 		return _fail("scena iniziale assente: " + _initial_scene_id)
+
+	_attribute_names.clear()
+	for a in attributes_config:
+		var aid: String = a.get("id", "")
+		if aid != "":
+			_attribute_names[aid] = String(a.get("nome", aid))
 
 	state = GameState.new()
 	state.setup(attributes_config, characters)
@@ -170,12 +178,69 @@ func choose(choice_id: String) -> void:
 			or not ConditionEvaluator.evaluate(chosen.abilitata_se, state):
 		push_error("StoryEngine.choose: scelta non disponibile: " + choice_id)
 		return
+	# Snapshot PRIMA degli effetti diretti della scelta, per il diff dell'overlay cambiamenti.
+	var _pre_choice := _snapshot_for_changes()
 	EffectApplier.apply(chosen.effetti, state)
+	# Diff calcolato qui: cattura SOLO gli effetti diretti della scelta (incl. regole_stato
+	# innescate dagli stessi), prima di _enter_scene (esclude on_enter e morte-da-ferita).
+	var changes := _build_changes(_pre_choice)
 	if chosen.prossima == _final_scene_id:
 		_trigger_ending(choice_id)
 	else:
 		# Passare a una nuova scena è un avanzamento: le ferite progrediscono.
 		_enter_scene(chosen.prossima, true)
+		# Emesso DOPO scene_changed (overlay sopra la nuova scena); mai sul finale.
+		_emit_choice_effects(changes)
+
+# --- Overlay cambiamenti dopo scelta (diff spoiler-free, niente numeri) ---
+
+## Cattura attributi, relazione e stato di ogni personaggio, per confronto post-scelta.
+func _snapshot_for_changes() -> Dictionary:
+	var attr: Dictionary = {}
+	for id in state.attributes.keys():
+		attr[id] = int(state.attributes[id])
+	var chars: Dictionary = {}
+	for cid in state.characters.keys():
+		var c: GameCharacter = state.characters[cid]
+		chars[cid] = { "relazione": c.relazione, "stato": c.stato }
+	return { "attr": attr, "chars": chars }
+
+## Costruisce la lista di cambiamenti spoiler-free, ordinata stati -> relazioni -> attributi e
+## limitata a 5 righe. Solo direzione (±1) e nomi visualizzati: nessun valore numerico, nessun flag.
+func _build_changes(before: Dictionary) -> Array:
+	var stati: Array = []
+	var relazioni: Array = []
+	var attributi: Array = []
+	var before_chars: Dictionary = before.get("chars", {})
+	var before_attr: Dictionary = before.get("attr", {})
+	for cid in state.characters.keys():
+		var c: GameCharacter = state.characters[cid]
+		var b: Dictionary = before_chars.get(cid, {})
+		if String(b.get("stato", c.stato)) != c.stato:
+			stati.append({ "tipo": "stato", "nome": c.nome, "stato": c.stato })
+		var prev_rel: int = int(b.get("relazione", c.relazione))
+		if c.relazione != prev_rel:
+			relazioni.append({ "tipo": "relazione", "nome": c.nome, "direzione": signi(c.relazione - prev_rel) })
+	for id in state.attributes.keys():
+		var prev_val: int = int(before_attr.get(id, state.attributes[id]))
+		var now_val: int = int(state.attributes[id])
+		if now_val != prev_val:
+			attributi.append({ "tipo": "attributo", "nome": String(_attribute_names.get(id, id)), "direzione": signi(now_val - prev_val) })
+	var ordered: Array = []
+	ordered.append_array(stati)
+	ordered.append_array(relazioni)
+	ordered.append_array(attributi)
+	if ordered.size() > 5:
+		ordered = ordered.slice(0, 5)
+	return ordered
+
+## Emette il segnale solo se c'è qualcosa da mostrare.
+func _emit_choice_effects(changes: Array) -> void:
+	if changes.is_empty():
+		return
+	var bus := _bus()
+	if bus != null:
+		bus.emit_signal("choice_effects_applied", changes)
 
 ## Risolve il finale senza modificare lo stato (utile alla UI per anteprime/debug).
 func resolve_ending(final_choice_id: String) -> Ending:

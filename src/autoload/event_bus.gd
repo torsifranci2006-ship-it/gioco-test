@@ -12,5 +12,9 @@ signal attribute_changed(attribute_id: String, value: int)
 ## Emesso quando lo stato di un personaggio cambia ("normale" | "ferito" | "morto").
 signal character_state_changed(character_id: String, state: String)
 
+## Emesso dopo una scelta con i cambiamenti DIRETTI e spoiler-free da mostrare nell'overlay.
+## changes: Array di Dictionary già pronti per la UI (nomi visualizzati + direzione/stato, niente numeri).
+signal choice_effects_applied(changes: Array)
+
 ## Emesso a fine partita con il ramo finale risolto.
 signal game_ended(ending_id: String)
