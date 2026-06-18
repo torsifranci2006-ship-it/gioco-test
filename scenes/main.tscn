@@ -267,6 +267,10 @@ theme_override_constants/separation = 8
 layout_mode = 2
 text = "Menu"
 
+[node name="DossierButton" type="Button" parent="TopBar/TopBarMargin/Controls"]
+layout_mode = 2
+text = "Dossier"
+
 [node name="Status" type="Label" parent="TopBar/TopBarMargin/Controls"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -511,3 +515,50 @@ text = "Conferma"
 custom_minimum_size = Vector2(120, 44)
 layout_mode = 2
 text = "Annulla"
+
+[node name="DossierPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("sb_ending")
+
+[node name="DossierMargin" type="MarginContainer" parent="DossierPanel"]
+layout_mode = 2
+
+[node name="DossierVBox" type="VBoxContainer" parent="DossierPanel/DossierMargin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="DossierTitle" type="Label" parent="DossierPanel/DossierMargin/DossierVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+text = "Dossier"
+
+[node name="DossierBody" type="HBoxContainer" parent="DossierPanel/DossierMargin/DossierVBox"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="DossierListScroll" type="ScrollContainer" parent="DossierPanel/DossierMargin/DossierVBox/DossierBody"]
+custom_minimum_size = Vector2(220, 300)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="DossierList" type="VBoxContainer" parent="DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierListScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="DossierDetails" type="VBoxContainer" parent="DossierPanel/DossierMargin/DossierVBox/DossierBody"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="DossierCloseButton" type="Button" parent="DossierPanel/DossierMargin/DossierVBox"]
+layout_mode = 2
+text = "Chiudi"

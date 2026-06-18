@@ -73,6 +73,58 @@ func scene_title(scene_id: String) -> String:
 	var sc: StoryScene = _scenes.get(scene_id)
 	return sc.titolo if sc != null else ""
 
+## Accessor di sola lettura per la UI (Dossier): personaggi GIÀ incontrati, con dati privi di
+## spoiler. "Incontrato" = comparso come ritratto in una scena visitata (history + visual.portrait).
+## NON espone descrizione, relazione numerica né attributi nascosti. Ogni voce:
+## { nome:String, stato:String, supporto:String, ferita:bool, relazione_fascia:String }.
+func met_characters() -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	if state == null:
+		return out
+	var seen: Dictionary = {}   # id -> true: evita duplicati mantenendo l'ordine di primo incontro
+	for scene_id in state.history:
+		var sc: StoryScene = _scenes.get(scene_id)
+		if sc == null:
+			continue
+		var portrait = sc.visual.get("portrait")
+		if not (portrait is String) or portrait == "" or portrait == "none":
+			continue
+		var cid := _character_id_for_portrait(portrait)
+		if cid == "" or seen.has(cid):
+			continue
+		seen[cid] = true
+		var c: GameCharacter = state.get_character(cid)
+		if c == null:
+			continue
+		out.append({
+			"nome": c.nome,
+			"stato": c.stato,
+			"supporto": c.supporto(),
+			"ferita": state.is_wounded(cid),
+			"relazione_fascia": _relazione_band(c.relazione),
+		})
+	return out
+
+## Risolve una chiave ritratto (es. "char_mara", "char_daniel_caldo") a un id di personaggio
+## ESISTENTE, con convenzione generica "char_<id>" / "char_<id>_<variante>". Ritorna "" se nessun
+## match: così i ritratti privi di GameCharacter (es. char_halloran, char_voss) restano esclusi.
+func _character_id_for_portrait(portrait: String) -> String:
+	for cid in state.characters.keys():
+		if portrait == "char_" + cid or portrait.begins_with("char_" + cid + "_"):
+			return cid
+	return ""
+
+## Codice neutro della fascia di relazione (la UI lo traduce in etichetta leggibile). Mai il numero.
+## Soglie qualitative generiche, non contenuto narrativo specifico della storia.
+func _relazione_band(value: int) -> String:
+	if value < 0:
+		return "diffidente"
+	elif value < 25:
+		return "neutrale"
+	elif value < 50:
+		return "fiducia"
+	return "alleato"
+
 ## Frammenti di testo della scena corrente la cui condizione è soddisfatta.
 func current_text() -> Array[String]:
 	var out: Array[String] = []

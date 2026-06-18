@@ -84,6 +84,13 @@ func current_epilogues() -> Array[String]:
 		return []
 	return engine.current_epilogues()
 
+## Personaggi incontrati, dati privi di spoiler (per il Dossier UI). [] se motore non pronto.
+## Vedi StoryEngine.met_characters: nessuna descrizione, nessun numero di relazione, nessun attributo.
+func met_characters() -> Array:
+	if not ready_ok:
+		return []
+	return engine.met_characters()
+
 # --- Salvataggio / caricamento (path interno, nessun path nella UI) ---
 
 func save_game() -> bool:

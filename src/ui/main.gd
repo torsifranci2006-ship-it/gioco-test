@@ -37,6 +37,7 @@ const PORTRAIT_MAP := {
 @onready var _bottom_area: VBoxContainer = $BottomArea
 @onready var _top_bar: PanelContainer = $TopBar
 @onready var _menu_button: Button = $TopBar/TopBarMargin/Controls/MenuButton
+@onready var _dossier_button: Button = $TopBar/TopBarMargin/Controls/DossierButton
 @onready var _status: Label = $TopBar/TopBarMargin/Controls/Status
 @onready var _start_menu: PanelContainer = $StartMenu
 @onready var _start_resume_button: Button = $StartMenu/StartMenuMargin/StartMenuVBox/StartResumeButton
@@ -65,9 +66,31 @@ const PORTRAIT_MAP := {
 @onready var _save_confirm_label: Label = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmLabel
 @onready var _save_confirm_yes_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmYesButton
 @onready var _save_confirm_no_button: Button = $SaveConfirm/SaveConfirmMargin/SaveConfirmVBox/SaveConfirmButtons/SaveConfirmNoButton
+@onready var _dossier_panel: PanelContainer = $DossierPanel
+@onready var _dossier_list: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierListScroll/DossierList
+@onready var _dossier_details: VBoxContainer = $DossierPanel/DossierMargin/DossierVBox/DossierBody/DossierDetails
+@onready var _dossier_close_button: Button = $DossierPanel/DossierMargin/DossierVBox/DossierCloseButton
 
 var _panel_origin: String = "menu"   ## contesto di apertura di Save/Load: "menu" o "game"
 var _pending_save_slot: int = 0       ## slot da confermare nel SaveConfirm
+
+## Traduzione dei codici neutri del Core in etichette leggibili (le etichette UI vivono qui).
+const RELAZIONE_BAND_LABEL := {
+	"diffidente": "Diffidente",
+	"neutrale": "Neutrale",
+	"fiducia": "Fiducia",
+	"alleato": "Alleato",
+}
+const STATO_LABEL := {
+	"normale": "Normale",
+	"ferito": "Ferito",
+	"morto": "Morto",
+}
+const SUPPORTO_LABEL := {
+	"pieno": "Pieno",
+	"limitato": "Limitato",
+	"nessuno": "Nessuno",
+}
 
 func _ready() -> void:
 	EventBus.scene_changed.connect(_on_scene_changed)
@@ -78,6 +101,8 @@ func _ready() -> void:
 	_start_resume_button.pressed.connect(_on_resume)
 	_start_exit_button.pressed.connect(_on_exit)
 	_menu_button.pressed.connect(_on_menu)
+	_dossier_button.pressed.connect(_on_open_dossier)
+	_dossier_close_button.pressed.connect(_on_dossier_close)
 	_exit_confirm_button.pressed.connect(_on_exit_confirm)
 	_exit_cancel_button.pressed.connect(_on_exit_cancel)
 	_load_cancel_button.pressed.connect(_on_panel_cancel)
@@ -230,6 +255,7 @@ func _enter_menu() -> void:
 	_load_panel.visible = false
 	_save_panel.visible = false
 	_save_confirm.visible = false
+	_dossier_panel.visible = false
 	_top_bar.visible = false
 	_bottom_area.visible = false
 	_character.visible = false
@@ -245,6 +271,7 @@ func _enter_game() -> void:
 	_load_panel.visible = false
 	_save_panel.visible = false
 	_save_confirm.visible = false
+	_dossier_panel.visible = false
 	_start_menu.visible = false
 	_top_bar.visible = true
 	_bottom_area.visible = true
@@ -280,6 +307,62 @@ func _on_exit_confirm() -> void:
 ## "Annulla" (dialog uscita): chiude la conferma e torna al menu iniziale.
 func _on_exit_cancel() -> void:
 	_enter_menu()
+
+# --- Dossier personaggi (overlay in gioco, sola lettura) ---
+
+## "Dossier" (in gioco): apre il pannello con i personaggi incontrati. Non tocca il motore.
+func _on_open_dossier() -> void:
+	_top_bar.visible = false
+	_bottom_area.visible = false
+	_populate_dossier()
+	_dossier_panel.visible = true
+
+## "Chiudi": torna allo stato di gioco (ripristina TopBar/BottomArea).
+func _on_dossier_close() -> void:
+	_dossier_panel.visible = false
+	_enter_game()
+
+## Popola la lista a sinistra dai dati (già privi di spoiler) forniti da Game; mostra il primo.
+func _populate_dossier() -> void:
+	_clear_container(_dossier_list)
+	_clear_container(_dossier_details)
+	var chars := Game.met_characters()
+	if chars.is_empty():
+		_dossier_list.add_child(_make_empty_label("Nessun personaggio nel dossier."))
+		return
+	for entry in chars:
+		var btn := Button.new()
+		btn.text = String(entry.get("nome", ""))
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.pressed.connect(_show_dossier_details.bind(entry))
+		_dossier_list.add_child(btn)
+	_show_dossier_details(chars[0])
+
+## Mostra i dettagli del personaggio selezionato. Solo: nome, stato, supporto, eventuale ferita,
+## fascia qualitativa di relazione. Nessuna descrizione, nessun numero, nessun attributo nascosto.
+func _show_dossier_details(entry: Dictionary) -> void:
+	_clear_container(_dossier_details)
+	_dossier_details.add_child(_make_detail_label(String(entry.get("nome", "")), 20, Color(0.9, 0.85, 0.7)))
+	var stato_code := String(entry.get("stato", ""))
+	_dossier_details.add_child(_make_detail_label("Stato: " + STATO_LABEL.get(stato_code, stato_code)))
+	var supp_code := String(entry.get("supporto", ""))
+	_dossier_details.add_child(_make_detail_label("Supporto: " + SUPPORTO_LABEL.get(supp_code, supp_code)))
+	if bool(entry.get("ferita", false)):
+		_dossier_details.add_child(_make_detail_label("Ferita: Sì"))
+	var band := String(entry.get("relazione_fascia", ""))
+	_dossier_details.add_child(_make_detail_label("Relazione: " + RELAZIONE_BAND_LABEL.get(band, band)))
+
+## Riga di dettaglio del Dossier (Label con font/colore opzionali).
+func _make_detail_label(text: String, font_size: int = 0, color: Color = Color(0, 0, 0, 0)) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if font_size > 0:
+		l.add_theme_font_size_override("font_size", font_size)
+	if color.a > 0.0:
+		l.add_theme_color_override("font_color", color)
+	return l
 
 # --- Reazione ai segnali del Core ---
 

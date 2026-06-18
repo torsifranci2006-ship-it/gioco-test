@@ -41,7 +41,8 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 ├── TopBar (PanelContainer, in alto; visibile solo in gioco)
 │   └── TopBarMargin (MarginContainer)
 │       └── Controls (HBoxContainer)
-│           ├── MenuButton (Button, "Menu")     # unico comando in gioco -> torna al menu/pausa
+│           ├── MenuButton (Button, "Menu")     # torna al menu/pausa
+│           ├── DossierButton (Button, "Dossier")  # apre il Dossier personaggi (overlay)
 │           └── Status (Label)                  # messaggi ed errori (allineati a dx)
 ├── BottomArea (VBoxContainer, in basso, cresce verso l'alto; nascosta a menu)
 │   ├── TextPanel (PanelContainer)             # textbox noir, bordo sottile, angoli arrotondati
@@ -74,12 +75,19 @@ Main (Control)                         [script: src/ui/main.gd; theme: noir]
 │       ├── SaveNewButton (Button, "Nuovo salvataggio")
 │       ├── SaveScroll (ScrollContainer) → SaveList (VBoxContainer)  # slot sovrascrivibili a runtime
 │       └── SaveCancelButton (Button, "Annulla" -> origine)
-└── SaveConfirm (PanelContainer, centrato, nascosto)  # conferma nuovo/sovrascrittura (sb_ending)
-    └── SaveConfirmMargin → SaveConfirmVBox
-        ├── SaveConfirmLabel (Label, testo dinamico)
-        └── SaveConfirmButtons (HBoxContainer)
-            ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
-            └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
+├── SaveConfirm (PanelContainer, centrato, nascosto)  # conferma nuovo/sovrascrittura (sb_ending)
+│   └── SaveConfirmMargin → SaveConfirmVBox
+│       ├── SaveConfirmLabel (Label, testo dinamico)
+│       └── SaveConfirmButtons (HBoxContainer)
+│           ├── SaveConfirmYesButton (Button, "Conferma" -> Game.save_slot)
+│           └── SaveConfirmNoButton (Button, "Annulla" -> SavePanel)
+└── DossierPanel (PanelContainer, centrato, nascosto)   # "Dossier" personaggi (overlay, sb_ending)
+    └── DossierMargin → DossierVBox
+        ├── DossierTitle (Label, "Dossier")
+        ├── DossierBody (HBoxContainer)
+        │   ├── DossierListScroll (ScrollContainer) → DossierList (VBox)  # un Button per personaggio incontrato
+        │   └── DossierDetails (VBoxContainer)         # nome/stato/supporto/ferita/relazione del selezionato
+        └── DossierCloseButton (Button, "Chiudi" -> torna in gioco)
 ```
 
 > Stile gestito **solo** con nodi standard e `StyleBoxFlat`/`Theme` (nessun plugin, nessun asset UI).
@@ -99,6 +107,7 @@ motore narrativo.
 | **Conferma uscita** | nascosto | nascosto | nascosto | `ExitConfirm` |
 | **Carica** | nascosto | nascosto | nascosto | `LoadPanel` |
 | **Salva** | nascosto | nascosto | nascosto | `SavePanel` (+ `SaveConfirm`) |
+| **Dossier** | nascosto | nascosto | nascosto | `DossierPanel` |
 
 - **Avvio** → stato Menu; `Salva` disabilitato (nessuna partita); `Riprendi` abilitato **sse esiste
   l'autosave** su disco, altrimenti disabilitato.
@@ -113,6 +122,25 @@ motore narrativo.
   sono slot multipli in `user://saves/save_<N>.json`, elencati per data/ora decrescente; ogni voce mostra
   **titolo scena**, **id scena** e **data/ora**. Creare un nuovo slot o sovrascriverne uno passa da
   `SaveConfirm`.
+
+### Dossier personaggi
+
+Il pulsante **Dossier** nella `TopBar` (in gioco) apre un overlay centrato (`DossierPanel`, stile
+`sb_ending` come gli altri overlay) con i personaggi **già incontrati**: lista a sinistra, dettagli a
+destra, pulsante **Chiudi** che torna in gioco. La UI ottiene i dati **solo** da
+`Game.met_characters()`; non legge JSON né stato interno.
+
+- **"Incontrato"** è derivato dal Core (`StoryEngine.met_characters`) incrociando `history` (scene
+  visitate) con `StoryScene.visual.portrait`, risolto al personaggio con la convenzione generica
+  `char_<id>` / `char_<id>_<variante>`. I ritratti senza `GameCharacter` corrispondente (es.
+  `char_halloran`, `char_voss`) **non compaiono**, senza liste di esclusione hardcoded.
+- **Nessuno spoiler.** Il Core espone per ogni personaggio solo: `nome`, `stato`, `supporto`,
+  `ferita` (bool), `relazione_fascia` (codice neutro). **Non** escono `descrizione`, attributi
+  nascosti, né il **valore numerico** di relazione.
+- **Fasce di relazione** (codice neutro dal Core → etichetta tradotta dalla UI): `< 0` →
+  `diffidente`, `0..24` → `neutrale`, `25..49` → `fiducia`, `>= 50` → `alleato`. Le etichette
+  leggibili (e quelle di `stato`/`supporto`) vivono nella UI (`RELAZIONE_BAND_LABEL`, `STATO_LABEL`,
+  `SUPPORTO_LABEL`), coerentemente con la regola di disaccoppiamento.
 
 ### Autosave
 
