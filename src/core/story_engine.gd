@@ -75,8 +75,10 @@ func scene_title(scene_id: String) -> String:
 
 ## Accessor di sola lettura per la UI (Dossier): personaggi GIÀ incontrati, con dati privi di
 ## spoiler. "Incontrato" = comparso come ritratto in una scena visitata (history + visual.portrait).
-## NON espone descrizione, relazione numerica né attributi nascosti. Ogni voce:
-## { nome:String, stato:String, supporto:String, ferita:bool, relazione_fascia:String }.
+## NON espone descrizione né attributi nascosti. Espone la relazione come fascia qualitativa
+## (relazione_fascia) e come valore reale (relazione_value): il Core non perde informazione, è la UI
+## a clampare 0-100 solo per la barra (il numero non è mai mostrato al giocatore). Ogni voce:
+## { nome:String, stato:String, supporto:String, ferita:bool, relazione_fascia:String, relazione_value:int }.
 func met_characters() -> Array[Dictionary]:
 	var out: Array[Dictionary] = []
 	if state == null:
@@ -102,6 +104,7 @@ func met_characters() -> Array[Dictionary]:
 			"supporto": c.supporto(),
 			"ferita": state.is_wounded(cid),
 			"relazione_fascia": _relazione_band(c.relazione),
+			"relazione_value": c.relazione,
 		})
 	return out
 

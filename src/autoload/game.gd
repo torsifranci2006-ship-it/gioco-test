@@ -85,7 +85,9 @@ func current_epilogues() -> Array[String]:
 	return engine.current_epilogues()
 
 ## Personaggi incontrati, dati privi di spoiler (per il Dossier UI). [] se motore non pronto.
-## Vedi StoryEngine.met_characters: nessuna descrizione, nessun numero di relazione, nessun attributo.
+## Vedi StoryEngine.met_characters: nessuna descrizione, nessun attributo nascosto. La relazione esce
+## come fascia qualitativa e come valore reale (relazione_value); la UI lo clampa 0-100 solo per la
+## barra e non lo mostra mai come testo.
 func met_characters() -> Array:
 	if not ready_ok:
 		return []

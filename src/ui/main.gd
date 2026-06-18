@@ -360,6 +360,18 @@ func _show_dossier_details(entry: Dictionary) -> void:
 		_dossier_details.add_child(_make_detail_label("Ferita: Sì"))
 	var band := String(entry.get("relazione_fascia", ""))
 	_dossier_details.add_child(_make_detail_label("Relazione: " + RELAZIONE_BAND_LABEL.get(band, band)))
+	_dossier_details.add_child(_make_relazione_bar(int(entry.get("relazione_value", 0))))
+
+## Barra visiva della relazione (stile noir dal Theme). Il valore reale arriva dal Core; qui viene
+## SOLO clampato 0-100 a fini grafici e non è mai mostrato come testo (show_percentage = false).
+func _make_relazione_bar(relazione_value: int) -> ProgressBar:
+	var bar := ProgressBar.new()
+	bar.min_value = 0
+	bar.max_value = 100
+	bar.value = clampi(relazione_value, 0, 100)
+	bar.show_percentage = false
+	bar.custom_minimum_size = Vector2(0, 14)
+	return bar
 
 ## Riga di dettaglio del Dossier (Label con font/colore opzionali).
 func _make_detail_label(text: String, font_size: int = 0, color: Color = Color(0, 0, 0, 0)) -> Label:

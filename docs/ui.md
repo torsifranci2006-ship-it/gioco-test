@@ -147,12 +147,18 @@ visibile dietro e ai lati.
   `char_<id>` / `char_<id>_<variante>`. I ritratti senza `GameCharacter` corrispondente (es.
   `char_halloran`, `char_voss`) **non compaiono**, senza liste di esclusione hardcoded.
 - **Nessuno spoiler.** Il Core espone per ogni personaggio solo: `nome`, `stato`, `supporto`,
-  `ferita` (bool), `relazione_fascia` (codice neutro). **Non** escono `descrizione`, attributi
-  nascosti, né il **valore numerico** di relazione.
+  `ferita` (bool), `relazione_fascia` (codice neutro) e `relazione_value` (valore reale int). **Non**
+  escono `descrizione` né attributi nascosti. Il **numero** di relazione non è mai mostrato come testo
+  al giocatore: serve solo ad alimentare la barra visiva.
 - **Fasce di relazione** (codice neutro dal Core → etichetta tradotta dalla UI): `< 0` →
   `diffidente`, `0..24` → `neutrale`, `25..49` → `fiducia`, `>= 50` → `alleato`. Le etichette
   leggibili (e quelle di `stato`/`supporto`) vivono nella UI (`RELAZIONE_BAND_LABEL`, `STATO_LABEL`,
   `SUPPORTO_LABEL`), coerentemente con la regola di disaccoppiamento.
+- **Barra relazione.** Sotto la fascia, `_make_relazione_bar` mostra una `ProgressBar` noir
+  (`min_value=0`, `max_value=100`, `show_percentage=false`, stile dal `Theme` radice via
+  `ProgressBar/styles/background`+`fill`). Il Core restituisce il **valore reale** (`relazione_value`,
+  non clampato: nessuna perdita di informazione); è la **UI** a fare `value = clampi(relazione_value,
+  0, 100)` solo a fini grafici. Nessun numero/percentuale è visibile.
 
 ### Autosave
 
